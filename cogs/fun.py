@@ -51,6 +51,29 @@ class fun(commands.Cog):
             await asyncio.sleep(5)
             await msg.delete()
 
+    @commands.command(pass_context=True)
+    async def userinfo(self, ctx, member: discord.Member):
+        roles = member.roles
+        role_list = ""
+        for role in roles:
+            role_list += f"<@&{role.id}> "
+        emb = discord.Embed(title=f'Информация о пользователе {member}', colour = 0x179c87)
+        emb.set_thumbnail(url=member.avatar_url)
+        emb.add_field(name='ID', value=member.id)
+        emb.add_field(name='Имя', value=member.name)
+        emb.add_field(name='Высшая роль', value=member.top_role)
+        emb.add_field(name='Дискриминатор', value=member.discriminator)
+        emb.add_field(name='Присоеденился к серверу', value=member.joined_at.strftime('%Y.%m.%d \n %H:%M:%S'))
+        emb.add_field(name='Присоеденился к Discord', value=member.created_at.strftime("%Y.%m.%d %H:%M:%S"))
+        emb.add_field(name='Роли', value=role_list)
+        emb.set_footer(text='Вызвал команду: {}'.format(ctx.author.name), icon_url=ctx.author.avatar_url)
+        await ctx.send(embed = emb)
+
+    @commands.command( pass_context = True)
+    async def send_l( self, ctx, member: discord.Member ):
+	    await member.send(f'✉️{ctx.author.name} приветствует тебя {member.mention}✉️')#приветствие 
+	    await ctx.channel.purge( limit = 1)
+
     @commands.Cog.listener()
     async def on_ready(self):
         print('[LOG] загружен fun.py')       

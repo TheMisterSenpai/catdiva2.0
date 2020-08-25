@@ -4,8 +4,9 @@ from discord.ext import commands
 from discord.utils import get
 from discord.ext import tasks
 
-client = commands.Bot(command_prefix = '!')
+client = commands.Bot( command_prefix = '.' )
 
+#cogs
 @client.event
 async def on_ready():
     await client.change_presence(activity=discord.Streaming(name="Сервер C:", url='https://www.twitch.tv/themistersenpai')) 
@@ -29,7 +30,8 @@ async def unload(ctx, extensions):
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
-
+#
+#send me
 @client.event
 async def on_guild_join( guild ):
 
@@ -48,6 +50,6 @@ async def on_guild_join( guild ):
 
     
     await me.send( embed = emb )
-
+#
 
 client.run('NzQ0NTcwMTYxMjAxNDE0MTU2.XzlI_w.Ig0plFkOY1gESkc_qQ7fabNiJHs')        
