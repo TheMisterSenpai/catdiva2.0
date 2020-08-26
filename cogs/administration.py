@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+import os 
 
 class administration(commands.Cog):
 
@@ -46,7 +47,7 @@ class administration(commands.Cog):
 		    return     
 
     @commands.command()
-    @commands.has_role(Admin)
+    @commands.has_role(743888850765479936)
     async def restart(self, ctx):
         await ctx.send('Рестарт бота!')
         os.system('python ./bot.py')

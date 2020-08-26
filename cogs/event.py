@@ -1,24 +1,49 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+import ast
+
+import config
+from Utils import DB
 
 class event(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-
+        self._last_member = None
+        self.cog_name = ["Ивенты", True]
     #Зачем ты зашел в этот файл, он так для красоты
-    @commands.command
-    async def on_member_update(self, before, after):
-        if before.nick != after.nick:#проверка на смену ника
-            channel = client.get_channel(727184938050256906)#ид канала куда будет отправляться сообщение
-            emb = discord.Embed(title = '', description = f'**Пользователь {before.mention} сменил ник.**', colour = discord.Color.red())
-            emb.add_field(name = '**Старый ник**', value = f'{before.nick}') 
-            emb.add_field(name = '**Новый ник**', value = f'{after.nick}') 
-            emb.set_footer(text = 'Спасибо за использования нашего бота')
 
-            await channel.send(embed = emb)
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after):
+        Get = DB.Get()
+        Set = DB.Set()
+        if after.channel:
+            channel = Get.options("channels")[0]
+            category = Get.options("category")[0]
 
+            if int(after.channel.id) == int(channel):
+                cat = discord.utils.get(member.guild.categories, id=int(category))
+                channel2 = await member.guild.create_voice_channel(name=f"{member.name}#{member.discriminator}",
+                                                                   category=cat)
+                await member.move_to(channel2)
+                await channel2.set_permissions(member, manage_channels=True)
+                Set.privateChannels(channel2, member)
+
+            elif before.channel:
+                if str(before.channel.id) in str(Get.privateChannels(member)[0]):
+                    try:
+                        await before.channel.delete()
+                    except Exception:
+                        pass
+
+        else:
+            if before.channel:
+                if str(before.channel.id) in str(Get.privateChannels(member)[0]):
+                    try:
+                        await before.channel.delete()
+                    except Exception:
+                        pass
 
     @commands.Cog.listener()
     async def on_ready(self):
