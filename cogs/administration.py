@@ -43,23 +43,14 @@ class administration(commands.Cog):
 		    await ctx.guild.unban( user )
 		    await ctx.send( f'Был разблокирован { user.mention}' )
 
-		    return
+		    return     
 
     @commands.command()
-    async def report(self, ctx, member:discord.Member=None, *, arg=None):
-        message = ctx.message
-        channel = client.get_channel(692978927781806121)    
-        if member == None:
-            await ctx.send(embed=discord.Embed(description='Укажите пользователя!', color=discord.Color.red()))
-        elif arg == None:
-            await ctx.send(embed=discord.Embed(description='Укажите причину жалобы!', color=discord.Color.red()))
-        else:
-            emb = discord.Embed(title=f'Жалоба на пользователя {member}', color=discord.Color.blue())
-            emb.add_field(name='Автор жалобы:', value=f'*{ctx.author}*')
-            emb.add_field(name='Причина:', value='*' +arg + '*')
-            emb.add_field(name='ID жалобы:', value=f'{message.id}')
-            await channel.send(embed=emb)
-            await ctx.author.send('✅ Ваша жалоба успешно отправлена!')            
+    @commands.has_role(Admin)
+    async def restart(self, ctx):
+        await ctx.send('Рестарт бота!')
+        os.system('python ./bot.py')
+        await bot.logout()
 
     @commands.Cog.listener()
     async def on_ready(self):

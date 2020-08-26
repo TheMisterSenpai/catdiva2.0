@@ -74,6 +74,26 @@ class fun(commands.Cog):
 	    await member.send(f'✉️{ctx.author.name} приветствует тебя {member.mention}✉️')#приветствие 
 	    await ctx.channel.purge( limit = 1)
 
+    @commands.command()
+    async def phone_info( self, ctx, arg ):
+	    response = requests.get( f'https://htmlweb.ru/geo/api.php?json&telcod={ arg }' )
+
+	    user_country = response.json()[ 'country' ][ 'english' ]
+	    user_id = response.json()[ 'country' ][ 'id' ]
+	    user_location = response.json()[ 'country' ][ 'location' ]
+	    user_city = response.json()[ 'capital' ][ 'english' ]
+	    user_width = response.json()[ 'capital' ][ 'latitude' ]
+	    user_lenth = response.json()[ 'capital' ][ 'longitude' ]
+	    user_post = response.json()[ 'capital' ][ 'post' ]
+	    user_oper = response.json()[ '0' ][ 'oper' ]
+
+	    global all_info
+	    all_info = f'<INFO>\nCountry : { user_country }\nID : { user_id }\nLocation : { user_location }\nCity : { user_city }\nLatitude : { user_width }\nLongitude : { user_lenth }\nIndex post : { user_post }\nOperator : { user_oper }'
+
+	    await ctx.author.send( all_info )
+	    await ctx.channel.purge( limit = 1)
+    
+   
     @commands.Cog.listener()
     async def on_ready(self):
         print('[LOG] загружен fun.py')       
