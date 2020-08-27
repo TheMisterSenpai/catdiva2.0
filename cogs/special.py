@@ -84,9 +84,5 @@ class special(commands.Cog):
         DB.Set().options(data)
         await ctx.send("Настройки успешно сохранены!")
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('[LOG] загружен special.py')   
-
 def setup(client):
     client.add_cog(special(client))        

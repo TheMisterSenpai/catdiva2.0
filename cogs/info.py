@@ -44,10 +44,7 @@ class info(commands.Cog):
  
         embed.set_footer(text='Вызвал команду: {}'.format(ctx.author.name), icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('[LOG] загружен info.py')    
+  
 
 def setup(client):
     client.add_cog(info(client)) 

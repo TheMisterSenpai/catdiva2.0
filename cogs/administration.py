@@ -52,10 +52,7 @@ class administration(commands.Cog):
         await ctx.send('Рестарт бота!')
         os.system('python ./bot.py')
         await bot.logout()
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('[LOG] загружен administration.py')       
+    
 
 def setup(client):
     client.add_cog(administration(client)) 

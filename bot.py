@@ -6,7 +6,6 @@ from discord.ext import tasks
 import json
 import config
 import nest_asyncio
-nest_asyncio.apply()
 
 from loops import Loop
 from colorama import Fore, Style
@@ -14,6 +13,8 @@ from colorama import init
 
 TOKEN = config.TOKEN
 PREFIX = config.PREFIX
+STATUS = config.STATUS
+STATUSURL = config.STATUSURL
 COLOR_ERROR = config.COLOR_ERROR
 
 client = commands.Bot( command_prefix =  PREFIX )
@@ -28,7 +29,7 @@ async def on_ready():
     print(Fore.CYAN + "===================================" + Style.RESET_ALL)
     print(
         Fore.CYAN + '|' + Style.RESET_ALL + f' Смена статуса на стандартный... ' + Fore.CYAN + '|' + Style.RESET_ALL)
-    await client.change_presence(activity=discord.Game(name=STATUS))
+    await client.change_presence(activity=discord.Streaming(name=STATUS, url=STATUSURL))
     print(
         Fore.CYAN + '|' + Style.RESET_ALL + f'        Бот активирован!         ' + Fore.CYAN + '|' + Style.RESET_ALL)
     print(Fore.CYAN + "===================================" + Style.RESET_ALL)
@@ -89,10 +90,6 @@ async def on_member_join( member ):
 	await member.add_roles( role )
 #
 #cogs
-@client.event
-async def on_ready():
-    await client.change_presence(activity=discord.Streaming(name="Сервер C:", url='https://www.twitch.tv/themistersenpai')) 
-
 @client.command()
 async def load(ctx, extensions):
     client.load_extension(f'cogs.{extensions}')
@@ -243,16 +240,16 @@ async def on_message( message ):
 			json.dump(users,f)
 #
 #
-@client.event
-async def on_member_update(self, before, after):
-    if before.nick != after.nick:#проверка на смену ника
-        channel = client.get_channel(727184938050256906)#ид канала куда будет отправляться сообщение
-        emb = discord.Embed(title = '', description = f'**Пользователь {before.mention} сменил ник.**', colour = discord.Color.red())
-        emb.add_field(name = '**Старый ник**', value = f'{before.nick}') 
-        emb.add_field(name = '**Новый ник**', value = f'{after.nick}') 
-        emb.set_footer(text = 'Спасибо за использования нашего бота')
+#@client.event
+#async def on_member_update(self, before, after):
+    #if before.nick != after.nick:#проверка на смену ника
+        #channel = client.get_channel(727184938050256906)#ид канала куда будет отправляться сообщение
+        #emb = discord.Embed(title = '', description = f'**Пользователь {before.mention} сменил ник.**', colour = discord.Color.red())
+        #emb.add_field(name = '**Старый ник**', value = f'{before.nick}') 
+        #emb.add_field(name = '**Новый ник**', value = f'{after.nick}') 
+        #emb.set_footer(text = 'Спасибо за использования нашего бота')
 
-        await channel.send(embed = emb)
+        #await channel.send(embed = emb)
 #
 
 client.run(TOKEN)        

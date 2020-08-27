@@ -17,11 +17,7 @@ class moderation(commands.Cog):
 
 	    if msg in bad_words:
 		    await message.delete()
-		    await message.author.send(f'{message.author.name} не пиши в чат такие слова ')
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('[LOG] загружен moderation.py')       
+		    await message.author.send(f'{message.author.name} не пиши в чат такие слова ')      
 
 def setup(client):
     client.add_cog(moderation(client)) 

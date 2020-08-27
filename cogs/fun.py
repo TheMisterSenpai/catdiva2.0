@@ -92,11 +92,7 @@ class fun(commands.Cog):
 
 	    await ctx.author.send( all_info )
 	    await ctx.channel.purge( limit = 1)
-    
-   
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('[LOG] загружен fun.py')       
+          
 
 def setup(client):
     client.add_cog(fun(client))     
