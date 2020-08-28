@@ -1,6 +1,0 @@
-*.bat
-*.pyc
-
-config.py
-
-__pycache__/

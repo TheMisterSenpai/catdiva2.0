@@ -43,6 +43,24 @@ class event(commands.Cog):
                         await before.channel.delete()
                     except Exception:
                         pass
+
+
+    @commands.Cog.listener() #Дает 0 варнов кто присоединился
+    async def on_member_join(self, member):
+        if cursor.execute(f"SELECT id FROM users WHERE id = {member.id}").fetchone() is None:
+            cursor.execute(f"INSERT INTO users VALUES('{member.id}', 0)")
+            connection.commit()
+        else:
+            pass
+
+    @commands.Cog.listener() #Убирает человека который вышел с сервера
+    async def on_member_remove(self, member):
+        if cursor.execute(f"SELECT id FROM users WHERE id = {member.id}").fetchone() is None:
+            cursor.execute(f"DELETE FROM users WHERE id = {member.id}")
+            connection.commit()
+        else:
+            pass    
+                  
    
 def setup(client):
     client.add_cog(event(client))                
