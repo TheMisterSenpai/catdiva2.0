@@ -7,6 +7,7 @@ import time
 
 from contextlib import closing
 import sqlite3
+from Utils import DB
 
 class administration(commands.Cog):
 
@@ -76,13 +77,10 @@ class administration(commands.Cog):
 
     @commands.command()
     @commands.has_permissions( administrator = True) 
-    async def warn(self, ctx, member: discord.Member = None, *, reason = None):
-        global warnings, warnings2 
+    async def warn(self, ctx, member: discord.Member = None, *, reason = None):  
+        global Warning
         
         await ctx.message.delete()
-
-        conn = sqlite3.connect('./Data/DataBase/warn_users.db')
-        cursor = conn.cursor()
 
         if not member:
             return await ctx.send(embed = discord.Embed(description = f'**:warning: Правильное использование команды: `warn @пользователь причина`', color=0x800080))
@@ -98,7 +96,7 @@ class administration(commands.Cog):
             return await ctx.send(embed = discord.Embed(description = f'**:warning: Я не могу заварнить {member.mention}, так как его роль выше моей!**', color=0x800080))
             warnings = cursor.execute(f"SELECT warns FROM users WHERE id = {member.id}").fetchone()[0]
         
-        if warnings == 2:
+        if warnings == '2':
             cursor.execute(f"UPDATE users SET warns = {0} WHERE id = {member.id}")
             conn.commit()
             for i in member.roles:
@@ -127,22 +125,26 @@ class administration(commands.Cog):
         else:
             emb.add_field(name = '__***Причина:***__', value = '{}'.format(reason), inline = False)
         emb.set_footer(text = 'Не отвечайте на это сообщение.', icon_url = ctx.author.avatar_url)
-        await member.send(embed = emb)  
+        await member.send(embed = emb) 
 
     @commands.command()
     @commands.has_permissions( administrator = True)
     async def unwarn(self, ctx, member: discord.Member = None, *, reason = None):
-        global warnings, warnings2 
+        global Warning
         
         await ctx.message.delete()
-
-        conn = sqlite3.connect('./Data/DataBase/warn_users.db')
-        cursor = conn.cursor()
 
         if not member:
             return await ctx.send(embed = discord.Embed(description = f'**:warning: Правильное использование команды: `unwarn @пользователь причина`', color=0x800080))
             warnings = cursor.execute(f"SELECT warns FROM users WHERE id = {member.id}").fetchone()[0]
-        if warnings == 0:
+        if warnings == '0':
+            return await ctx.send(embed = discord.Embed(description = f'**:warning: У пользователя {member.mention} 0 варнов, снять варн не возможно!', color=0x800080))
+        else:
+            if not member:
+                return await ctx.send(embed = discord.Embed(description = f'**:warning: Правильное использование команды: `unwarn @пользователь причина`', color=0x800080))
+        warnings = cursor.execute(f"SELECT warns FROM users WHERE id = {member.id}").fetchone()[0]
+        
+        if warnings == '0':
             return await ctx.send(embed = discord.Embed(description = f'**:warning: У пользователя {member.mention} 0 варнов, снять варн не возможно!', color=0x800080))
         else:
             cursor.execute(f"UPDATE users SET warns = warns - {1} WHERE id = {member.id}")
@@ -169,10 +171,6 @@ class administration(commands.Cog):
     @commands.command()
     @commands.has_permissions( administrator = True)   
     async def warns(self, ctx, member: discord.Member = None):
-        
-        conn = sqlite3.connect('./Data/DataBase/warn_users.db')
-        cursor = conn.cursor()
-
         if member is None: # если не указан пользователь
             await ctx.send(embed = discord.Embed(description = f'У **{ctx.author}** {cursor.execute("SELECT warns FROM users WHERE id = {}".format(ctx.author.id)).fetchone()[0]} предупреждений (варнов)')) # выводим из таблицы users столбец warns и получаем предупреждение которые есть у вас
         else: #иначе

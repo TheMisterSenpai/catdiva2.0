@@ -176,7 +176,7 @@ async def on_message( message ):
 	if not message.author.bot:
 		with open('lvl.json',"r") as f:
 			users = json.load(f)
-
+            
 		channel_log = client.get_channel( 690922597805719613 ) # ID - канала, в который будет отправлятся уведомление о повышении
 		async def update_ranked(users, user):
 			if not user in users:

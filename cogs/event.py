@@ -18,8 +18,8 @@ class event(commands.Cog):
         Get = DB.Get()
         Set = DB.Set()
         if after.channel:
-            channel = Get.options('channels')[0]
-            category = Get.options('category')[0]
+            channel = Get.options("channels")[0]
+            category = Get.options("category")[0]
 
             if int(after.channel.id) == int(channel):
                 cat = discord.utils.get(member.guild.categories, id=int(category))
@@ -47,17 +47,25 @@ class event(commands.Cog):
 
     @commands.Cog.listener() #Дает 0 варнов кто присоединился
     async def on_member_join(self, member):
+        
+        conn = sqlite3.connect('./Data/DataBase/warn_users.db')
+        cursor = conn.cursor()
+
         if cursor.execute(f"SELECT id FROM users WHERE id = {member.id}").fetchone() is None:
             cursor.execute(f"INSERT INTO users VALUES('{member.id}', 0)")
-            connection.commit()
+            conn.commit()
         else:
             pass
 
     @commands.Cog.listener() #Убирает человека который вышел с сервера
     async def on_member_remove(self, member):
+
+        conn = sqlite3.connect('./Data/DataBase/warn_users.db')
+        cursor = conn.cursor()
+
         if cursor.execute(f"SELECT id FROM users WHERE id = {member.id}").fetchone() is None:
             cursor.execute(f"DELETE FROM users WHERE id = {member.id}")
-            connection.commit()
+            conn.commit()
         else:
             pass    
                   
