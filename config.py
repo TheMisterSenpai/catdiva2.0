@@ -1,4 +1,3 @@
-TOKEN = 'BOT_TOKEN'
 PREFIX = '.'
 STATUS = 'Сервер C:'
 STATUSURL = 'https://www.twitch.tv/themistersenpai'

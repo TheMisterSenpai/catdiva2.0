@@ -268,4 +268,4 @@ async def on_voice_state_update(member, before, after):
                 await channel2.delete()
                 print('[log]Удален голосовой чат')
 #
-client.run(TOKEN)        
+client.run(os.environ["BOT_TOKEN"])        
