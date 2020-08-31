@@ -174,7 +174,7 @@ async def on_message( message ):
 	await client.process_commands( message )
 
 	if not message.author.bot:
-		with open('lvl.json',"r") as f:
+		with open('./Data/DataBase/lvl.json',"r") as f:
 			users = json.load(f)
             
 		channel_log = client.get_channel( 690922597805719613 ) # ID - канала, в который будет отправлятся уведомление о повышении
@@ -236,20 +236,36 @@ async def on_message( message ):
 		await add_exp(users,str(message.author.id),0.2) # 1 - сколько опыта получает пользователь за 1 сообщение
 		await add_lvl(users,str(message.author.id))
 		await add_rank(users,str(message.author.id))
-		with open('lvl.json',"w") as f:
+		with open('./Data/DataBase/lvl.json',"w") as f:
 			json.dump(users,f)
 #
 #
-#@client.event
-#async def on_member_update(self, before, after):
-    #if before.nick != after.nick:#проверка на смену ника
-        #channel = client.get_channel(727184938050256906)#ид канала куда будет отправляться сообщение
-        #emb = discord.Embed(title = '', description = f'**Пользователь {before.mention} сменил ник.**', colour = discord.Color.red())
-        #emb.add_field(name = '**Старый ник**', value = f'{before.nick}') 
-        #emb.add_field(name = '**Новый ник**', value = f'{after.nick}') 
-        #emb.set_footer(text = 'Спасибо за использования нашего бота')
+@client.event
+async def on_member_update(self, before, after):
+    if before.nick != after.nick:#проверка на смену ника
+        channel = client.get_channel(727184938050256906)#ид канала куда будет отправляться сообщение
+        emb = discord.Embed(title = '', description = f'**Пользователь {before.mention} сменил ник.**', colour = discord.Color.red())
+        emb.add_field(name = '**Старый ник**', value = f'{before.nick}') 
+        emb.add_field(name = '**Новый ник**', value = f'{after.nick}') 
+        emb.set_footer(text = 'Спасибо за использования нашего бота')
 
-        #await channel.send(embed = emb)
+        await channel.send(embed = emb)        
 #
-
+#Private
+@client.event
+async def on_voice_state_update(member, before, after):
+    if after.channel.id == 715275220981907488:
+        for guild in client.guilds:
+            if guild.id == 669193966641741884:
+                mainCategory = discord.utils.get(guild.categories, id= 715275155861143652)
+                channel2 = await guild.create_voice_channel(name=f"{member.display_name}",category=mainCategory)
+                print('[log]Создан голосовой чат')
+                await member.move_to(channel2)
+                await channel2.set_permissions(member, manage_channels = True)
+                def check(a,b,c):
+                    return len(channel2.members) == 0
+                await client.wait_for('voice_state_update', check=check)
+                await channel2.delete()
+                print('[log]Удален голосовой чат')
+#
 client.run(TOKEN)        

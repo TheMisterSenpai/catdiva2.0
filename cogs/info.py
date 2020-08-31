@@ -1,11 +1,28 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+import asyncio
 
 class info(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+
+    @commands.command(
+        aliases = ['инфо']
+    )
+    async def info(self, ctx):
+        await ctx.send('**Привет, меня зовут Кошка Дива и я офицальный бот сервера "Убежище клоунов"**')
+        await asyncio.sleep(5)
+        await ctx.send('**Чтоб посмотреть все мои команды, просто напиши .help**')
+        await asyncio.sleep(3)
+        await ctx.send('**Для команд администраторов напиши .ad_help**')
+        await asyncio.sleep(5)
+        await ctx.send('**Для экономики напиши .ec_help**')
+        await asyncio.sleep(5)
+        await ctx.send('**Если вы нашли баг или недоработку то напишите .bag или пишите моему разработчику @TheMisterSenpai#2033**')
+        await asyncio.sleep(5)
+        await ctx.send('**Мой исходный код: https://github.com/TheMisterSenpai/catdiva2.0 **')
 
     @commands.command(
         aliases=['сервер', 'серверинфо'],

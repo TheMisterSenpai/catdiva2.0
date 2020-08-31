@@ -1,0 +1,6 @@
+asyncio==3.4.3
+colorama==0.4.3
+discord.py==1.4.1
+nekos.py==1.0.3
+nest-asyncio==1.4.0
+wikipedia==1.4.0
