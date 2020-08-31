@@ -134,7 +134,7 @@ async def on_guild_join( guild ):
 @client.command()
 async def report(ctx, member:discord.Member=None, *, arg=None):
     message = ctx.message
-    channel = client.get_channel(721412116573323298)    
+    channel = client.get_channel(749869445224202350)    
     if member == None:
         await ctx.send(embed=discord.Embed(description='Укажите пользователя!', color=discord.Color.red()))
     elif arg == None:
