@@ -11,7 +11,6 @@ from loops import Loop
 from colorama import Fore, Style
 from colorama import init 
 
-TOKEN = config.TOKEN
 PREFIX = config.PREFIX
 STATUS = config.STATUS
 STATUSURL = config.STATUSURL
