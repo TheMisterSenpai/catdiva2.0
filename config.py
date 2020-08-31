@@ -1,4 +1,4 @@
-TOKEN = BOT_TOKEN
+TOKEN = os.environ["TOKEN"]
 PREFIX = '.'
 STATUS = 'Сервер C:'
 STATUSURL = 'https://www.twitch.tv/themistersenpai'
