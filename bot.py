@@ -80,13 +80,30 @@ async def on_command_error(ctx, error):
 
 #Role auto
 @client.event
-
 async def on_member_join( member ):
 	channel = client.get_channel( 690922367186239498 )#Исправил
 
 	role = discord.utils.get( member.guild.roles, id = 690915819340824579 )
 
 	await member.add_roles( role )
+
+
+@client.event
+async def on_member_join( member ):
+	channel = client.get_channel( 690922367186239498 )#Исправил
+
+	role = discord.utils.get( member.guild.roles, id = 751468991075319903 )
+
+	await member.add_roles( role )
+
+
+@client.event
+async def on_member_join( member ):
+	channel = client.get_channel( 690922367186239498 )#Исправил
+
+	role = discord.utils.get( member.guild.roles, id = 751468342916677694 )
+
+	await member.add_roles( role )  
 #
 #cogs
 @client.command()
@@ -145,6 +162,23 @@ async def report(ctx, member:discord.Member=None, *, arg=None):
         emb.add_field(name='ID жалобы:', value=f'{message.id}')
         await channel.send(embed=emb)
         await ctx.author.send('✅ Ваша жалоба успешно отправлена!')       
+#bag
+@client.command()
+async def bag(ctx, *, bag ):
+    message = ctx.message
+    channel = client.get_channel( 749869477419810836) 
+        
+    embed = discord.Embed(
+        title = 'Баг отправлен!',
+        description = f'Баг: {bag}',
+        color = 0x508C31
+    )
+    await ctx.send(
+        embed = embed
+    )   
+    await channel.send(
+        f'**{ctx.author}** отправил баг: {bag}'
+    )
 #
 #ping
 @client.command()
@@ -267,4 +301,4 @@ async def on_voice_state_update(member, before, after):
                 await channel2.delete()
                 print('[log]Удален голосовой чат')
 #
-client.run(os.environ["BOT_TOKEN"])        
+client.run(os.environ["BOT_TOKEN"])       

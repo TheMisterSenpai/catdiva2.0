@@ -19,7 +19,9 @@ class command(commands.Cog):
         emb.add_field( name = '{}send_l'.format( PREFIX ), value = '✉️Отправка личных сообщений')	
         emb.add_field( name = '{}phone_info'.format( PREFIX ), value = '📱узнать местонахождения человека по номеру(В научных целях)')
         emb.add_field( name = '{}хентай'.format( PREFIX ), value = '🍓интересные картинки и гифки')    
-        emb.add_field( name = '{}server'.format( PREFIX ), value = 'узнать информацию о сервере') 
+        emb.add_field( name = '{}server'.format( PREFIX ), value = '👁узнать информацию о сервере') 
+        emb.add_field( name = '{}voicetime'.format( PREFIX ), value = '🙇‍♂️время которое вы провели в голосовых чатах')
+        emb.add_field( name = '{}bag'.format(PREFIX), value = '🌵отправить баг бота(так как он работает на костылях)')
 
         await ctx.send( embed = emb )
 

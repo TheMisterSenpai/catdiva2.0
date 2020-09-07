@@ -176,22 +176,5 @@ class administration(commands.Cog):
         else: #иначе
             await ctx.send(embed = discord.Embed(description = f'У **{member}** {cursor.execute("SELECT warns FROM users WHERE id = {}".format(member.id)).fetchone()[0]} предупреждений (варнов)')) # выводит из таблицы users данные столбца warns и получаем предупреждение которые есть у мембера, которого вы отмечаете в сообщении 
 
-    @commands.command()
-    async def bag( self, ctx, *, bag ):
-        channel = client.get_channel(
-            '749869477419810836'
-        )
-        embed = discord.Embed(
-            title = 'Баг отправлен!',
-            description = f'Баг: {bag}',
-            color = 0x508C31
-        )
-        await ctx.send(
-            embed = embed
-        )   
-        await channel.send(
-            f'**{ctx.author}** отправил баг: {bag}'
-        )
-
 def setup(client):
     client.add_cog(administration(client)) 

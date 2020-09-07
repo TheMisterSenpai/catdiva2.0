@@ -20,7 +20,7 @@ class info(commands.Cog):
         await asyncio.sleep(5)
         await ctx.send('**Для экономики напиши .ec_help**')
         await asyncio.sleep(5)
-        await ctx.send('**Если вы нашли баг или недоработку то напишите .bag или пишите моему разработчику @TheMisterSenpai#2033**')
+        await ctx.send('**Если вы нашли баг или недоработку то напишите .bag или пишите моему разработчику** @TheMisterSenpai#2033')
         await asyncio.sleep(5)
         await ctx.send('**Мой исходный код: https://github.com/TheMisterSenpai/catdiva2.0 **')
 
