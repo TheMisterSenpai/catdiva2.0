@@ -21,8 +21,8 @@ class event(commands.Cog):
                 users[user] = {}
                 users[user]['money'] = 300    
 
-		with open('./Data/DataBase/economy.json',"w") as f:
-			json.dump(users,f)            
+		    with open('./Data/DataBase/economy.json',"w") as f:
+			    json.dump(users,f)            
    
 def setup(client):
     client.add_cog(event(client))                
