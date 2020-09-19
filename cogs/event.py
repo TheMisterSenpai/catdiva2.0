@@ -16,10 +16,6 @@ class event(commands.Cog):
     async def on_member_message(self, member):
         await client.process_commands( message )
 
-	    if not message.author.bot:
-		    with open('./Data/DataBase/economy.json',"r") as f:
-			    users = json.load(f)
-
         async def update_money(users, user):
             if not user in users:
                 users[user] = {}
