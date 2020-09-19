@@ -11,18 +11,6 @@ class event(commands.Cog):
         self._last_member = None
         self.cog_name = ["Ивенты", True]
     #Зачем ты зашел в этот файл, он так для красоты
-
-    @commands.Cog.listener() 
-    async def on_member_message(self, member):
-        await client.process_commands( message )
-
-        async def update_money(users, user):
-            if not user in users:
-                users[user] = {}
-                users[user]['money'] = 300    
-
-		    with open('./Data/DataBase/economy.json',"w") as f:
-			    json.dump(users,f)            
-   
+              
 def setup(client):
     client.add_cog(event(client))                
