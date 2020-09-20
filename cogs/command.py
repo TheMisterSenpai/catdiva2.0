@@ -12,9 +12,8 @@ class command(commands.Cog):
     @commands.command(
         aliases=["хелп", "команды", "comms", "commands", "помощь"],
         description="Это сообщение",
-        usage="help [модуль]")
-    client.remove_command('help')    
-    async def help(self, ctx, name=None):
+        usage="help [модуль]")  
+    async def _help(self, ctx, name=None):
         if name is not None:
             name = name.lower()
  
