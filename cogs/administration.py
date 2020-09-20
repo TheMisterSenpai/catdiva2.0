@@ -9,7 +9,7 @@ class administration(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-		self.cog_name = ["Администрация", True]
+		self.cog_name = ["Для администрации", True]
 
     @commands.command(
 		aliases=['очистить', 'clear'],
