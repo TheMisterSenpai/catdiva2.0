@@ -44,7 +44,11 @@ class voice(commands.Cog):
  
             await asyncio.sleep(1)
  
-    @commands.command()
+    @commands.command(
+        aliases=['войстайм', 'войс', 'voicetime']
+        description='сколько вы были в голосовых чата',
+        usage='.voicetime или .voicetime <@ник>'
+    )
     async def voicetime(self, ctx, member: discord.Member = None):
         if not member:
             member = ctx.author

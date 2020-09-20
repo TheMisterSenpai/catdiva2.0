@@ -9,11 +9,10 @@ class statsgame(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+        self.cog_name = ["Статистика игр", True]
 
     @commands.command(
-        name="mc",
         aliases=["майн", "мс", "minecraft", "mine"],
-        brief="Информация о Minecraft сервере",
         usage="mc <ip> [port]",
         description="Информация о Minecraft сервере")
     async def _mc(self, ctx, ip, port=None):

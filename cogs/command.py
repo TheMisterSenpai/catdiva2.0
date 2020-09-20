@@ -9,46 +9,69 @@ class command(commands.Cog):
         self._last_member = None
         self.cog_name = ["команды"]
 
-    @commands.command()
-    async def help(self, ctx):
-        emb = discord.Embed( title = '📗Навигация по командам бота📗')
-
-        emb.add_field( name = '{}report'.format( PREFIX ), value = '🚬пожаловаться на нарушителя')
-        emb.add_field( name = '{}wiki'.format( PREFIX ), value = '🔎поиск информации на Wikpedia')
-        emb.add_field( name = '{}userinfo'.format( PREFIX ), value = '📡узнать про себя на сервере')
-        emb.add_field( name = '{}send_l'.format( PREFIX ), value = '✉️Отправка личных сообщений')	
-        emb.add_field( name = '{}phone_info'.format( PREFIX ), value = '📱узнать местонахождения человека по номеру(В научных целях)')
-        emb.add_field( name = '{}хентай'.format( PREFIX ), value = '🍓интересные картинки и гифки')    
-        emb.add_field( name = '{}server'.format( PREFIX ), value = '👁узнать информацию о сервере') 
-        emb.add_field( name = '{}voicetime'.format( PREFIX ), value = '🙇‍♂️время которое вы провели в голосовых чатах')
-        emb.add_field( name = '{}bag'.format(PREFIX), value = '🌵отправить баг бота(так как он работает на костылях)')
-
-        await ctx.send( embed = emb )
-
-    @commands.command()
-    async def ad_help(self, ctx): 
-        emb = discord.Embed( title = '📗Навигация по командам бота для администрации📗')
-
-        emb.add_field( name = '{}clear'.format( PREFIX ), value = '🌪Очистка сообщений ')
-        emb.add_field( name = '{}kick'.format( PREFIX ), value = '🐷удаления со сервера ')
-        emb.add_field( name = '{}ban'.format( PREFIX ), value = '🙅‍блокировка на сервере')
-        emb.add_field( name = '{}unban'.format( PREFIX ), value = '👌разблокировка на сервере ')
-
-        await ctx.send( embed = emb ) 
-
-    @commands.command()
-    async def ec_help(self, ctx): 
-        emb = discord.Embed( title = '📗Навигация по командам бота для экономики📗')
-
-        emb.add_field( name = '{}timely'.format( PREFIX ), value = '💸получить на баланс 350 стонксов')
-        emb.add_field( name = '{}balance'.format( PREFIX ), value = '💳посмотреть баланс')
-        emb.add_field( name = '{}shop'.format( PREFIX ), value = '💰магазин')
-        emb.add_field( name = '{}addshop'.format( PREFIX ), value = '☑️добавить роль в магазин(команда @роль цена)')
-        emb.add_field( name = '{}removeshop'.format( PREFIX ), value = '❌удалить роль из магазина(команда @роль)')
-        emb.add_field( name = '{}buy'.format( PREFIX ), value = '💎купить роль из магазина(команда @роль)')
-        emb.add_field( name = '{}give'.format( PREFIX ), value = '💌подарить любому деньги(команда @ник сумма)')
-
-        await ctx.send( embed = emb )
+    @commands.command(
+        aliases=["хелп", "команды", "comms", "commands", "помощь"],
+        description="Это сообщение",
+        usage="help [модуль]")
+    async def help(self, ctx, name=None):
+        if name is not None:
+            name = name.lower()
+ 
+        prefix = config.prefix # беру данные из конфига. Подстраивайте под себя
+        color = config.color # цвет ембеда
+ 
+        copy_text = config.text # для футера
+        copy_icon = config.icon # для футера
+ 
+        cogs = []
+        for i in self.client.cogs: # у меня переменная bot. Тоже подстраивайте под себя
+            cog = self.client.cogs[i]
+            hide = len(cog.cog_name)
+            if hide == 1:
+                cogs.append(f"{cog.cog_name[0].lower()}")
+ 
+        if not name:
+            embed = discord.Embed(
+                description=f"{ctx.author.display_name}, Чтоб узнать список команд пропишите **{prefix}help "
+                            f"<модуль>**\n"
+                            f"**Доступные модули:** {', '.join(cogs)}", color=color)
+            await ctx.send(embed=embed)
+        else:
+            if name in cogs:
+                cog = None
+                namec = None
+                for i in self.client.cogs:
+                    coge = self.client.cogs[i]
+                    if name in coge.cog_name[0].lower():
+                        cog = coge
+                        namec = i
+                        break
+ 
+                name = cog.cog_name[0]
+                comm_list = []
+ 
+                for command in self.client.commands:
+                    if command.cog_name == namec:
+                        if not command.hidden:
+                            comm_list.append(
+                                f"**{command.aliases[0]}:** {command.description}\n`{prefix}{command.usage}`\n\n")
+ 
+                embed = discord.Embed(
+                    title=f"Help | {name}",
+                    description=f"".join(comm_list),
+                    color=color)
+                embed.set_footer(text=copy_text, icon_url=copy_icon)
+                embed.set_thumbnail(
+                    url='https://pngimg.com/uploads/question_mark/question_mark_PNG93.png')
+ 
+                await ctx.send(embed=embed)
+ 
+            else:
+                embed = discord.Embed(
+                    description=f"{ctx.author.display_name}, Модуль не найден!\nЧтоб узнать список команд пропишите "
+                                f"{prefix}help <модуль>\n"
+                                f"**Доступные модули:** {', '.join(cogs)}")
+                await ctx.send(embed=embed)
 
 
 

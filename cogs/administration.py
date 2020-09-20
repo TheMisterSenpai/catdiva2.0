@@ -9,8 +9,13 @@ class administration(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+		self.cog_name = ["Администрация", True]
 
-    @commands.command()
+    @commands.command(
+		aliases=['очистить', 'clear']
+        description='удалить сообщения',
+        usage='.clear <число сообщений>'
+	)
     @commands.has_permissions( administrator = True) 
     async def clear( self, ctx, amount : int ):
 	    await ctx.channel.purge( limit = amount )
@@ -18,7 +23,11 @@ class administration(commands.Cog):
 	    await ctx.send(f'``✔️Удаленно {amount} сообщений``')
 	    await ctx.channel.purge( limit = 1) 
 
-    @commands.command( pass_context = True)
+    @commands.command(
+		aliases=['кик', 'kick']
+        description='выгнать человека с сервера',
+        usage='.kick <@ник>'
+	)
     @commands.has_permissions( administrator = True)
     async def kick( self, ctx, member: discord.Member, *, reason = None ):
 	    await ctx.channel.purge( limit = 1)
@@ -26,7 +35,11 @@ class administration(commands.Cog):
 	    await member.kick( reason = reason )
 	    await ctx.message( f'Был кикнут {member.mention}')
 
-    @commands.command( pass_context = True)
+    @commands.command( 
+		aliases=['бан', 'забанить', 'ban']
+        description='забанить человека на сервере',
+        usage='.ban <@ник>'
+	)
     @commands.has_permissions( administrator = True)
     async def ban(self, ctx, member: discord.Member, *, reason = None):
 	    await ctx.channel.purge( limit = 1)
@@ -34,7 +47,11 @@ class administration(commands.Cog):
 	    await member.ban( reason = reason)
 	    await ctx.send(f'Был заблокирован {member.mention}')
 
-    @commands.command( pass_context = True)
+    @commands.command( 
+		aliases=['разбанить', 'анбан', 'unban']
+        description='рабанить человека на сервере',
+        usage='.unban <@ник>'
+	)
     @commands.has_permissions( administrator = True)
     async def unban ( self, ctx, *, member):
 	    await ctx.channel.purge( limit = 1)

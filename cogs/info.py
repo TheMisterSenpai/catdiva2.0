@@ -7,9 +7,12 @@ class info(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+        self.cog_name = ["Информация", True]
 
     @commands.command(
-        aliases = ['инфо']
+        aliases = ['инфо', 'info']
+        description='получить деньги на баланс',
+        usage='.info'
     )
     async def info(self, ctx):
         await ctx.send('**Привет, меня зовут Кошка Дива и я офицальный бот сервера "Убежище клоунов"**')
@@ -26,7 +29,9 @@ class info(commands.Cog):
 
     @commands.command(
         aliases=['сервер', 'серверинфо'],
-        description="Информация о сервере")
+        description="Информация о сервере",
+        usage='.server'
+    )
     async def server(self, ctx):
  
         members = ctx.guild.members

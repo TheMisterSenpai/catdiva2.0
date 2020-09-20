@@ -13,8 +13,13 @@ from datetime import timedelta
 class fun(commands.Cog):
     def __init__(self, client):
         self.client = client
-
-    @commands.command()
+        self.cog_name= ["Интересные", True]    
+        
+    @commands.command(
+        aliases=['вики', 'wiki']
+        description='получить информацию(только на русском)',
+        usage='.wiki <информация>'
+    )
     async def wiki(self, ctx, *, text):
         wikipedia.set_lang("ru")
         new_page = wikipedia.page(text)
@@ -28,7 +33,11 @@ class fun(commands.Cog):
 
         await ctx.send(embed=emb)
 
-    @commands.command(aliases = ['хент', 'hentai'])
+    @commands.command(
+        aliases = ['хент', 'hentai']
+        description='интересные gif',
+        usage='.hentai'
+    )
     async def хентай(self, ctx):
         if ctx.channel.is_nsfw():
             r = ['feet', 'yuri', 'trap', 'futanari', 'hololewd', 'lewdkemo',
@@ -51,7 +60,11 @@ class fun(commands.Cog):
             await asyncio.sleep(5)
             await msg.delete()
 
-    @commands.command(pass_context=True)
+    @commands.command(
+        aliases=['юзеринфо', 'юзер', 'userinfo']
+        description='узнать о человеке',
+        usage='.userinfo <@ник>'
+    )
     async def userinfo(self, ctx, member: discord.Member):
         roles = member.roles
         role_list = ""
@@ -69,12 +82,20 @@ class fun(commands.Cog):
         emb.set_footer(text='Вызвал команду: {}'.format(ctx.author.name), icon_url=ctx.author.avatar_url)
         await ctx.send(embed = emb)
 
-    @commands.command( pass_context = True)
+    @commands.command( 
+        aliases=['личныесообщения', 'лс', 'send_l']
+        description='отправить приветствия пользователю',
+        usage='.send_l <@ник>'
+    )
     async def send_l( self, ctx, member: discord.Member ):
 	    await member.send(f'✉️{ctx.author.name} приветствует тебя {member.mention}✉️')#приветствие 
 	    await ctx.channel.purge( limit = 1)
 
-    @commands.command()
+    @commands.command(
+        aliases=['номер', 'номеринфо', 'phone_info']
+        description='получить информацию о номере',
+        usage='.phone_info <+7 номер>'
+    )
     async def phone_info( self, ctx, arg ):
 	    response = requests.get( f'https://htmlweb.ru/geo/api.php?json&telcod={ arg }' )
 
