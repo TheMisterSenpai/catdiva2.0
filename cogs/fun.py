@@ -17,7 +17,7 @@ class fun(commands.Cog):
         
     @commands.command(
         aliases=['вики', 'wiki']
-        description='получить информацию(только на русском)',
+        description='узнать информацию на вики',
         usage='.wiki <информация>'
     )
     async def wiki(self, ctx, *, text):

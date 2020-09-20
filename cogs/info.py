@@ -11,7 +11,7 @@ class info(commands.Cog):
 
     @commands.command(
         aliases = ['инфо', 'info']
-        description='получить деньги на баланс',
+        description='информация',
         usage='.info'
     )
     async def info(self, ctx):

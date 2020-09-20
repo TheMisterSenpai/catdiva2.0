@@ -7,7 +7,7 @@ class voice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.prev = []
-        self.cog_name = ["голосовое"]
+        self.cog_name = ["Голосовое", True]
  
     @commands.Cog.listener()
     async def on_ready(self):
