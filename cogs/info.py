@@ -10,7 +10,7 @@ class info(commands.Cog):
         self.cog_name = ["Информация", True]
 
     @commands.command(
-        aliases = ['инфо', 'info']
+        aliases = ['инфо', 'info'],
         description='информация',
         usage='.info'
     )

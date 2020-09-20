@@ -13,7 +13,7 @@ class economy(commands.Cog):
         self.cog_name = ["экономика"]
 
     @commands.command(
-        aliases=['деньги', 'timely']
+        aliases=['деньги', 'timely'],
         description='получить деньги на баланс',
         usage='.timely'
     )
@@ -38,7 +38,7 @@ class economy(commands.Cog):
             await ctx.send(embed= emb)
 
     @commands.command(
-        aliases=['баланс', 'бал', 'bal', 'balance']
+        aliases=['баланс', 'бал', 'bal', 'balance'],
         description='проверить баланс на аккаунте',
         usage='.timely или .timely <@ник>'
     )
@@ -55,7 +55,7 @@ class economy(commands.Cog):
             await ctx.send(embed= emb)
     
     @commands.command(
-        aliases=['магазин', 'магаз', 'sp', 'shop']
+        aliases=['магазин', 'магаз', 'sp', 'shop'],
         description='посмотреть содержимого магазина',
         usage='.shop'
     )
@@ -68,7 +68,7 @@ class economy(commands.Cog):
         await ctx.send(embed=emb)
 
     @commands.command(
-        aliases=['добавитьвмагазин', 'addshop']
+        aliases=['добавитьвмагазин', 'addshop'],
         description='добавить роль в магазин(только администратор)',
         usage='.addshop <@роль>'
     )
@@ -86,7 +86,7 @@ class economy(commands.Cog):
             json.dump(money,f)   
 
     @commands.command(
-        aliases=['убратьсмагазина', 'removeshop']
+        aliases=['убратьсмагазина', 'removeshop'],
         description='убрать роль с магазина(только администратор)',
         usage='.removeshop <@роль>'
     )
@@ -103,7 +103,7 @@ class economy(commands.Cog):
             json.dump(money,f)   
 
     @commands.command(
-        aliases=['купить', 'buy']
+        aliases=['купить', 'buy'],
         description='купить роль с магазина',
         usage='.buy <@роль>'
     )
@@ -125,7 +125,7 @@ class economy(commands.Cog):
             json.dump(money,f)
     
     @commands.command(
-        aliases=['подарить', 'отдать', 'give']
+        aliases=['подарить', 'отдать', 'give'],
         description='подарить деньги пользователю',
         usage='.give <@ник>'
     ) 

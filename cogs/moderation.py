@@ -9,7 +9,7 @@ class moderation(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command
+    @commands.Cog.listener()
     async def on_message ( message ):
 	    await client.process_commands( message )
 

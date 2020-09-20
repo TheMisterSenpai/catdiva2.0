@@ -16,7 +16,7 @@ class fun(commands.Cog):
         self.cog_name= ["Интересные", True]    
         
     @commands.command(
-        aliases=['вики', 'wiki']
+        aliases=['вики', 'wiki'],
         description='узнать информацию на вики',
         usage='.wiki <информация>'
     )
@@ -34,7 +34,7 @@ class fun(commands.Cog):
         await ctx.send(embed=emb)
 
     @commands.command(
-        aliases = ['хент', 'hentai']
+        aliases = ['хент', 'hentai'],
         description='интересные gif',
         usage='.hentai'
     )
@@ -61,7 +61,7 @@ class fun(commands.Cog):
             await msg.delete()
 
     @commands.command(
-        aliases=['юзеринфо', 'юзер', 'userinfo']
+        aliases=['юзеринфо', 'юзер', 'userinfo'],
         description='узнать о человеке',
         usage='.userinfo <@ник>'
     )
@@ -83,7 +83,7 @@ class fun(commands.Cog):
         await ctx.send(embed = emb)
 
     @commands.command( 
-        aliases=['личныесообщения', 'лс', 'send_l']
+        aliases=['личныесообщения', 'лс', 'send_l'],
         description='отправить приветствия пользователю',
         usage='.send_l <@ник>'
     )
@@ -92,7 +92,7 @@ class fun(commands.Cog):
 	    await ctx.channel.purge( limit = 1)
 
     @commands.command(
-        aliases=['номер', 'номеринфо', 'phone_info']
+        aliases=['номер', 'номеринфо', 'phone_info'],
         description='получить информацию о номере',
         usage='.phone_info <+7 номер>'
     )

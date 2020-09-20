@@ -14,8 +14,8 @@ class game(commands.Cog):
 #Код https://github.com/AlekseyZz/Flags-mini-game-discord.py-
     
     @commands.command(
-        aliases=['флаги', 'flags']
-        description='игра ',
+        aliases=['флаги', 'flags'],
+        description='игра',
         usage='.флаг'
     ) # создаём команду
     async def флаги(self, ctx): # функцию

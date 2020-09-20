@@ -12,7 +12,7 @@ class administration(commands.Cog):
 		self.cog_name = ["Администрация", True]
 
     @commands.command(
-		aliases=['очистить', 'clear']
+		aliases=['очистить', 'clear'],
         description='удалить сообщения',
         usage='.clear <число сообщений>'
 	)
@@ -24,7 +24,7 @@ class administration(commands.Cog):
 	    await ctx.channel.purge( limit = 1) 
 
     @commands.command(
-		aliases=['кик', 'kick']
+		aliases=['кик', 'kick'],
         description='выгнать человека с сервера',
         usage='.kick <@ник>'
 	)
@@ -36,7 +36,7 @@ class administration(commands.Cog):
 	    await ctx.message( f'Был кикнут {member.mention}')
 
     @commands.command( 
-		aliases=['бан', 'забанить', 'ban']
+		aliases=['бан', 'забанить', 'ban'],
         description='забанить человека на сервере',
         usage='.ban <@ник>'
 	)
@@ -48,7 +48,7 @@ class administration(commands.Cog):
 	    await ctx.send(f'Был заблокирован {member.mention}')
 
     @commands.command( 
-		aliases=['разбанить', 'анбан', 'unban']
+		aliases=['разбанить', 'анбан', 'unban'],
         description='рабанить человека на сервере',
         usage='.unban <@ник>'
 	)

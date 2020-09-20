@@ -45,7 +45,7 @@ class voice(commands.Cog):
             await asyncio.sleep(1)
  
     @commands.command(
-        aliases=['войстайм', 'войс', 'voicetime']
+        aliases=['войстайм', 'войс', 'voicetime'],
         description='сколько вы были в голосовых чата',
         usage='.voicetime или .voicetime <@ник>'
     )
