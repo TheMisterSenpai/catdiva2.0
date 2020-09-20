@@ -13,7 +13,11 @@ class game(commands.Cog):
         self.cog_name = ["Игры", True]
 #Код https://github.com/AlekseyZz/Flags-mini-game-discord.py-
     
-    @commands.command() # создаём команду
+    @commands.command(
+        aliases=['флаги', 'flags']
+        description='игра ',
+        usage='.флаг'
+    ) # создаём команду
     async def флаги(self, ctx): # функцию
 	    event_members = {} # создаём словарь, он нужен для того, чтобы подсчитывать баллы каждого участника игры
 	    with open('./Data/DataBase/flags.json','r',encoding='utf8') as f: # открываем файл с кодировкой utf8, чтобы всё было ок
