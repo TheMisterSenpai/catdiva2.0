@@ -20,7 +20,7 @@ class fun(commands.Cog):
         description='узнать информацию на вики',
         usage='.wiki <информация>'
     )
-    async def wiki(self, ctx, *, text):
+    async def _wiki(self, ctx, *, text):
         wikipedia.set_lang("ru")
         new_page = wikipedia.page(text)
         summ = wikipedia.summary(text)
