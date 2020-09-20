@@ -16,7 +16,7 @@ class economy(commands.Cog):
         aliases=['деньги', 'timely']
         description='получить деньги на баланс',
         usage='.timely'
-        )
+    )
     async def timely(self, ctx):
         with open('./Data/DataBase/economy.json','r') as f:
             money = json.load(f)
