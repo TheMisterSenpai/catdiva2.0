@@ -10,7 +10,7 @@ import json
 class economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.cog_name = ["экономика"]
+        self.cog_name = ["экономика", True]
 
     @commands.command(
         aliases=['деньги', 'timely'],
