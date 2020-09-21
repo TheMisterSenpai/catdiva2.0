@@ -9,15 +9,15 @@ class administration(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-		self.cog_name = ["Для администрации", True]
+        self.cog_name = ["Для администрации"]
 
     @commands.command(
 		aliases=['очистить', 'clear'],
         description='удалить сообщения',
-        usage='.clear <число сообщений>'
+        usage='clear <число сообщений>'
 	)
     @commands.has_permissions( administrator = True) 
-    async def clear( self, ctx, amount : int ):
+    async def _clear( self, ctx, amount : int ):
 	    await ctx.channel.purge( limit = amount )
 
 	    await ctx.send(f'``✔️Удаленно {amount} сообщений``')
@@ -26,10 +26,10 @@ class administration(commands.Cog):
     @commands.command(
 		aliases=['кик', 'kick'],
         description='выгнать человека с сервера',
-        usage='.kick <@ник>'
+        usage='kick <@ник>'
 	)
     @commands.has_permissions( administrator = True)
-    async def kick( self, ctx, member: discord.Member, *, reason = None ):
+    async def _kick( self, ctx, member: discord.Member, *, reason = None ):
 	    await ctx.channel.purge( limit = 1)
 
 	    await member.kick( reason = reason )
@@ -38,10 +38,10 @@ class administration(commands.Cog):
     @commands.command( 
 		aliases=['бан', 'забанить', 'ban'],
         description='забанить человека на сервере',
-        usage='.ban <@ник>'
+        usage='ban <@ник>'
 	)
     @commands.has_permissions( administrator = True)
-    async def ban(self, ctx, member: discord.Member, *, reason = None):
+    async def _ban(self, ctx, member: discord.Member, *, reason = None):
 	    await ctx.channel.purge( limit = 1)
 
 	    await member.ban( reason = reason)
@@ -50,10 +50,10 @@ class administration(commands.Cog):
     @commands.command( 
 		aliases=['разбанить', 'анбан', 'unban'],
         description='рабанить человека на сервере',
-        usage='.unban <@ник>'
+        usage='unban <@ник>'
 	)
     @commands.has_permissions( administrator = True)
-    async def unban ( self, ctx, *, member):
+    async def _unban ( self, ctx, *, member):
 	    await ctx.channel.purge( limit = 1)
 	    banned_users = await ctx.guild.bans()
 

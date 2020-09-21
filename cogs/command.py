@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
-from config import PREFIX
+import config
 
 class command(commands.Cog):
     def __init__(self, client):
@@ -17,7 +17,7 @@ class command(commands.Cog):
         if name is not None:
             name = name.lower()
  
-        prefix = config.prefix # беру данные из конфига. Подстраивайте под себя
+        prefix = config.PREFIX # беру данные из конфига. Подстраивайте под себя
         color = config.color # цвет ембеда
  
         copy_text = config.text # для футера
@@ -62,7 +62,7 @@ class command(commands.Cog):
                     color=color)
                 embed.set_footer(text=copy_text, icon_url=copy_icon)
                 embed.set_thumbnail(
-                    url='https://pngimg.com/uploads/question_mark/question_mark_PNG93.png')
+                    url='https://101zabava.club/wp-content/uploads/2019/04/0-93-500x780.jpg')
  
                 await ctx.send(embed=embed)
  

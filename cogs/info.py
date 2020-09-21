@@ -7,32 +7,28 @@ class info(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self.cog_name = ["Информация", True]
+        self.cog_name = ["Информация"]
 
     @commands.command(
         aliases = ['инфо', 'info'],
         description='узнать о боте',
-        usage='.info'
+        usage='info'
     )
-    async def info(self, ctx):
+    async def _info(self, ctx):
         await ctx.send('**Привет, меня зовут Кошка Дива и я офицальный бот сервера "Убежище клоунов"**')
         await asyncio.sleep(5)
         await ctx.send('**Чтоб посмотреть все мои команды, просто напиши .help**')
         await asyncio.sleep(3)
-        await ctx.send('**Для команд администраторов напиши .ad_help**')
-        await asyncio.sleep(5)
-        await ctx.send('**Для экономики напиши .ec_help**')
-        await asyncio.sleep(5)
         await ctx.send('**Если вы нашли баг или недоработку то напишите .bag или пишите моему разработчику** @TheMisterSenpai#2033')
         await asyncio.sleep(5)
         await ctx.send('**Мой исходный код: https://github.com/TheMisterSenpai/catdiva2.0 **')
 
     @commands.command(
-        aliases=['сервер', 'серверинфо'],
+        aliases=['сервер', 'серверинфо', 'server'],
         description="Информация о сервере",
-        usage='.server'
+        usage='server'
     )
-    async def server(self, ctx):
+    async def _server(self, ctx):
  
         members = ctx.guild.members
         bots = len([m for m in members if m.bot])

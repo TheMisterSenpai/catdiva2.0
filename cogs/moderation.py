@@ -8,6 +8,7 @@ class moderation(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+        self.cog_name = ["Модерация"]
 
     @commands.Cog.listener()
     async def on_message ( message ):

@@ -13,12 +13,12 @@ from datetime import timedelta
 class fun(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.cog_name= ["Интересные", True]    
+        self.cog_name= ["Интересные"]    
         
     @commands.command(
         aliases=['вики', 'wiki'],
         description='узнать информацию на вики',
-        usage='.wiki <информация>'
+        usage='wiki <информация>'
     )
     async def _wiki(self, ctx, *, text):
         wikipedia.set_lang("ru")
@@ -36,9 +36,9 @@ class fun(commands.Cog):
     @commands.command(
         aliases = ['хент', 'hentai'],
         description='интересные gif',
-        usage='.hentai'
+        usage='hentai'
     )
-    async def хентай(self, ctx):
+    async def _хентай(self, ctx):
         if ctx.channel.is_nsfw():
             r = ['feet', 'yuri', 'trap', 'futanari', 'hololewd', 'lewdkemo',
             'solog', 'feetg', 'cum', 'erokemo', 'les', 'wallpaper', 'lewdk',
@@ -63,9 +63,9 @@ class fun(commands.Cog):
     @commands.command(
         aliases=['юзеринфо', 'юзер', 'userinfo'],
         description='узнать о человеке',
-        usage='.userinfo <@ник>'
+        usage='userinfo <@ник>'
     )
-    async def userinfo(self, ctx, member: discord.Member):
+    async def _userinfo(self, ctx, member: discord.Member):
         roles = member.roles
         role_list = ""
         for role in roles:
@@ -85,18 +85,18 @@ class fun(commands.Cog):
     @commands.command( 
         aliases=['личныесообщения', 'лс', 'send_l'],
         description='отправить приветствия пользователю',
-        usage='.send_l <@ник>'
+        usage='send_l <@ник>'
     )
-    async def send_l( self, ctx, member: discord.Member ):
+    async def _send_l( self, ctx, member: discord.Member ):
 	    await member.send(f'✉️{ctx.author.name} приветствует тебя {member.mention}✉️')#приветствие 
 	    await ctx.channel.purge( limit = 1)
 
     @commands.command(
         aliases=['номер', 'номеринфо', 'phone_info'],
         description='получить информацию о номере',
-        usage='.phone_info <+7 номер>'
+        usage='phone_info <+7 номер>'
     )
-    async def phone_info( self, ctx, arg ):
+    async def _phone_info( self, ctx, arg ):
 	    response = requests.get( f'https://htmlweb.ru/geo/api.php?json&telcod={ arg }' )
 
 	    user_country = response.json()[ 'country' ][ 'english' ]

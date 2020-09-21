@@ -9,7 +9,7 @@ class statsgame(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self.cog_name = ["Статистика игр", True]
+        self.cog_name = ["Статистика игр"]
 
     @commands.command(
         aliases=["майн", "мс", "minecraft", "mine"],

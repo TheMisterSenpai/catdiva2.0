@@ -85,23 +85,9 @@ async def on_member_join( member ):
 
 	role = discord.utils.get( member.guild.roles, id = 690915819340824579 )
 
-	await member.add_roles( role )
+	#role = discord.utils.get( member.guild.roles, id = 751468991075319903 )
 
-
-@client.event
-async def on_member_join( member ):
-	channel = client.get_channel( 690922367186239498 )#Исправил
-
-	role = discord.utils.get( member.guild.roles, id = 751468991075319903 )
-
-	await member.add_roles( role )
-
-
-@client.event
-async def on_member_join( member ):
-	channel = client.get_channel( 690922367186239498 )#Исправил
-
-	role = discord.utils.get( member.guild.roles, id = 751468342916677694 )
+	#role = discord.utils.get( member.guild.roles, id = 751468342916677694 )
 
 	await member.add_roles( role )  
 #
@@ -301,4 +287,4 @@ async def on_voice_state_update(member, before, after):
                 await channel2.delete()
                 print('[log]Удален голосовой чат')
 #
-client.run(os.environ["BOT_TOKEN"])       
+client.run(os.environ["BOT_TOKEN"])     

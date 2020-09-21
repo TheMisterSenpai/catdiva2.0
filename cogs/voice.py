@@ -7,7 +7,7 @@ class voice(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.prev = []
-        self.cog_name = ["Голосовое", True]
+        self.cog_name = ["Голосовое"]
  
     @commands.Cog.listener()
     async def on_ready(self):
@@ -47,9 +47,9 @@ class voice(commands.Cog):
     @commands.command(
         aliases=['войстайм', 'voicetime'],
         description='сколько вы были в голосовых чата',
-        usage='.voicetime'
+        usage='voicetime'
     )
-    async def voicetime(self, ctx, member: discord.Member = None):
+    async def _voicetime(self, ctx, member: discord.Member = None):
         if not member:
             member = ctx.author
  

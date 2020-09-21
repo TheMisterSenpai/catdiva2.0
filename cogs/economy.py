@@ -10,14 +10,14 @@ import json
 class economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.cog_name = ["экономика", True]
+        self.cog_name = ["Экономика"]
 
     @commands.command(
         aliases=['деньги', 'timely'],
         description='получить деньги на баланс',
-        usage='.timely'
+        usage='timely'
     )
-    async def timely(self, ctx):
+    async def _timely(self, ctx):
         with open('./Data/DataBase/economy.json','r') as f:
             money = json.load(f)
         if not str(ctx.author.id) in money:
@@ -40,9 +40,9 @@ class economy(commands.Cog):
     @commands.command(
         aliases=['баланс', 'бал', 'bal', 'balance'],
         description='проверить баланс на аккаунте',
-        usage='.timely или .timely <@ник>'
+        usage='timely или .timely <@ник>'
     )
-    async def balance(self, ctx, member:discord.Member = None):
+    async def _balance(self, ctx, member:discord.Member = None):
         if member == ctx.author or member == None:
             with open('./Data/DataBase/economy.json','r') as f:
                 money = json.load(f)
@@ -57,9 +57,9 @@ class economy(commands.Cog):
     @commands.command(
         aliases=['магазин', 'магаз', 'sp', 'shop'],
         description='посмотреть содержимого магазина',
-        usage='.shop'
+        usage='shop'
     )
-    async def shop(self, ctx):
+    async def _shop(self, ctx):
         with open('./Data/DataBase/economy.json','r') as f:
             money = json.load(f)
         emb = discord.Embed(title="Магазин")
@@ -70,10 +70,10 @@ class economy(commands.Cog):
     @commands.command(
         aliases=['добавитьвмагазин', 'addshop'],
         description='добавить роль в магазин(только администратор)',
-        usage='.addshop <@роль>'
+        usage='addshop <@роль>'
     )
     @commands.has_permissions( administrator = True)
-    async def addshop(self, ctx, role:discord.Role, cost:int):
+    async def _addshop(self, ctx, role:discord.Role, cost:int):
         with open('./Data/DataBase/economy.json','r') as f:
             money = json.load(f)
         if str(role.id) in money['shop']:
@@ -91,7 +91,7 @@ class economy(commands.Cog):
         usage='.removeshop <@роль>'
     )
     @commands.has_permissions( administrator = True)
-    async def removeshop(self, ctx, role:discord.Role):
+    async def _removeshop(self, ctx, role:discord.Role):
         with open('./Data/DataBase/economy.json','r') as f:
             money = json.load(f)
         if not str(role.id) in money['shop']:
@@ -105,9 +105,9 @@ class economy(commands.Cog):
     @commands.command(
         aliases=['купить', 'buy'],
         description='купить роль с магазина',
-        usage='.buy <@роль>'
+        usage='buy <@роль>'
     )
-    async def buy(self, ctx, role:discord.Role):
+    async def _buy(self, ctx, role:discord.Role):
         with open('./Data/DataBase/economy.json','r') as f:
             money = json.load(f)
         if str(role.id) in money['shop']:
@@ -127,9 +127,9 @@ class economy(commands.Cog):
     @commands.command(
         aliases=['подарить', 'отдать', 'give'],
         description='подарить деньги пользователю',
-        usage='.give <@ник>'
+        usage='give <@ник>'
     ) 
-    async def give(self, ctx, member:discord.Member, arg:int):
+    async def _give(self, ctx, member:discord.Member, arg:int):
         with open('./Data/DataBase/economy.json','r') as f:
             money = json.load(f)
         if money[str(ctx.author.id)]['Money'] >= arg:

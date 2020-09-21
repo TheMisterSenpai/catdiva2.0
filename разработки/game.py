@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+from discord.ext.commands import Bot 
 
 import json
 import random
@@ -15,13 +16,13 @@ class game(commands.Cog):
     
     @commands.command(
         aliases=['флаги', 'flags'],
-        description='игра',
+        description='игра на угадывания флагов',
         usage='.флаг'
     ) # создаём команду
-    async def флаги(self, ctx): # функцию
-	event_members = {} # создаём словарь, он нужен для того, чтобы подсчитывать баллы каждого участника игры
-	with open('./Data/DataBase/flags.json','r',encoding='utf8') as f: # открываем файл с кодировкой utf8, чтобы всё было ок
-		flags = json.load(f) # превращаем в словарь
+    async def _флаги(self, ctx): # функцию
+		event_members = {} # создаём словарь, он нужен для того, чтобы подсчитывать баллы каждого участника игры
+		with open('./Data/DataBase/flags.json','r',encoding='utf8') as f: # открываем файл с кодировкой utf8, чтобы всё было ок
+			flags = json.load(f) # превращаем в словарь
 		count = 1 # подсчёт раундов
 		flags_list = [] # создаётся список, в который будут добавляться названия флагов, для того чтобы потом при помощи проверки не допускать повторов в игре
 		while count <= 10: # всего 10 раундов, Вы можете изменить это значение
