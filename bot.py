@@ -256,19 +256,7 @@ async def on_message( message ):
 		await add_lvl(users,str(message.author.id))
 		await add_rank(users,str(message.author.id))
 		with open('./Data/DataBase/lvl.json',"w") as f:
-			json.dump(users,f)
-#
-#
-@client.event
-async def on_member_update(self, before, after):
-    if before.nick != after.nick:#проверка на смену ника
-        channel = client.get_channel(727184938050256906)#ид канала куда будет отправляться сообщение
-        emb = discord.Embed(title = '', description = f'**Пользователь {before.mention} сменил ник.**', colour = discord.Color.red())
-        emb.add_field(name = '**Старый ник**', value = f'{before.nick}') 
-        emb.add_field(name = '**Новый ник**', value = f'{after.nick}') 
-        emb.set_footer(text = 'Спасибо за использования нашего бота')
-
-        await channel.send(embed = emb)        
+			json.dump(users,f)  
 #
 #Private
 @client.event
