@@ -1,15 +1,18 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+
+import asyncio
 import os 
 import datetime
 import time
+
 
 class administration(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self.cog_name = ["Для администрации"]
+        self.cog_name = ["администрация"]
 
     @commands.command(
 		aliases=['очистить', 'clear'],
@@ -64,6 +67,7 @@ class administration(commands.Cog):
 		    await ctx.send( f'Был разблокирован { user.mention}' )
 
 		    return     
+  
 
 def setup(client):
     client.add_cog(administration(client)) 

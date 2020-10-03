@@ -8,10 +8,10 @@ class moderation(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self.cog_name = ["Модерация"]
+        self.cog_name = ["Модерация", True]
 
     @commands.Cog.listener()
-    async def on_message ( message ):
+    async def on_message ( self, message ):
 	    await client.process_commands( message )
 
 	    msg = message.content.lower()

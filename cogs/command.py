@@ -10,9 +10,9 @@ class command(commands.Cog):
         self.cog_name = ["команды"]
 
     @commands.command(
-        aliases=["хелп", "команды", "comms", "commands", "помощь"],
+        aliases=["хелп", "команды", "comms", "commands", "помощь", "help"],
         description="Это сообщение",
-        usage="help [модуль]")  
+        usage="хелп [модуль]")  
     async def _help(self, ctx, name=None):
         if name is not None:
             name = name.lower()

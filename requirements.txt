@@ -5,3 +5,4 @@ nekos.py==1.0.3
 nest-asyncio==1.4.0
 wikipedia==1.4.0
 mcstatus==4.0.0
+beautifulsoup4==4.9.1

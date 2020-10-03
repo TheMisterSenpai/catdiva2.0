@@ -83,7 +83,7 @@ async def on_command_error(ctx, error):
 async def on_member_join( member ):
 	channel = client.get_channel( 690922367186239498 )#Исправил
 
-	role = discord.utils.get( member.guild.roles, id = 690915819340824579 )
+	role = discord.utils.get( member.guild.roles, id = 761927608442552320 )
 
 	#role = discord.utils.get( member.guild.roles, id = 751468991075319903 )
 
@@ -92,21 +92,6 @@ async def on_member_join( member ):
 	await member.add_roles( role )  
 #
 #cogs
-@client.command()
-async def load(ctx, extensions):
-    client.load_extension(f'cogs.{extensions}')
-
-
-@client.command()
-async def reload(ctx, extensions):
-    client.unload_extension(f'cogs.{extensions}')
-    client.load_extension(f'cogs.{extensions}')
-
-
-@client.command()
-async def unload(ctx, extensions):
-    client.unload_extension(f'cogs.{extensions}')
-
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
@@ -187,88 +172,6 @@ async def ping(ctx):
 
     message = await ctx.send("Пожалуйста, подождите. . .")
     await message.edit(content = f"*Пинг бота*: {ping_emoji} `{ping * 1000:.0f}ms` ") 
-#lvl
-@client.event
-async def on_message( message ):
-	await client.process_commands( message )
-
-	if not message.author.bot:
-		with open('./Data/DataBase/lvl.json',"r") as f:
-			users = json.load(f)
-            
-		channel_log = client.get_channel( 690922597805719613 ) # ID - канала, в который будет отправлятся уведомление о повышении
-		async def update_ranked(users, user):
-			if not user in users:
-				users[user] = {}
-				users[user]['exp'] = 0
-				users[user]['lvl'] = 1
-		async def add_exp(users, user, exp):
-			users[user]['exp'] += exp
-		async def add_lvl(users, user):
-			exp = users[user]['exp']
-			lvl = users[user]['lvl']
-			if exp > lvl:
-				await channel_log.send(f'**{message.author.mention}** повысил свой уровень до {lvl}!')
-				users[user]['exp'] = 0
-				users[user]['lvl'] = lvl + 1
-		async def add_rank(users, user):
-			lvl = users[user]['lvl']
-			rank10 = discord.utils.get( message.guild.roles, id = 693003614431739965 ) # id Роли
-			rank25 = discord.utils.get( message.guild.roles, id = 693003740902326272 )
-			rank30 = discord.utils.get( message.guild.roles, id = 693003820141379606 )
-			rank50 = discord.utils.get( message.guild.roles, id = 693004374691020872 )
-			rank1000 = discord.utils.get( message.guild.roles, id = 6693004942864023625 )
-			
-			if lvl == 10:
-				await channel_log.send(f"**{message.author.mention}** получил новый ранг {rank10}!")
-				await message.author.add_roles(rank10, reason=None, atomic=True)
-				users[user]['lvl'] = lvl + 1
-
-			if lvl == 25:
-				await channel_log.send(f'**{message.author.mention}** получил новый ранг {rank25}')
-				await message.author.add_roles(rank20, reason=None, atomic=True)
-				users[user]['lvl'] = lvl + 1
-				# Это удаляет роль после получения новой
-				await message.author.remove_roles(rank10)
-			
-			if lvl == 30:
-				await channel_log.send(f'**{message.author.mention}** получил новый ранг {rank30}')
-				await message.author.add_roles(rank20, reason=None, atomic=True)
-				users[user]['lvl'] = lvl + 1
-				# Это удаляет роль после получения новой
-				await message.author.remove_roles(rank25)
-			
-			if lvl == 50:
-				await channel_log.send(f'**{message.author.mention}** получил новый ранг {rank50}')
-				await message.author.add_roles(rank20, reason=None, atomic=True)
-				users[user]['lvl'] = lvl + 1
-				# Это удаляет роль после получения новой
-				await message.author.remove_roles(rank30)
-
-			if lvl == 1000:
-				await channel_log.send(f'**{message.author.mention}** получил новый ранг {rank50}')
-				await message.author.add_roles(rank20, reason=None, atomic=True)
-				users[user]['lvl'] = lvl + 1
-							
-		await update_ranked(users,str(message.author.id))
-		
-		await add_exp(users,str(message.author.id),0.2) # 1 - сколько опыта получает пользователь за 1 сообщение
-		await add_lvl(users,str(message.author.id))
-		await add_rank(users,str(message.author.id))
-		with open('./Data/DataBase/lvl.json',"w") as f:
-			json.dump(users,f)
-#
-#
-@client.event
-async def on_member_update(self, before, after):
-    if before.nick != after.nick:#проверка на смену ника
-        channel = client.get_channel(727184938050256906)#ид канала куда будет отправляться сообщение
-        emb = discord.Embed(title = '', description = f'**Пользователь {before.mention} сменил ник.**', colour = discord.Color.red())
-        emb.add_field(name = '**Старый ник**', value = f'{before.nick}') 
-        emb.add_field(name = '**Новый ник**', value = f'{after.nick}') 
-        emb.set_footer(text = 'Спасибо за использования нашего бота')
-
-        await channel.send(embed = emb)        
 #
 #Private
 @client.event
@@ -287,4 +190,17 @@ async def on_voice_state_update(member, before, after):
                 await channel2.delete()
                 print('[log]Удален голосовой чат')
 #
+#Защита от спама
+@client.event
+async def on_message(message): #trouble-free 24/7 event
+    try:
+        try:
+            if isinstance(message.channel, discord.DMChannel): #check on DM channel
+                return
+        except AttributeError:
+            return
+        await client.process_commands(message) #continuation of command execution in case of on_message event
+    except TypeError:
+        return
+
 client.run(os.environ["BOT_TOKEN"])     
