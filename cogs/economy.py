@@ -10,7 +10,7 @@ import json
 class economy(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.cog_name = ["Экономика"]
+        self.cog_name = ["экономика"]
 
     @commands.command(
         aliases=['деньги', 'timely'],
@@ -40,7 +40,7 @@ class economy(commands.Cog):
     @commands.command(
         aliases=['баланс', 'бал', 'bal', 'balance'],
         description='проверить баланс на аккаунте',
-        usage='timely или .timely <@ник>'
+        usage='balance или .balance <@ник>'
     )
     async def _balance(self, ctx, member:discord.Member = None):
         if member == ctx.author or member == None:
@@ -88,7 +88,7 @@ class economy(commands.Cog):
     @commands.command(
         aliases=['убратьсмагазина', 'removeshop'],
         description='убрать роль с магазина(только администратор)',
-        usage='.removeshop <@роль>'
+        usage='removeshop <@роль>'
     )
     @commands.has_permissions( administrator = True)
     async def _removeshop(self, ctx, role:discord.Role):

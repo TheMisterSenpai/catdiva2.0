@@ -30,7 +30,7 @@ class love(commands.Cog):
     
     def __init__(self, client):
         self.client = client
-        self.cog_name = ['Любовь']
+        self.cog_name = ['любовь']
 
     @commands.command(
         aliases = ['обнять', 'Обнять', 'Hug'],

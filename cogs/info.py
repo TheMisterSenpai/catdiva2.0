@@ -14,7 +14,7 @@ class info(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self.cog_name = ["Информация"]
+        self.cog_name = ["информация"]
 
     @commands.command(
         aliases = ['инфо', 'info'],

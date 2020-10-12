@@ -13,7 +13,7 @@ from datetime import timedelta
 class fun(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.cog_name= ["Интересные"]    
+        self.cog_name= ["интересные"]    
         
     @commands.command(
         aliases=['вики', 'wiki'],
