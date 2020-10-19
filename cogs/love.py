@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+
 import random
 
 # Картинки :D
@@ -24,6 +25,7 @@ img15 = "https://otakulounge.files.wordpress.com/2019/02/picture1.gif"
 img16 = "https://i.gifer.com/AHb9.gif"
 img17 = "https://media0.giphy.com/media/sUIZWMnfd4Mb6/giphy.gif"
 img18 = "https://dailysmscollection.org/wp-content/uploads/2019/01/anime-hug-gif.gif"
+
 #
 
 class love(commands.Cog):
@@ -38,10 +40,10 @@ class love(commands.Cog):
         usage = 'hug <@Ник>'
     )
     async def _hug(self, ctx, member: discord.Member):
-	    emb = discord.Embed(title = f'**Обнимашки!**',description = f'{ctx.author.mention} обнял(а) {member.mention}', color=0xFF0000)
-	    emb.set_image(url = random.choice([kek,lol,rfr,tgt,yhy,uju,img5,img6,img7,img8,img9,img10,img11,img12,img13,img14,img15,img16,img17,img18])) 
-	    emb.set_footer(text=f'Вызвано: {ctx.message.author}',icon_url=ctx.message.author.avatar_url) 
-	    await ctx.send(embed=emb)
+        emb = discord.Embed(title = f'**Обнимашки!**',description = f'{ctx.author.mention} обнял(а) {member.mention}', color=0xFF0000)
+        emb.set_image(url = random.choice([kek,lol,rfr,tgt,yhy,uju,img5,img6,img7,img8,img9,img10,img11,img12,img13,img14,img15,img16,img17,img18])) 
+        emb.set_footer(text=f'Вызвано: {ctx.message.author}',icon_url=ctx.message.author.avatar_url) 
+        await ctx.send(embed=emb)
 
 def setup(client):
     client.add_cog(love(client))

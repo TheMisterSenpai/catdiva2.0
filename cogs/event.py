@@ -11,6 +11,7 @@ class event(commands.Cog):
         self._last_member = None
         self.cog_name = ["Ивенты", True]
     #Зачем ты зашел в этот файл, он так для красоты
+
               
 def setup(client):
     client.add_cog(event(client))                

@@ -3,6 +3,7 @@ import os
 from discord.ext import commands
 from discord.utils import get
 from discord.ext import tasks
+
 import json
 import config
 import nest_asyncio
@@ -201,6 +202,6 @@ async def on_message(message): #trouble-free 24/7 event
             return
         await client.process_commands(message) #continuation of command execution in case of on_message event
     except TypeError:
-        return
+        return     
 
 client.run(os.environ["BOT_TOKEN"])   
