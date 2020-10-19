@@ -310,7 +310,7 @@ class MusicPlayer(commands.Cog):
 
     @commands.command(
     	aliases=['играть', 'pl'],
-        description='включает любую музыку (сначало пригласите бота к себе в головой чат .присоед)',
+        description='включает любую музыку',
         usage='играть <ссылка на ютуб> или <Исполнитель - название музыки>'
     	)
     async def play(self,msg,*,song):
@@ -382,7 +382,11 @@ class MusicPlayer(commands.Cog):
 
 
     @commands.has_permissions(manage_channels=True)
-    @commands.command()
+    @commands.command(
+    	aliases=['перезапустить', 'rst'],
+        description='перезапустить музыку',
+        usage='перезапустить'
+    	)
     async def reset(self,msg):
         if msg.voice_client is None:
             return await msg.send(f"**{msg.author.display_name}, there is no audio currently playing from the bot.**")
