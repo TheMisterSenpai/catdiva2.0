@@ -3,7 +3,7 @@
 Открытый код бота "Кошка Дива 2.0"
 
 ![https://pypi.org/project/discord.py/](https://img.shields.io/badge/discord.py-v1.4.1-brightgreen)
-![https://pypi.org/project/discord.py/](https://img.shields.io/badge/Кошка Дива 2.0-Discord-red)
+![https://pypi.org/project/discord.py/](https://img.shields.io/badge/Кошка_Дива 2.0-Discord-red)
 
 #### Files Tree:
   - Data - базы данных (json).
