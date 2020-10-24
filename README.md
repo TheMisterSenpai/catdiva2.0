@@ -1,4 +1,4 @@
-![https://discord.gg/aZfHSjR][https://cdn.discordapp.com/icons/669193966641741884/a_408e491ac49b281abe4dcb48900361d4.gif]
+![https://discord.gg/aZfHSjR](https://cdn.discordapp.com/icons/669193966641741884/a_408e491ac49b281abe4dcb48900361d4.gif)
 # catdiva2.0
 Открытый код бота "Кошка Дива 2.0"
 
