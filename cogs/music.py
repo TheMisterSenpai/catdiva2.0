@@ -64,7 +64,7 @@ class Downloader(discord.PCMVolumeTransformer):
         """
         Download video directly with link
         """
-        API_KEY='AIzaSyAg-X918zRqI6Kfy14WBBAwuoz4CQT4dBU'
+        API_KEY='AIzaSyAhpT8lbADSIRRLQdq0EyaR5VRbTbgjESM'
         youtube=build('youtube','v3',developerKey=API_KEY)
         data=youtube.search().list(part='snippet',q=url).execute()
         song_url=data
