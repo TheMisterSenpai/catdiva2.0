@@ -1,8 +1,7 @@
-![https://discord.gg/aZfHSjR][https://cdn.discordapp.com/icons/669193966641741884/a_408e491ac49b281abe4dcb48900361d4.gif?size=1024]
+![https://discord.gg/aZfHSjR][https://cdn.discordapp.com/icons/669193966641741884/a_408e491ac49b281abe4dcb48900361d4.gif]
 # catdiva2.0
 Открытый код бота "Кошка Дива 2.0"
 
-![https://www.python.org/](https://img.shields.io/github/pipenv/locked/python-version/metabolize/rq-dashboard-on-heroku?color=orange&label=Python)
 ![https://pypi.org/project/discord.py/](https://img.shields.io/badge/discord.py-v1.4.1-brightgreen)
 ![https://pypi.org/project/discord.py/](https://img.shields.io/badge/Кошка Дива 2.0-Discord-red)
 
