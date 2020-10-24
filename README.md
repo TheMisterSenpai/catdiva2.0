@@ -10,4 +10,5 @@
   - cogs - модули и коги.
 
 Пригласить бота к себе на сервер: https://discord.com/api/oauth2/authorize?client_id=737324393117778020&permissions=8&scope=bot
+
 Мой сервер - https://discord.gg/aZfHSjR
