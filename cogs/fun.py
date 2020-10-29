@@ -114,6 +114,22 @@ class fun(commands.Cog):
 	    await ctx.author.send( all_info )
 	    await ctx.channel.purge( limit = 1)
           
-
+    @commands.command(
+        aliases=['achivment', 'ачивка'],
+        description ='создать свои ачивку из майнкрафта',
+        usage='ачивка <текст> (на английском языке)'
+    )
+    async def ach(self, ctx, *, text=None):
+        if text is None:
+            embed = discord.Embed(title='Ошибка', description=f'Укажите текст `>ach <text>`', color=discord.Color.red())
+            await ctx.send(embed=embed)
+        else:
+            a = random.randint(1, 40)
+            done = text.replace(' ', '+')
+            link = f'https://minecraftskinstealer.com/achievement/{a}/Achievement+Get%21/{done}'
+            embed = discord.Embed(title='Получено Достижение!', color=discord.Color.green())
+            embed.set_image(url=link)
+            await ctx.send(embed=embed)
+        
 def setup(client):
     client.add_cog(fun(client))     

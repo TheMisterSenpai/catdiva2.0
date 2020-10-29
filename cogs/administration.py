@@ -68,6 +68,47 @@ class administration(commands.Cog):
 
             return      
   
+    @commands.command(
+        aliases=['мут', 'mute'],
+        description='замутить человека на сервере',
+        usage='mute <@ник> <время>'
+    )
+    @commands.has_permissions( administrator = True)
+    async def _mute(self, ctx, member:discord.Member, duration, *, reason=None):
+        unit = duration[-1]
+        print(f'{unit}')
+        if unit == 'с':
+            time = int(duration[:-1])
+            longunit = 'секунд'
+        elif unit == 'м':
+            time = int(duration[:-1]) * 60
+            longunit = 'минут'
+        elif unit == 'ч':
+            time = int(duration[:-1]) * 60 * 60
+            longunit = 'часов'
+        else:
+            await ctx.send('Неправильно! Пиши `c`, `м`, `ч`')
+            return
+
+        progress = await ctx.send('Пользователь теперь замучен!')
+        try:
+            for channel in ctx.guild.text_channels:
+                await channel.set_permissions(member, overwrite=discord.PermissionOverwrite(send_messages = False), reason=reason)
+
+            for channel in ctx.guild.voice_channels:
+                await channel.set_permissions(member, overwrite=discord.PermissionOverwrite(speak=False), reason=reason)
+        except:
+            success = False
+        else:
+            success = True
+
+        await ctx.send(f'{member} замучен на {duration}')
+        await asyncio.sleep(time)
+        try:
+            for channel in ctx.guild.channels:
+                 await channel.set_permissions(member, overwrite=None, reason=reason)
+        except:
+            pass
 
 def setup(client):
     client.add_cog(administration(client)) 
