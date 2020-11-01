@@ -78,24 +78,6 @@ async def on_command_error(ctx, error):
             await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, \n**`ERROR:`** {error}', color=COLOR_ERROR))
             raise error
 
-@client.event
-async def on_command_error(ctx, exception):
-    channel = client.get_channel(749869477419810836)#вставьте свой айди канала
-    embed = discord.Embed(title=':x: Ошибка Команды(Command)', colour=0xe74c3c)
-    embed.add_field(name='Введённая команда', value=ctx.command)
-    embed.description = f"py\n{traceback.format_exception(type(exception), exception, exception.__traceback__)}\n"
-    embed.timestamp = datetime.datetime.utcnow()
-    await channel.send(embed=embed)
-
-@client.event
-async def on_error(event, *args, **kwargs): # для остальных ошибок   
-    channel = client.get_channel(749869477419810836)#вставьте свой айди канала
-    embed = discord.Embed(title=':x: Ошибка События(Event)', colour=0xe74c3c)
-    embed.add_field(name='Событие', value=event)
-    embed.description = f"py\n{traceback.format_exc()}\n"
-    embed.timestamp = datetime.datetime.utcnow()
-    await channel.send(embed=embed)
-
 #
 
 #Role auto

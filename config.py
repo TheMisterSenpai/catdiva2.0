@@ -1,5 +1,5 @@
 PREFIX = '.'
-STATUS = 'Сервер C: | Сенпай лучший ютубер :D '
+STATUS = 'Сервер C: | https://discord.gg/n93aGfa '
 STATUSURL = 'https://www.twitch.tv/themistersenpai'
 
 COLOR_ERROR = 0xFF2B2B # Ваш Цвет без ""
