@@ -1,5 +1,4 @@
 import time
-import config
 import discord
 import asyncio
 from colorama import Style, Fore
