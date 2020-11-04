@@ -5,12 +5,13 @@ from discord.utils import get
 from discord.ext import tasks
 
 import json
-import config
+from module.catdivamodule import config
 import nest_asyncio
 
-from loops import Loop
+from module.catdivamodule.loops import Loop
 from colorama import Fore, Style
 from colorama import init 
+
 
 PREFIX = config.PREFIX
 STATUS = config.STATUS
@@ -94,6 +95,27 @@ async def on_member_join( member ):
 	await member.add_roles( role )  
 #
 #cogs
+@client.command()
+async def load(ctx, extensions):
+    if ctx.author.id == 364437278728388611:
+        client.load_extension(f'cogs.{extensions}')
+    else:
+        await ctx.send(f'Вы не создатель {ctx.author}')
+
+@client.command()
+async def reload(ctx, extensions):
+    if ctx.author.id == 364437278728388611:
+        client.unload_extension(f'cogs.{extensions}')
+        client.load_extension(f'cogs.{extensions}')
+    else:
+        await ctx.send(f'Вы не создатель {ctx.author}')
+
+@client.command()
+async def unload(ctx, extensions):
+    if ctx.author.id == 364437278728388611:
+        client.unload_extension(f'cogs.{extensions}')
+    else:
+        await ctx.send(f'Вы не создатель {ctx.author}')
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
@@ -206,3 +228,7 @@ async def on_message(message): #trouble-free 24/7 event
         return     
 
 client.run(os.environ["BOT_TOKEN"])   
+
+''' Это для теста
+client.run('') 
+'''

@@ -11,6 +11,9 @@ import json
 import os
 import socket
 from mcstatus import MinecraftServer
+from module.catdivamodule import config
+
+COLOR_GOOD = config.COLOR_GOOD
 
 class info(commands.Cog):
 
@@ -24,13 +27,19 @@ class info(commands.Cog):
         usage='info'
     )
     async def _info(self, ctx):
-        await ctx.send('**Привет, меня зовут Кошка Дива и я офицальный бот сервера "Убежище клоунов"**')
-        await asyncio.sleep(5)
-        await ctx.send('**Чтоб посмотреть все мои команды, просто напиши .help**')
-        await asyncio.sleep(3)
-        await ctx.send('**Если вы нашли баг или недоработку то напишите .bag или пишите моему разработчику** @TheMisterSenpai#2033')
-        await asyncio.sleep(5)
-        await ctx.send('**Мой исходный код: https://github.com/TheMisterSenpai/catdiva2.0 **')
+        emb = discord.Embed(color= COLOR_GOOD, title=f'Привет {ctx.author}!', description=f'''
+👋 Привет! Меня зовут **Кошка Дива 2.0**!
+
+😎 Мой префикс: '.'
+🤣 Я была создана чтобы поднять тебе настроение!
+😲 Напиши команду `.хелп` чтобы узнать все мои возможности!
+😉 Скоро будет возможность настроить сервер через меня
+🤔 Нужна помощь по боту, или нашел баг/ошибку? Заходи на наш [сервер поддержки] https://discord.gg/n93aGfa!
+
+🍀 Удачи!
+''')
+        emb.set_thumbnail(url = self.client.user.avatar_url)
+        await ctx.send(embed = emb)
 
     @commands.command(
         aliases=['сервер', 'серверинфо', 'server'],
@@ -217,7 +226,7 @@ class info(commands.Cog):
                         value=query,
                         inline=False)
  
-        await message.edit(content=None, embed=embed)        
+        await message.edit(content=None, embed=embed)            
 
 def setup(client):
     client.add_cog(info(client)) 

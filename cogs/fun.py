@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+
 import wikipedia
 from random import randint, choice
 import asyncio
@@ -62,7 +63,7 @@ class fun(commands.Cog):
 
     @commands.command(
         aliases=['юзеринфо', 'юзер', 'userinfo'],
-        description='узнать о человеке',
+        description='узнать о человеке на сервере',
         usage='userinfo <@ник>'
     )
     async def _userinfo(self, ctx, member: discord.Member):

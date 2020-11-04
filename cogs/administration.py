@@ -110,5 +110,21 @@ class administration(commands.Cog):
         except:
             pass
 
+    @commands.command(
+        aliases=['голосование', 'quickpoll'],
+        description = 'устроить голосование',
+        usage = 'голосование <текст>'
+    )
+    @commands.has_permissions( administrator = True) 
+    async def poll(self, ctx, *, question=None):
+        if question is None:
+            embed = discord.Embed(title="Ошибка", description="Укажите тему голосования!", color=discord.Color.red())
+            await ctx.send(embed=embed)
+        else:
+            embed = discord.Embed(title="Голосование", description=f"{question}\n👍 - Да\n👎 - Нет", color=discord.Color.green())
+            bruh = await ctx.send(embed=embed)
+            await bruh.add_reaction("👍")
+            await bruh.add_reaction("👎")         
+
 def setup(client):
     client.add_cog(administration(client)) 
