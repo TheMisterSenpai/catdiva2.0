@@ -12,6 +12,8 @@ from module.catdivamodule.loops import Loop
 from colorama import Fore, Style
 from colorama import init 
 
+from module.cybernetic.paginator import Paginator as pr
+
 
 PREFIX = config.PREFIX
 STATUS = config.STATUS
@@ -46,7 +48,6 @@ async def on_ready():
     except AssertionError:
         pass
 #
-
 #Error
 @client.event
 async def on_command_error(ctx, error):
@@ -78,7 +79,6 @@ async def on_command_error(ctx, error):
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Ошибка:  {error}")
             await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, \n**`ERROR:`** {error}', color=COLOR_ERROR))
             raise error
-
 #
 
 #Role auto
@@ -99,6 +99,7 @@ async def on_member_join( member ):
 async def load(ctx, extensions):
     if ctx.author.id == 364437278728388611:
         client.load_extension(f'cogs.{extensions}')
+        await ctx.send(f'**Был загружен** {extensions}')
     else:
         await ctx.send(f'Вы не создатель {ctx.author}')
 
@@ -107,6 +108,7 @@ async def reload(ctx, extensions):
     if ctx.author.id == 364437278728388611:
         client.unload_extension(f'cogs.{extensions}')
         client.load_extension(f'cogs.{extensions}')
+        await ctx.send(f'**Был перезапущен** {extensions}')
     else:
         await ctx.send(f'Вы не создатель {ctx.author}')
 
@@ -114,6 +116,7 @@ async def reload(ctx, extensions):
 async def unload(ctx, extensions):
     if ctx.author.id == 364437278728388611:
         client.unload_extension(f'cogs.{extensions}')
+        await ctx.send(f'**Был отключен** {extensions}')
     else:
         await ctx.send(f'Вы не создатель {ctx.author}')
 
@@ -141,7 +144,7 @@ async def on_guild_join( guild ):
     
     await me.send( embed = emb )
 #
-#report
+'''#report
 @client.command()
 async def report(ctx, member:discord.Member=None, *, arg=None):
     message = ctx.message
@@ -156,7 +159,8 @@ async def report(ctx, member:discord.Member=None, *, arg=None):
         emb.add_field(name='Причина:', value='*' +arg + '*')
         emb.add_field(name='ID жалобы:', value=f'{message.id}')
         await channel.send(embed=emb)
-        await ctx.author.send('✅ Ваша жалоба успешно отправлена!')       
+        await ctx.author.send('✅ Ваша жалоба успешно отправлена!')   
+'''            
 #bag
 @client.command()
 async def bag(ctx, *, bag ):
@@ -227,8 +231,22 @@ async def on_message(message): #trouble-free 24/7 event
     except TypeError:
         return     
 
+#настройки
+@client.command()
+async def настройки(ctx):
+    embed1 = discord.Embed(title = 'Настройки сервера',
+        description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку')
+    embed2 = discord.Embed(title = 'Жалобы',
+        description = 'Настройте команду жалобы. Просто пропишите .канал-жалоб #ваш канал')
+
+    embeds = [embed1, embed2]
+    message = await ctx.send(embed = embed1)
+    page = pr(client, message, only = ctx.author, use_more = False, embeds = embeds)
+    await page.start()
+
 client.run(os.environ["BOT_TOKEN"])   
 
-''' Это для теста
-client.run('') 
+'''
+# Это для теста
+client.run('1zQ0NTcwMTYxMjAxNDE0MTU2.XzlI_w.UYJ_9BnnTjo9IFDr6_eylyjesmg') 
 '''

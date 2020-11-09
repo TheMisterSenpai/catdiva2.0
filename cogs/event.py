@@ -48,34 +48,5 @@ class event(commands.Cog):
  
             await asyncio.sleep(1)
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        splited = message.content.split(' ')
-        if message.author.bot is False:
-            if f'<@!737324393117778020>' in splited[0]:
-                try:
-                    if splited[1] is None:
-                        # это пртосто чек
-                        pass
-                    else:
-                        pass
-                except:
-                    e = discord.Embed(color=default, title=f'Привет {message.author.display_name}!', description=f'''
-👋 Привет! Меня зовут **Кошка Дива 2.0**!
-
-😎 Мой префикс: '.'
-🤣 Я была создана чтобы поднять тебе настроение!
-😲 Напиши команду `.хелп` чтобы узнать все мои возможности!
-🤔 Нужна помощь по боту, или нашел баг/ошибку? Заходи на наш [сервер поддержки] https://discord.gg/n93aGfa!
-
-🍀 Удачи!
-''')
-                    e.set_thumbnail(url=self.client.user.avatar_url)
-                    await message.channel.send(embed=e)
-            else:
-                pass
-        else:
-            pass        
-              
 def setup(client):
     client.add_cog(event(client))                

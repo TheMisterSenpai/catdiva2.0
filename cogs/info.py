@@ -22,32 +22,12 @@ class info(commands.Cog):
         self.cog_name = ["информация"]
 
     @commands.command(
-        aliases = ['инфо', 'info'],
-        description='узнать о боте',
-        usage='info'
-    )
-    async def _info(self, ctx):
-        emb = discord.Embed(color= COLOR_GOOD, title=f'Привет {ctx.author}!', description=f'''
-👋 Привет! Меня зовут **Кошка Дива 2.0**!
-
-😎 Мой префикс: '.'
-🤣 Я была создана чтобы поднять тебе настроение!
-😲 Напиши команду `.хелп` чтобы узнать все мои возможности!
-😉 Скоро будет возможность настроить сервер через меня
-🤔 Нужна помощь по боту, или нашел баг/ошибку? Заходи на наш [сервер поддержки] https://discord.gg/n93aGfa!
-
-🍀 Удачи!
-''')
-        emb.set_thumbnail(url = self.client.user.avatar_url)
-        await ctx.send(embed = emb)
-
-    @commands.command(
         aliases=['сервер', 'серверинфо', 'server'],
         description="Информация о сервере",
         usage='server'
     )
-    async def _server(self, ctx):
- 
+    async def _server(self, ctx):    
+
         members = ctx.guild.members
         bots = len([m for m in members if m.bot])
         users = len(members) - bots
@@ -58,27 +38,26 @@ class info(commands.Cog):
         allvoice = len(ctx.guild.voice_channels)
         alltext = len(ctx.guild.text_channels)
         allroles = len(ctx.guild.roles)
- 
-        embed = discord.Embed(title=f"{ctx.guild.name}", color= 302112 , timestamp=ctx.message.created_at)
+
+        embed = discord.Embed(title=f"{ctx.guild.name}", color=config.COLOR_GOOD, timestamp=ctx.message.created_at)
         embed.set_thumbnail(url=ctx.guild.icon_url)
- 
+
         embed.add_field(name=f"Пользователей", value=f"Участников: **{users}**\n"
-                                                f"Ботов: **{bots}**\n"
-                                                f"Онлайн: **{online}**\n"
-                                                f"Отошёл: **{idle}**\n"
-                                                f"Не Беспокоить: **{dnd}**\n"
-                                                f"Оффлайн: **{offline}**")
- 
+                                                     f"Ботов: **{bots}**\n"
+                                                     f"Онлайн: **{online}**\n"
+                                                     f"Отошёл: **{idle}**\n"
+                                                     f"Не Беспокоить: **{dnd}**\n"
+                                                     f"Оффлайн: **{offline}**")
+
         embed.add_field(name=f"Каналов", value=f"Голосовые: **{allvoice}**\n"
-                                            f"Текстовые: **{alltext}**\n")
- 
-        embed.add_field(name=f"Уровень Буста", value=f"{ctx.guild.premium_tier} (Бустеров: {ctx.guild.premium_subscription_count})")
+                                               f"Текстовые: **{alltext}**\n")
+
         embed.add_field(name=f"Количество Ролей", value=f"{allroles}")
         embed.add_field(name=f"Создатель сервера", value=f"{ctx.guild.owner}")
         embed.add_field(name=f"Регион сервера", value=f"{ctx.guild.region}")
         embed.add_field(name=f"Дата создания сервера", value=f"{ctx.guild.created_at.strftime('%b %#d %Y')}")
- 
-        embed.set_footer(text='Вызвал команду: {}'.format(ctx.author.name), icon_url=ctx.author.avatar_url)
+
+        embed.set_footer(text=config.COPYRIGHT_TEXT, icon_url=config.COPYRIGHT_ICON)
         await ctx.send(embed=embed)
   
 
@@ -227,6 +206,27 @@ class info(commands.Cog):
                         inline=False)
  
         await message.edit(content=None, embed=embed)            
+
+
+    @commands.command(
+        aliases = ['инфо', 'info'],
+        description='узнать о боте',
+        usage='info'
+    )
+    async def _info(self, ctx):
+        emb = discord.Embed(color= COLOR_GOOD, title=f'Привет {ctx.author}!', description=f'''
+👋 Привет! Меня зовут **Кошка Дива 2.0**!
+
+😎 Мой префикс: '.'
+🤣 Я была создана чтобы поднять тебе настроение!
+😲 Напиши команду `.хелп` чтобы узнать все мои возможности!
+😉 Можно настроить сервер через меня, просто пропиши .настройки(БЕТА-ТЕСТ)
+🤔 Нужна помощь по боту, или нашел баг/ошибку? Заходи на наш [сервер поддержки] https://discord.gg/n93aGfa!
+
+🍀 Удачи!
+''')
+        emb.set_thumbnail(url = self.client.user.avatar_url)
+        await ctx.send(embed = emb)    
 
 def setup(client):
     client.add_cog(info(client)) 

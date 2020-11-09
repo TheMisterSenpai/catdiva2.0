@@ -7,6 +7,11 @@ import os
 import datetime
 import time
 
+#from module.catdivamodule import reportDB
+from pymongo import MongoClient
+
+cluster = MongoClient("mongodb+srv://senpai:HkDTEJPgO0j51s3q@cluster0.9oqq5.mongodb.net/catdivadb?retryWrites=true&w=majority")
+collection = cluster.catdivadb.settingreport
 
 class administration(commands.Cog):
 
@@ -124,7 +129,48 @@ class administration(commands.Cog):
             embed = discord.Embed(title="Голосование", description=f"{question}\n👍 - Да\n👎 - Нет", color=discord.Color.green())
             bruh = await ctx.send(embed=embed)
             await bruh.add_reaction("👍")
-            await bruh.add_reaction("👎")         
+            await bruh.add_reaction("👎")   
+
+    @commands.command(
+        aliases=['жалоба', 'send-report']
+
+    )
+    async def report(self, ctx, member: discord.Member=None, *, reason=None):
+        if not collection.find_one({"guild_id": ctx.guild.id}):
+            embed = discord.Embed(title="Ошибка", description="Система жалоб на этом сервере не включена!\nЧтобы включить введите - `>report-channel <on/off> <channel>`", color=discord.Color.red())
+            await ctx.send(embed=embed)
+        else:
+            if member is None:
+                embed = discord.Embed(title="Ошибка", description="Укажите пользователя `>report <member> <reason>`", color=discord.Color.red())
+                await ctx.send(embed=embed)
+            elif reason is None:
+                embed = discord.Embed(title="Ошибка", description="Укажите причину жалобы `>report <member> <reason>`", color=discord.Color.red())
+                await ctx.send(embed=embed)
+            elif member == ctx.author:
+                embed = discord.Embed(title="Ошибка", description="Вы не можете отправить жалобу на себя", color=discord.Color.red())
+                await ctx.send(embed=embed)
+            else:
+                if ctx.message.attachments:
+                    for i in ctx.message.attachments:
+                        channelid = collection.find_one({"guild_id": ctx.guild.id})["channel_id"]
+                        channel = ctx.guild.get_channel(channelid)
+                        embed = discord.Embed(title="Жалоба", description="Жалоба была успешно отправлена в канал для жалоб!", color=discord.Color.green())
+                        await ctx.send(embed=embed)
+                        embed2 = discord.Embed(title="Новая Жалоба!", description=f"**Отправитель:** {ctx.author.mention}\n**Нарушитель:** {member.mention}\n**Причина:** {reason}", color=discord.Color.green())
+                        embed2.set_image(url=i.url)
+                        msg = await channel.send(embed=embed2)
+                        await msg.add_reaction("✅")
+                        await msg.add_reaction("❌")
+                        break
+                else:
+                    channelid = collection.find_one({"guild_id": ctx.guild.id})["channel_id"]
+                    channel = ctx.guild.get_channel(channelid)
+                    embed = discord.Embed(title="Жалоба", description="Жалоба была успешно отправлена в канал для жалоб!", color=discord.Color.green())
+                    await ctx.send(embed=embed)
+                    embed2 = discord.Embed(title="Новая Жалоба!", description=f"**Отправитель:** {ctx.author.mention}\n**Нарушитель:** {member.mention}\n**Причина:** {reason}", color=discord.Color.green())
+                    msg = await channel.send(embed=embed2)
+                    await msg.add_reaction("✅")
+                    await msg.add_reaction("❌")                
 
 def setup(client):
     client.add_cog(administration(client)) 
