@@ -7,7 +7,9 @@
 
 #### Files Tree:
   - Data - базы данных (json).
-  - cogs - модули и коги.
+  - cogs - коги.
+  - module - модули для бота
+  - docs - документация бота(пока нет)
 
 Пригласить бота к себе на сервер: https://discord.com/api/oauth2/authorize?client_id=737324393117778020&permissions=8&scope=bot
 
