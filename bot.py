@@ -142,25 +142,7 @@ async def on_guild_join( guild ):
     emb.add_field( name = guild.name, value = f"Участников: {len(guild.members)}\nСсылка: {link}" )
 
     
-    await me.send( embed = emb )
-#
-'''#report
-@client.command()
-async def report(ctx, member:discord.Member=None, *, arg=None):
-    message = ctx.message
-    channel = client.get_channel(749869445224202350)    
-    if member == None:
-        await ctx.send(embed=discord.Embed(description='Укажите пользователя!', color=discord.Color.red()))
-    elif arg == None:
-        await ctx.send(embed=discord.Embed(description='Укажите причину жалобы!', color=discord.Color.red()))
-    else:
-        emb = discord.Embed(title=f'Жалоба на пользователя {member}', color=discord.Color.blue())
-        emb.add_field(name='Автор жалобы:', value=f'*{ctx.author}*')
-        emb.add_field(name='Причина:', value='*' +arg + '*')
-        emb.add_field(name='ID жалобы:', value=f'{message.id}')
-        await channel.send(embed=emb)
-        await ctx.author.send('✅ Ваша жалоба успешно отправлена!')   
-'''            
+    await me.send( embed = emb )            
 #bag
 @client.command()
 async def bag(ctx, *, bag ):
@@ -237,7 +219,7 @@ async def настройки(ctx):
     embed1 = discord.Embed(title = 'Настройки сервера',
         description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку')
     embed2 = discord.Embed(title = 'Жалобы',
-        description = 'Настройте команду жалобы. Просто пропишите .канал-жалоб #ваш канал')
+        description = 'Настройте команду жалобы. Просто пропишите .канал-жалоб on/off #ваш канал')
 
     embeds = [embed1, embed2]
     message = await ctx.send(embed = embed1)

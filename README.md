@@ -1,4 +1,4 @@
-![https://discord.gg/aZfHSjR](https://cdn.discordapp.com/avatars/737324393117778020/226ba7b32fe5aa7743e387229e964ecc.webp)
+![https://discord.gg/aZfHSjR](https://cdn.discordapp.com/avatars/737324393117778020/b0a5abb5a33d02ec6688a63a41ec8f69.webp?size=1024)
 # Кошка Дива 2.0
 Открытый код бота "Кошка Дива 2.0"
 
@@ -9,8 +9,10 @@
   - Data - базы данных (json).
   - cogs - коги.
   - module - модули для бота
-  - docs - документация бота(пока нет)
+  - docs - документация бота
 
 Пригласить бота к себе на сервер: https://discord.com/api/oauth2/authorize?client_id=737324393117778020&permissions=8&scope=bot
 
 Мой сервер - https://discord.gg/aZfHSjR
+
+#### Убидительная просьба, если вы берёте моего бота как за основу, то указывайте на этот гитхаб
