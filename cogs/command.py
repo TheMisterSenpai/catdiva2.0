@@ -1,7 +1,12 @@
 import discord
 from discord.ext import commands
 from discord.utils import get
+
 from module.catdivamodule import config
+from pymongo import MongoClient
+
+cluster = MongoClient("mongodb+srv://senpai:HkDTEJPgO0j51s3q@cluster0.9oqq5.mongodb.net/catdivadb?retryWrites=true&w=majority")
+collection = cluster.catdivadb.prefixsett
 
 class command(commands.Cog):
     def __init__(self, client):
@@ -15,8 +20,9 @@ class command(commands.Cog):
         usage="хелп [модуль]")
     async def help(self, ctx, name=None):
         
-        prefix = config.PREFIX
         color = config.COLOR_GOOD
+
+        prefix = collection.find_one({"guild_id": ctx.guild.id})["prefix"]
 
         copy_text = config.COPYRIGHT_TEXT
         copy_icon = config.COPYRIGHT_ICON
@@ -65,7 +71,7 @@ class command(commands.Cog):
 
             else:
                 embed = discord.Embed(
-                    description=f"{ctx.author.display_name}, Модуль не найден!\nЧтоб узнать список команд пропишите {config.PREFIX}хелп <модуль>\n"
+                    description=f"{ctx.author.display_name}, Модуль не найден!\nЧтоб узнать список команд пропишите {prefix}хелп <модуль>\n"
                                 f"**Доступные модули:** {', '.join(cogs)}")
                 await ctx.send(embed=embed)
        

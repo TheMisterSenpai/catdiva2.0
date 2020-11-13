@@ -1,5 +1,4 @@
-PREFIX = '.'
-STATUS = 'Сервер C: | .инфо '
+STATUS = 'Сервер C: | d.инфо '
 STATUSURL = 'https://www.twitch.tv/themistersenpai'
 
 COLOR_ERROR = 0xFF2B2B # Ваш Цвет без ""

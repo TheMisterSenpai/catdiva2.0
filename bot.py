@@ -7,6 +7,7 @@ from discord.ext import tasks
 import json
 from module.catdivamodule import config
 import nest_asyncio
+from pymongo import MongoClient
 
 from module.catdivamodule.loops import Loop
 from colorama import Fore, Style
@@ -14,13 +15,18 @@ from colorama import init
 
 from module.cybernetic.paginator import Paginator as pr
 
+cluster = MongoClient("mongodb+srv://senpai:HkDTEJPgO0j51s3q@cluster0.9oqq5.mongodb.net/catdivadb?retryWrites=true&w=majority")
+collection = cluster.catdivadb.prefixsett
 
-PREFIX = config.PREFIX
 STATUS = config.STATUS
 STATUSURL = config.STATUSURL
 COLOR_ERROR = config.COLOR_ERROR
 
-client = commands.Bot( command_prefix =  PREFIX )
+def get_prefix_gg(client, message):
+    prefix_server = collection.find_one({"guild_id": message.guild.id})["prefix"]
+    return str(prefix_server)
+
+client = commands.Bot( command_prefix =  get_prefix_gg )
 client.remove_command('help')
 init()
 
@@ -47,6 +53,16 @@ async def on_ready():
         loop.activator()
     except AssertionError:
         pass
+
+    for guild in client.guilds:
+        post = {
+            "guild_id": guild.id,
+            "prefix": "d."
+        }
+        if collection.count_documents({"guild_id": guild.id}) == 0:
+            collection.insert_one(post)
+        else:
+            pass    
 #
 #Error
 @client.event
@@ -80,7 +96,7 @@ async def on_command_error(ctx, error):
             await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, \n**`ERROR:`** {error}', color=COLOR_ERROR))
             raise error
 #
-
+'''
 #Role auto
 @client.event
 async def on_member_join( member ):
@@ -92,7 +108,13 @@ async def on_member_join( member ):
 
 	#role = discord.utils.get( member.guild.roles, id = 751468342916677694 )
 
-	await member.add_roles( role )  
+	await member.add_roles( role )
+'''
+@client.event       
+async def on_member_join( member ):  
+    role = discord.utils.get( member.guild.roles, id = 761927608442552320 )
+    await member.add_roles( role ) 
+
 #
 #cogs
 @client.command()
@@ -220,11 +242,60 @@ async def настройки(ctx):
         description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку')
     embed2 = discord.Embed(title = 'Жалобы',
         description = 'Настройте команду жалобы. Просто пропишите .канал-жалоб on/off #ваш канал')
+    embed3 = discord.Embed(title = 'Смена префикса',
+        description = 'Смени префикс бота для сервера через команду d.префикс (ваш префикс)')
 
-    embeds = [embed1, embed2]
+    embeds = [embed1, embed2, embed3]
     message = await ctx.send(embed = embed1)
     page = pr(client, message, only = ctx.author, use_more = False, embeds = embeds)
     await page.start()
+
+#prefix
+'''
+@client.event
+async def on_ready():
+    for guild in client.guilds:
+        post = {
+            "guild_id": guild.id,
+            "prefix": "d."
+        }
+        if collection.count_documents({"guild_id": guild.id}) == 0:
+            collection.insert_one(post)
+        else:
+            pass
+'''
+@client.event
+async def on_guild_join(guild):
+    post = {
+        "guild_id": guild.id,
+        "prefix": "d."
+    }
+    
+    collection.insert_one(post)
+ 
+# Когда бота удалят с сервера
+ 
+@client.event
+async def on_guild_remove(guild):
+    collection.delete_one({"guild_id": guild.id})
+ 
+# Смена префикса
+ 
+@client.command(aliases=['префикс', 'prefix'])
+async def _prefix(ctx, arg: str = None):
+    if arg is None:
+        emb = discord.Embed(title = "✅ | Изменение префикса", description = "Введите префикс, на какой хотите поменять?", colour = discord.Color.red())
+        emb.add_field(name = "Пример использования комманды", value = f"{ctx.prefix}prefix <ваш префикс>")
+        await ctx.send(embed = emb)
+    elif len(str(arg)) > 5:
+        emb = discord.Embed(title = "✅ | Изменение префикса", description = "Введите префикс не больше 5-ти символов", colour = discord.Color.red())
+        emb.add_field(name = "Пример использования комманды", value = f"{ctx.prefix}prefix <ваш префикс>")
+        await ctx.send(embed = emb)
+    else:
+        collection.update_one({"guild_id": ctx.guild.id}, {"$set": {"prefix": arg}})
+        
+        emb = discord.Embed(title = "✅ | Изменение префикса", description = f"Префикс сервера был обновлён на: {arg}", colour = discord.Color.green())
+        await ctx.send(embed = emb)
 
 client.run(os.environ["BOT_TOKEN"])   
 

@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 
-#from module.catdivamodule import reportDB
 from pymongo import MongoClient
 
 cluster = MongoClient("mongodb+srv://senpai:HkDTEJPgO0j51s3q@cluster0.9oqq5.mongodb.net/catdivadb?retryWrites=true&w=majority")
@@ -12,7 +11,7 @@ class reportsetting(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self.cog_name = ["настройки", True]
+        self.cog_name = ["канал-жалоб настройки", True]
 
 
     @commands.command(aliases=['report-channel', 'reports-channel', 'reports_channel', 'канал-жалоб'])
