@@ -282,6 +282,7 @@ async def on_guild_remove(guild):
 # Смена префикса
  
 @client.command(aliases=['префикс', 'prefix'])
+@commands.has_permissions( administrator = True)
 async def _prefix(ctx, arg: str = None):
     if arg is None:
         emb = discord.Embed(title = "✅ | Изменение префикса", description = "Введите префикс, на какой хотите поменять?", colour = discord.Color.red())
