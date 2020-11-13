@@ -36,7 +36,7 @@ class command(commands.Cog):
 
         if not name:
             embed = discord.Embed(
-                description=f"{ctx.author.display_name}, Чтоб узнать список команд пропишите {config.PREFIX}хелп <модуль>\n"
+                description=f"{ctx.author.display_name}, Чтоб узнать список команд пропишите {prefix}хелп <модуль>\n"
                             f"**Доступные модули:** {', '.join(cogs)}")
             await ctx.send(embed=embed)
         else:
