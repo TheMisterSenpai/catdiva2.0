@@ -96,20 +96,6 @@ async def on_command_error(ctx, error):
             await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, \n**`ERROR:`** {error}', color=COLOR_ERROR))
             raise error
 #
-'''
-#Role auto
-@client.event
-async def on_member_join( member ):
-	channel = client.get_channel( 690922367186239498 )#Исправил
-
-	role = discord.utils.get( member.guild.roles, id = 761927608442552320 )
-
-	#role = discord.utils.get( member.guild.roles, id = 751468991075319903 )
-
-	#role = discord.utils.get( member.guild.roles, id = 751468342916677694 )
-
-	await member.add_roles( role )
-'''
 @client.event       
 async def on_member_join( member ):  
     role = discord.utils.get( member.guild.roles, id = 761927608442552320 )
@@ -238,12 +224,14 @@ async def on_message(message): #trouble-free 24/7 event
 #настройки
 @client.command()
 async def настройки(ctx):
+    prefix = collection.find_one({"guild_id": ctx.guild.id})["prefix"]
+
     embed1 = discord.Embed(title = 'Настройки сервера',
         description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку')
     embed2 = discord.Embed(title = 'Жалобы',
-        description = 'Настройте команду жалобы. Просто пропишите .канал-жалоб on/off #ваш канал')
+        description = f'Настройте команду жалобы. Просто пропишите {prefix}.канал-жалоб on/off #ваш канал')
     embed3 = discord.Embed(title = 'Смена префикса',
-        description = 'Смени префикс бота для сервера через команду d.префикс (ваш префикс)')
+        description = f'Смени префикс бота для сервера через команду {prefix}префикс (ваш префикс)')
 
     embeds = [embed1, embed2, embed3]
     message = await ctx.send(embed = embed1)
@@ -251,19 +239,6 @@ async def настройки(ctx):
     await page.start()
 
 #prefix
-'''
-@client.event
-async def on_ready():
-    for guild in client.guilds:
-        post = {
-            "guild_id": guild.id,
-            "prefix": "d."
-        }
-        if collection.count_documents({"guild_id": guild.id}) == 0:
-            collection.insert_one(post)
-        else:
-            pass
-'''
 @client.event
 async def on_guild_join(guild):
     post = {
