@@ -62,7 +62,7 @@ async def on_ready():
         if collection.count_documents({"guild_id": guild.id}) == 0:
             collection.insert_one(post)
         else:
-            pass    
+            pass              
 #
 #Error
 @client.event
@@ -229,7 +229,7 @@ async def настройки(ctx):
     embed1 = discord.Embed(title = 'Настройки сервера',
         description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку')
     embed2 = discord.Embed(title = 'Жалобы',
-        description = f'Настройте команду жалобы. Просто пропишите {prefix}.канал-жалоб on/off #ваш канал')
+        description = f'Настройте команду жалобы. Просто пропишите {prefix}канал-жалоб on/off #ваш канал')
     embed3 = discord.Embed(title = 'Смена префикса',
         description = f'Смени префикс бота для сервера через команду {prefix}префикс (ваш префикс)')
 
@@ -246,8 +246,8 @@ async def on_guild_join(guild):
         "prefix": "d."
     }
     
-    collection.insert_one(post)
- 
+    collection.insert_one(post)  
+
 # Когда бота удалят с сервера
  
 @client.event

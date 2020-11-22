@@ -91,13 +91,15 @@ class command(commands.Cog):
         copy_icon = config.COPYRIGHT_ICON
 
         emb = discord.Embed(color= COLOR_GOOD, title=f'Вот все мои команды {ctx.author}!', description=f'''
-Чтоб увидеть использования команд просто пропиши {prefix}хелп [модуль]
+Чтобы увидеть использования команд просто пропиши {prefix}хелп [модуль]
 
 **администрация**
-{prefix}бан, {prefix}разбан, {prefix}кик, {prefix}очистить, {prefix}голосование, {prefix}жалоба
+{prefix}бан, {prefix}разбан, {prefix}кик, 
+{prefix}очистить, {prefix}голосование, {prefix}жалоба
 
 **интересные**
-{prefix}вики, {prefix}хент, {prefix}юзеринфо, {prefix}личныесообщения, {prefix}номеринфо, {prefix}ачивка
+{prefix}вики, {prefix}хент, {prefix}юзеринфо, 
+{prefix}личныесообщения, {prefix}номеринфо, {prefix}ачивка
 
 **игры**
 {prefix}монетка, {prefix}кнб, {prefix}сапер, {prefix}флаги
@@ -109,7 +111,8 @@ class command(commands.Cog):
 {prefix}обнять
 
 **музыка**
-{prefix}играть, {prefix}очередь, {prefix}пауза, {prefix}громкость, {prefix}музыка? и др :D
+{prefix}играть, {prefix}очередь, {prefix}пауза, 
+{prefix}громкость, {prefix}музыка? и др :D
 
 
 ''')
