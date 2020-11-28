@@ -198,9 +198,9 @@ class MusicPlayer(commands.Cog):
         if data['queue']:
             await self.playlist(data,msg)
             #NOTE: needs to be embeded to make it better output
-            return await msg.send(f"Added playlist {data['title']} to queue")
+            return await msg.send(f"Добавлена музыка {data['title']} в очередь")
         self.player[msg.guild.id]['queue'].append({'title':title,'author':msg})
-        return await msg.send(f"**{title} added to queue**".title())
+        return await msg.send(f"**{title} добавлена в очередь**".title())
 
 
 
@@ -285,9 +285,9 @@ class MusicPlayer(commands.Cog):
         download=download1[0]
         data=download1[1]
         self.player[msg.guild.id]['name']=audio_name
-        emb=discord.Embed(colour=self.random_color, title='Now Playing',description=download.title,url=download.url)
+        emb=discord.Embed(colour=self.random_color, title='Сейчас играет',description=download.title,url=download.url)
         emb.set_thumbnail(url=download.thumbnail)
-        emb.set_footer(text=f'Requested by {msg.author.display_name}',icon_url=msg.author.avatar_url)
+        emb.set_footer(text=f'Запрошено {msg.author.display_name}',icon_url=msg.author.avatar_url)
         loop=asyncio.get_event_loop()
 
 
@@ -344,7 +344,7 @@ class MusicPlayer(commands.Cog):
     async def before_play(self,msg):
     
         if msg.author.voice is None:
-            return await msg.send('**Please join a voice channel to play music**'.title())
+            return await msg.send('**Пожалуйста, присоединитесь к голосовому чату чтобы включить музыку**'.title())
 
         if msg.voice_client is None: 
             return await msg.author.voice.channel.connect()
@@ -359,7 +359,7 @@ class MusicPlayer(commands.Cog):
             
             if self.player[msg.guild.id]['queue']:
                 #NOTE: user must join same voice channel if queue exist
-                return await msg.send("Please join the same voice channel as the bot to add song to queue")
+                return await msg.send("Пожалуйста, зайдите в тот же голосовой чат, что и бот, чтобы добавить музыку в очередь")
             
     @commands.has_permissions(manage_channels=True)
     @commands.command(
@@ -377,8 +377,8 @@ class MusicPlayer(commands.Cog):
                 self.player[msg.guild.id]['repeat']=True
                 return await msg.message.add_reaction(emoji='✅')
 
-            return await msg.send("No audio currently playing")
-        return await msg.send("Bot not in voice channel or playing music")
+            return await msg.send("Сейчас ничего не играет")
+        return await msg.send("Бот не в голосовом чате или не проигрывает музыку")
 
 
     @commands.has_permissions(manage_channels=True)
@@ -389,13 +389,13 @@ class MusicPlayer(commands.Cog):
     	)
     async def reset(self,msg):
         if msg.voice_client is None:
-            return await msg.send(f"**{msg.author.display_name}, there is no audio currently playing from the bot.**")
+            return await msg.send(f"**{msg.author.display_name}, в данный момент бот не проигрывает никакую музыку.**")
 
         if msg.author.voice is None or msg.author.voice.channel != msg.voice_client.channel:
-            return await msg.send(f"**{msg.author.display_name}, you must be in the same voice channel as the bot.**")
+            return await msg.send(f"**{msg.author.display_name}, вы должны быть в том же голосовом канале что и бот.**")
 
         if self.player[msg.guild.id]['queue'] and msg.voice_client.is_playing() is False:
-            return await msg.send("**No audio currently playing or songs in queue**".title(),delete_after=25)
+            return await msg.send("**Никакая музыка сейчас не играет или нет музыки в очереди**".title(),delete_after=25)
 
         self.player[msg.guild.id]['reset']=True
         msg.voice_client.stop()
@@ -411,15 +411,15 @@ class MusicPlayer(commands.Cog):
     	)
     async def skip(self,msg):
         if msg.voice_client is None:
-            return await msg.send("**No music currently playing**".title(),delete_after=60)
+            return await msg.send("**Никакая музыка сейчас не играет**".title(),delete_after=60)
 
        
         if msg.author.voice is None or msg.author.voice.channel != msg.voice_client.channel:
-            return await msg.send("Please join the same voice channel as the bot")
+            return await msg.send("Пожалуйста, зайдите в тот же голосовой канал то и бот")
         
         
         if self.player[msg.guild.id]['queue'] and msg.voice_client.is_playing() is False:
-            return await msg.send("**No songs in queue to skip**".title(),delete_after=60)
+            return await msg.send("**Нечего пропускать потому что в очереди нет музыки**".title(),delete_after=60)
 
 
         self.player[msg.guild.id]['repeat']=False
@@ -437,10 +437,10 @@ class MusicPlayer(commands.Cog):
     	)
     async def stop(self,msg):
         if msg.voice_client is None:
-            return await msg.send("Bot is not connect to a voice channel")
+            return await msg.send("Бот не подключён к голосовому каналу")
 
         if msg.author.voice is None:
-            return await msg.send("You must be in the same voice channel as the bot")
+            return await msg.send("Вы должны быть в том же голосовом чате что и бот")
 
         if msg.author.voice is not None and msg.voice_client is not None:
             if  msg.voice_client.is_playing() is True or self.player[msg.guild.id]['queue']:
@@ -449,7 +449,7 @@ class MusicPlayer(commands.Cog):
                 msg.voice_client.stop()
                 return await msg.message.add_reaction(emoji='✅')
 
-            return await msg.send(f"**{msg.author.display_name}, there is no audio currently playing or songs in queue**")
+            return await msg.send(f"**{msg.author.display_name}, Никакая музыка сейчас не играет или нет музыки в очереди**")
 
 
     @commands.has_permissions(manage_channels=True)
@@ -468,7 +468,7 @@ class MusicPlayer(commands.Cog):
             return await msg.voice_client.disconnect(), await msg.message.add_reaction(emoji='✅')
         
         if msg.author.voice is None:
-            return await msg.send("You must be in the same voice channel as bot to disconnect it via command")
+            return await msg.send("Вы должны быть в том же голосовом канале что и бот для отключения его же через команду")
 
 
 
@@ -481,7 +481,7 @@ class MusicPlayer(commands.Cog):
     async def pause(self,msg):
         if msg.author.voice is not None and msg.voice_client is not None:
             if msg.voice_client.is_paused() is True:
-                return await msg.send("Song is already paused")
+                return await msg.send("Музыка уже на паузе")
 
             if msg.voice_client.is_paused() is False:
                 msg.voice_client.pause()
@@ -499,7 +499,7 @@ class MusicPlayer(commands.Cog):
     async def resume(self,msg):
         if msg.author.voice is not None and msg.voice_client is not None:
             if msg.voice_client.is_paused() is False:
-                return await msg.send("Song is already playing")
+                return await msg.send("Музыка уже играет")
 
             if msg.voice_client.is_paused() is True:
                 msg.voice_client.resume()
@@ -516,13 +516,13 @@ class MusicPlayer(commands.Cog):
         if msg.voice_client is not None:
             if msg.guild.id in self.player:
                 if self.player[msg.guild.id]['queue']:
-                    emb=discord.Embed(colour=self.random_color, title='queue')
-                    emb.set_footer(text=f'Command used by {msg.author.name}',icon_url=msg.author.avatar_url)
+                    emb=discord.Embed(colour=self.random_color, title='очередь')
+                    emb.set_footer(text=f'Команда, использованная {msg.author.name}',icon_url=msg.author.avatar_url)
                     for i in self.player[msg.guild.id]['queue']:
                         emb.add_field(name=f"**{i['author'].author.name}**",value=i['title'],inline=False)
                     return await msg.send(embed=emb,delete_after=120)
 
-        return await msg.send("No songs in queue")
+        return await msg.send("В очереди нет музыки")
 
 
 
@@ -533,12 +533,12 @@ class MusicPlayer(commands.Cog):
     	)
     async def song_info(self,msg):
         if msg.voice_client is not None and msg.voice_client.is_playing() is True:
-            emb=discord.Embed(colour=self.random_color, title='Currently Playing',description=self.player[msg.guild.id]['player'].title)
+            emb=discord.Embed(colour=self.random_color, title='Сейчас играет',description=self.player[msg.guild.id]['player'].title)
             emb.set_footer(text=f"{self.player[msg.guild.id]['author'].author.name}",icon_url=msg.author.avatar_url)
             emb.set_thumbnail(url=self.player[msg.guild.id]['player'].thumbnail)
             return await msg.send(embed=emb,delete_after=120)
         
-        return await msg.send(f"**No songs currently playing**".title(),delete_after=30)
+        return await msg.send(f"**Сейчас не играет никакая музыка**".title(),delete_after=30)
 
 
 
@@ -549,7 +549,7 @@ class MusicPlayer(commands.Cog):
     	)
     async def join(self, msg, *, channel: discord.VoiceChannel=None):
         if msg.voice_client is not None:
-            return await msg.send(f"Bot is already in a voice channel\nDid you mean to use {msg.prefix}moveTo")
+            return await msg.send(f"Бот уже в голосовом канале\nВы хотели использовать {msg.prefix}перейти в")
 
         if msg.voice_client is None:
             if channel is None:
@@ -565,7 +565,7 @@ class MusicPlayer(commands.Cog):
     @join.before_invoke
     async def before_join(self,msg):
         if msg.author.voice is None:
-            return await msg.send("You are not in a voice channel")
+            return await msg.send("Вы не в голосовом канале")
 
 
 
@@ -574,8 +574,8 @@ class MusicPlayer(commands.Cog):
         if isinstance(error,commands.BadArgument):
             return msg.send(error)
 
-        if error.args[0] == 'Command raised an exception: Exception: playing':
-            return await msg.send("**Please join the same voice channel as the bot to add song to queue**".title())
+        if error.args[0] == 'Команда вызвала исключение: исключение: играет':
+            return await msg.send("**Пожалуйста, зайдите в тот же голосовой чат что и бот для того, что бы добавить музыку в очередь**".title())
 
 
 
@@ -600,14 +600,14 @@ class MusicPlayer(commands.Cog):
                     return await msg.message.add_reaction(emoji='✅')
                     
         
-        return await msg.send("**Please join the same voice channel as the bot to use the command**".title(),delete_after=30)
+        return await msg.send("**Пожалуйста, зайдите в тот же голосовой канал, что и бот, что бы использовать команду**".title(),delete_after=30)
     
 
     
     @volume.error
     async def volume_error(self,msg,error):
         if isinstance(error,commands.MissingPermissions):
-            return await msg.send("Manage channels or admin perms required to change volume",delete_after=30)   
+            return await msg.send("Для изменения громкости необходимы права администратора",delete_after=30)   
 
 
 def setup(bot):
