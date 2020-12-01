@@ -9,8 +9,6 @@ import nekos
 import datetime
 import random 
 from datetime import timedelta
-from PIL import Image,ImageFilter,ImageDraw,ImageFont
-
 
 class fun(commands.Cog):
     def __init__(self, client):
