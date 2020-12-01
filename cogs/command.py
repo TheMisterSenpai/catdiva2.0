@@ -108,7 +108,7 @@ class command(commands.Cog):
 {prefix}сервер, {prefix}yt, {prefix}войстайм, {prefix}майн, {prefix}инфо
 
 **любовь**
-{prefix}обнять
+{prefix}обнять, {prefix}поцеловать
 
 **музыка**
 {prefix}играть, {prefix}очередь, {prefix}пауза, 
