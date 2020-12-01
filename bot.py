@@ -21,6 +21,8 @@ collection = cluster.catdivadb.prefixsett
 STATUS = config.STATUS
 STATUSURL = config.STATUSURL
 COLOR_ERROR = config.COLOR_ERROR
+COPYRIGHT_TEXT_ERROR = config.COPYRIGHT_TEXT_ERROR
+COPYRIGHT_ICON = config.COPYRIGHT_ICON
 
 def get_prefix_gg(client, message):
     prefix_server = collection.find_one({"guild_id": message.guild.id})["prefix"]
@@ -93,7 +95,7 @@ async def on_command_error(ctx, error):
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Команда: {ctx.message.content}")
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Сервер:  {ctx.message.guild}")
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Ошибка:  {error}")
-            await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, \n**`ERROR:`** {error}', color=COLOR_ERROR))
+            await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, \n**Ошибка:`** {error}', color=COLOR_ERROR, text=COPYRIGHT_TEXT_ERROR, icon_url=COPYRIGHT_ICON))
             raise error
 #
 @client.event       
@@ -232,8 +234,10 @@ async def настройки(ctx):
         description = f'Настройте команду жалобы. Просто пропишите {prefix}канал-жалоб on/off #ваш канал')
     embed3 = discord.Embed(title = 'Смена префикса',
         description = f'Смени префикс бота для сервера через команду {prefix}префикс (ваш префикс)')
+    embed4 = discord.Embed(title = 'Оповещение о стримах на twitch',
+        description = f'**Пока не доступно**')
 
-    embeds = [embed1, embed2, embed3]
+    embeds = [embed1, embed2, embed3, embed4]
     message = await ctx.send(embed = embed1)
     page = pr(client, message, only = ctx.author, use_more = False, embeds = embeds)
     await page.start()

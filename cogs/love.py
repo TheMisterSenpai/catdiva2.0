@@ -25,7 +25,14 @@ img15 = "https://otakulounge.files.wordpress.com/2019/02/picture1.gif"
 img16 = "https://i.gifer.com/AHb9.gif"
 img17 = "https://media0.giphy.com/media/sUIZWMnfd4Mb6/giphy.gif"
 img18 = "https://dailysmscollection.org/wp-content/uploads/2019/01/anime-hug-gif.gif"
-
+чмок1 = 'https://media.tenor.com/images/b020758888323338c874c549cbca5681/tenor.gif'
+чмок2 = 'https://media.tenor.com/images/0492d81e001f66de4ec215b5d602e422/tenor.gif'
+чмок3 = 'https://media.tenor.com/images/8a35d0f0a27c40d8886740a8b8e15592/tenor.gif'
+чмок4 = 'https://media.tenor.com/images/29b22bb26ecc0943c95b9a1be81d3054/tenor.gif'
+чмок5 = 'https://media.tenor.com/images/fbb2b4d5c673ffcf8ec35e4652084c2a/tenor.gif'
+чмок6 = 'https://media.tenor.com/images/02026b4b33db655035803421fdf7d41c/tenor.gif'
+чмок7 = 'https://media.tenor.com/images/ac05c51cc60ae6f73f746fc37c2f792f/tenor.gif'
+чмок8 = 'https://media.tenor.com/images/d4f4a7a19c6560450d54561c6ebe55f0/tenor.gif'
 #
 
 class love(commands.Cog):
@@ -44,6 +51,17 @@ class love(commands.Cog):
         emb.set_image(url = random.choice([kek,lol,rfr,tgt,yhy,uju,img5,img6,img7,img8,img9,img10,img11,img12,img13,img14,img15,img16,img17,img18])) 
         emb.set_footer(text=f'Вызвано: {ctx.message.author}',icon_url=ctx.message.author.avatar_url) 
         await ctx.send(embed=emb)
+
+    @commands.command(
+        aliases = ['поцеловать'],
+        description = 'поцеловать любого на сервере',
+        usage = 'поцеловать <@Ник>'
+    )
+    async def чмок(self, ctx, member: discord.Member):
+        emb = discord.Embed(title = f'**Целовашки!**',description = f'{ctx.author.mention} поцеловал(а) {member.mention}', color=0xFF0000)
+        emb.set_image(url = random.choice([чмок1, чмок2, чмок3, чмок4, чмок5, чмок6, чмок7, чмок8])) 
+        emb.set_footer(text=f'Вызвано: {ctx.message.author}',icon_url=ctx.message.author.avatar_url) 
+        await ctx.send(embed=emb)    
 
 def setup(client):
     client.add_cog(love(client))

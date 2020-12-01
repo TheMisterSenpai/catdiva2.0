@@ -91,7 +91,7 @@ class command(commands.Cog):
         copy_icon = config.COPYRIGHT_ICON
 
         emb = discord.Embed(color= COLOR_GOOD, title=f'Вот все мои команды {ctx.author}!', description=f'''
-Чтобы увидеть использования команд просто пропиши {prefix}хелп [модуль]
+❄Чтобы увидеть использования команд просто пропиши {prefix}хелп [модуль]❄
 
 **администрация**
 {prefix}бан, {prefix}разбан, {prefix}кик, 

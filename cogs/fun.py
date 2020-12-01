@@ -9,6 +9,7 @@ import nekos
 import datetime
 import random 
 from datetime import timedelta
+from PIL import Image,ImageFilter,ImageDraw,ImageFont
 
 
 class fun(commands.Cog):
@@ -131,6 +132,6 @@ class fun(commands.Cog):
             embed = discord.Embed(title='Получено Достижение!', color=discord.Color.green())
             embed.set_image(url=link)
             await ctx.send(embed=embed)
-        
+            
 def setup(client):
     client.add_cog(fun(client))     

@@ -56,6 +56,19 @@ class achievements(commands.Cog):
             await ctx.guild.create_role(name = '🎃', permissions = discord.Permissions(), color = discord.Color.blurple())    
         await ctx.author.add_roles(owner_role, reason = None, atomic = True)       
     '''
+
+    @commands.command(
+        aliases = ['новыйгод']
+    )
+    async def newyear(self, ctx):
+        await ctx.send(f'{ctx.author} получил достижение **❄Новый год 2021❄**')
+        owner_role = discord.utils.get(ctx.message.guild.roles, name = '❄Новый год 2021❄')
+        if owner_role in ctx.author.roles:
+            await ctx.send(embed = discord.Embed(title = 'вы уже получили достижение **❄Новый год 2021❄**'))
+            return
+        if owner_role is None:
+            await ctx.guild.create_role(name = '❄Новый год 2021❄', permissions = discord.Permissions(), color = discord.Color.blurple())    
+        await ctx.author.add_roles(owner_role, reason = None, atomic = True) 
     
 def setup(client):
-    client.add_cog(achievements(client))
+    client.add_cog(achievements(client)) 

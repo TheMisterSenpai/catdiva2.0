@@ -117,7 +117,7 @@ class info(commands.Cog):
         minutes = seconds // 60
         seconds %= 60
  
-        await ctx.send(embed = discord.Embed(title = "Voice time", description = f"In Voice: {days} day(s) {hours} hour(s) {minutes} minute(s) {seconds} second(s)", color = 190090))
+        await ctx.send(embed = discord.Embed(title = "Голосовое время", description = f"В голосовом чате: {days} дней {hours} часы {minutes} минуты {seconds} секунды", color = 190090))
         
     @commands.command(
         aliases=["майн", "мс", "minecraft", "mine"],
