@@ -10,6 +10,7 @@
   - cogs - коги.
   - module - модули для бота
   - docs - документация бота
+  - site - сайт для бота 
 
 Пригласить бота к себе на сервер: https://discord.com/api/oauth2/authorize?client_id=737324393117778020&permissions=8&scope=bot
 

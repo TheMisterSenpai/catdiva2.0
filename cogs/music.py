@@ -9,7 +9,9 @@ import string
 import os
 
 from googleapiclient.discovery import build
+from module.catdivamodule import api
 
+YOUTUBE_API = api.YOUTUBE_API
 
 ytdl_format_options = {
     'audioquality':8,
@@ -64,7 +66,7 @@ class Downloader(discord.PCMVolumeTransformer):
         """
         Download video directly with link
         """
-        API_KEY='AIzaSyAhpT8lbADSIRRLQdq0EyaR5VRbTbgjESM'
+        API_KEY = YOUTUBE_API
         youtube=build('youtube','v3',developerKey=API_KEY)
         data=youtube.search().list(part='snippet',q=url).execute()
         song_url=data

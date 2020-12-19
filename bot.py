@@ -6,6 +6,7 @@ from discord.ext import tasks
 
 import json
 from module.catdivamodule import config
+from module.catdivamodule import api
 import nest_asyncio
 from pymongo import MongoClient
 
@@ -15,7 +16,9 @@ from colorama import init
 
 from module.cybernetic.paginator import Paginator as pr
 
-cluster = MongoClient("mongodb+srv://senpai:HkDTEJPgO0j51s3q@cluster0.9oqq5.mongodb.net/catdivadb?retryWrites=true&w=majority")
+MONGO = api.MONGO
+
+cluster = MongoClient(MONGO)
 collection = cluster.catdivadb.prefixsett
 
 STATUS = config.STATUS
@@ -276,6 +279,7 @@ async def _prefix(ctx, arg: str = None):
         
         emb = discord.Embed(title = "✅ | Изменение префикса", description = f"Префикс сервера был обновлён на: {arg}", colour = discord.Color.green())
         await ctx.send(embed = emb)
+
 
 client.run(os.environ["BOT_TOKEN"])   
 
