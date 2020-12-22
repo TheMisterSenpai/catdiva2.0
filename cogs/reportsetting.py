@@ -2,9 +2,12 @@ import discord
 from discord.ext import commands
 from discord.utils import get
 
+from module.catdivamodule import api
 from pymongo import MongoClient
 
-cluster = MongoClient("mongodb+srv://senpai:HkDTEJPgO0j51s3q@cluster0.9oqq5.mongodb.net/catdivadb?retryWrites=true&w=majority")
+MONGO = api.MONGO
+
+cluster = MongoClient(MONGO)
 collection = cluster.catdivadb.settingreport
 
 class reportsetting(commands.Cog):

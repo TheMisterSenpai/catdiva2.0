@@ -14,7 +14,7 @@ class dev(commands.Cog):
 	)
 	async def path(self, ctx):
 		await ctx.send('''
-			Маленький патч, который исправляет неисправность музыки!
+			Патч исправляющий ошибку с базой данных!
 			''')
 
 	@commands.command(
@@ -22,11 +22,11 @@ class dev(commands.Cog):
 	)		
 	async def status(self, ctx):
 		await ctx.send('''
-			**Версия бота: 2.7.31**
+			**Версия бота: 2.7.32**
 		**Состояние бота:** :green_square:
 		**Состояние хостинга:** :orange_square:
 		**В разработке:** twitch.py :sleeping:  
-		**Исправленно:** music.py :partying_face: 
+		**Исправленно:** api.py :partying_face: 
 		**Список изменений:** d.патч
 
 		Примечание: над ботом работает один разработчик и тестер, так что если вы нашли ошибку или баг, отправьте d.bag <описание ошибки>
