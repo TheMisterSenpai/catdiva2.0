@@ -109,7 +109,7 @@ class command(commands.Cog):
 {prefix}монетка, {prefix}кнб, {prefix}сапер, {prefix}флаги
 
 **инфо**
-{prefix}сервер, {prefix}yt, {prefix}войстайм, {prefix}майн, {prefix}инфо
+{prefix}yt, {prefix}войстайм, {prefix}майн, {prefix}инфо
 
 **любовь**
 {prefix}обнять, {prefix}поцеловать
@@ -118,6 +118,9 @@ class command(commands.Cog):
 {prefix}играть, {prefix}очередь, {prefix}пауза, 
 {prefix}громкость, {prefix}музыка? и др :D
 
+**Специальные**
+{prefix}bag, {prefix}ping, {prefix}настройки,
+{prefix}path
 
 ''')
         emb.set_footer(text=copy_text, icon_url=copy_icon)

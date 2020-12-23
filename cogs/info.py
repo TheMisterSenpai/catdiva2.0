@@ -22,46 +22,6 @@ class info(commands.Cog):
         self.cog_name = ["информация"]
 
     @commands.command(
-        aliases=['сервер', 'серверинфо', 'server'],
-        description="Информация о сервере",
-        usage='server'
-    )
-    async def _server(self, ctx):    
-
-        members = ctx.guild.members
-        bots = len([m for m in members if m.bot])
-        users = len(members) - bots
-        online = len(list(filter(lambda x: x.status == discord.Status.online, members)))
-        offline = len(list(filter(lambda x: x.status == discord.Status.offline, members)))
-        idle = len(list(filter(lambda x: x.status == discord.Status.idle, members)))
-        dnd = len(list(filter(lambda x: x.status == discord.Status.dnd, members)))
-        allvoice = len(ctx.guild.voice_channels)
-        alltext = len(ctx.guild.text_channels)
-        allroles = len(ctx.guild.roles)
-
-        embed = discord.Embed(title=f"{ctx.guild.name}", color=config.COLOR_GOOD, timestamp=ctx.message.created_at)
-        embed.set_thumbnail(url=ctx.guild.icon_url)
-
-        embed.add_field(name=f"Пользователей", value=f"Участников: **{users}**\n"
-                                                     f"Ботов: **{bots}**\n"
-                                                     f"Онлайн: **{online}**\n"
-                                                     f"Отошёл: **{idle}**\n"
-                                                     f"Не Беспокоить: **{dnd}**\n"
-                                                     f"Оффлайн: **{offline}**")
-
-        embed.add_field(name=f"Каналов", value=f"Голосовые: **{allvoice}**\n"
-                                               f"Текстовые: **{alltext}**\n")
-
-        embed.add_field(name=f"Количество Ролей", value=f"{allroles}")
-        embed.add_field(name=f"Создатель сервера", value=f"{ctx.guild.owner}")
-        embed.add_field(name=f"Регион сервера", value=f"{ctx.guild.region}")
-        embed.add_field(name=f"Дата создания сервера", value=f"{ctx.guild.created_at.strftime('%b %#d %Y')}")
-
-        embed.set_footer(text=config.COPYRIGHT_TEXT, icon_url=config.COPYRIGHT_ICON)
-        await ctx.send(embed=embed)
-  
-
-    @commands.command(
         aliases=["yt"],
         description="Поиск на Ютуб.",
         usage="yt <Название>")
