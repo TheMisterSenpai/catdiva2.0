@@ -72,9 +72,7 @@ async def on_ready():
 #Error
 @client.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
-        return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Команда не найдена!', color=COLOR_ERROR))
-    elif isinstance(error, commands.MissingPermissions):
+    if isinstance(error, commands.MissingPermissions):
         return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, У бота недостаточно прав!\n'
                                                               f'❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций.', color=color))
     elif isinstance(error, commands.MissingPermissions) or isinstance(error, discord.Forbidden):
