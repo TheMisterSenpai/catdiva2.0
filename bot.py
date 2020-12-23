@@ -96,7 +96,6 @@ async def on_command_error(ctx, error):
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Команда: {ctx.message.content}")
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Сервер:  {ctx.message.guild}")
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Ошибка:  {error}")
-            await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, \n**Ошибка:`** {error}', color=COLOR_ERROR, text=COPYRIGHT_TEXT_ERROR, icon_url=COPYRIGHT_ICON))
             raise error
 #
 @client.event       
