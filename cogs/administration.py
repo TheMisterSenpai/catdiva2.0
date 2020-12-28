@@ -173,7 +173,7 @@ class administration(commands.Cog):
                     embed2 = discord.Embed(title="Новая Жалоба!", description=f"**Отправитель:** {ctx.author.mention}\n**Нарушитель:** {member.mention}\n**Причина:** {reason}", color=discord.Color.green())
                     msg = await channel.send(embed=embed2)
                     await msg.add_reaction("✅")
-                    await msg.add_reaction("❌")                
+                    await msg.add_reaction("❌")                                        
 
 def setup(client):
     client.add_cog(administration(client)) 

@@ -76,13 +76,12 @@ class command(commands.Cog):
                 url='https://cdn.discordapp.com/attachments/695787093242282055/707320024473534485/what.png')
 
             await ctx.send(embed=embed)
-        '''
+        
         else:
             embed = discord.Embed(
-                description=f"{ctx.author.display_name}, Модуль не найден!\nЧтоб узнать список команд пропишите {prefix}хелп <модуль>\n"
-                            f"**Доступные модули:** {', '.join(cogs)}")
+                description=f"{ctx.author.display_name}, Модуль не найден!\nЧтоб узнать список команд пропишите {prefix}команды\n")
             await ctx.send(embed=embed)
-        '''
+        
     
     @commands.command(
         aliases=["команды"],
@@ -99,7 +98,8 @@ class command(commands.Cog):
 
 **администрация**
 {prefix}бан, {prefix}разбан, {prefix}кик, 
-{prefix}очистить, {prefix}голосование, {prefix}жалоба
+{prefix}очистить, {prefix}голосование, {prefix}жалоба,
+{prefix}мут
 
 **интересные**
 {prefix}вики, {prefix}хент, {prefix}юзеринфо, 

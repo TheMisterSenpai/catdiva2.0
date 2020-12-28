@@ -14,7 +14,7 @@ class dev(commands.Cog):
 	)
 	async def path(self, ctx):
 		await ctx.send('''
-			Патч исправляющий ошибку с базой данных!
+			Фикс разных маленьких багов
 			''')
 
 	@commands.command(
@@ -22,11 +22,11 @@ class dev(commands.Cog):
 	)		
 	async def status(self, ctx):
 		await ctx.send('''
-			**Версия бота: 2.7.32**
+			**Версия бота: 2.7.33**
 		**Состояние бота:** :green_square:
 		**Состояние хостинга:** :orange_square:
 		**В разработке:** twitch.py :sleeping:  
-		**Исправленно:** api.py :partying_face: 
+		**Исправленно:** ничего) :partying_face: 
 
 		Примечание: над ботом работает один разработчик и тестер, так что если вы нашли ошибку или баг, отправьте d.bag <описание ошибки>
 			''')

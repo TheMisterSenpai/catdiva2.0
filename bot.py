@@ -73,19 +73,19 @@ async def on_ready():
 @client.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, У бота недостаточно прав!\n'
+        return await ctx.send(embed=discord.Embed(description=f'Мурр❗️ {ctx.author.name}, У бота недостаточно прав!\n'
                                                               f'❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций.', color=color))
     elif isinstance(error, commands.MissingPermissions) or isinstance(error, discord.Forbidden):
         return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, У вас недостаточно прав!', color=COLOR_ERROR))
     elif isinstance(error, commands.BadArgument):
         if "Member" in str(error):
-            return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Пользователь не найден!', color=COLOR_ERROR))
+            return await ctx.send(embed=discord.Embed(description=f'Мур❗️ {ctx.author.name}, Пользователь не найден!', color=COLOR_ERROR))
         if "Guild" in str(error):
             return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Сервер не найден!', color=COLOR_ERROR))
         else:
-            return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Введён неверный аргумент!', color=COLOR_ERROR))
+            return await ctx.send(embed=discord.Embed(description=f'Мур❗️ {ctx.author.name}, Введён неверный аргумент!', color=COLOR_ERROR))
     elif isinstance(error, commands.MissingRequiredArgument):
-        return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Пропущен аргумент с названием {error.param.name}!', color=COLOR_ERROR))
+        return await ctx.send(embed=discord.Embed(description=f'Мур❗️ {ctx.author.name}, Пропущен аргумент с названием {error.param.name}!', color=COLOR_ERROR))
     elif isinstance(error, commands.CommandOnCooldown):
         await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Воу, Воу, Не надо так быстро прописывать команды.\n'
                                                        f'❗️ Подожди {error.retry_after:.2f} секунд и сможешь написать команду ещё раз.'))
@@ -96,7 +96,6 @@ async def on_command_error(ctx, error):
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Команда: {ctx.message.content}")
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Сервер:  {ctx.message.guild}")
             print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Ошибка:  {error}")
-            raise error
 #
 @client.event       
 async def on_member_join( member ):  
@@ -282,5 +281,5 @@ client.run(os.environ["BOT_TOKEN"])
 
 '''
 # Это для теста
-client.run('1zQ0NTcwMTYxMjAxNDE0MTU2.XzlI_w.UYJ_9BnnTjo9IFDr6_eylyjesmg') 
-'''
+client.run('1zQ0NTcwMTYxMjAxNDE0MTU2.XzlI_w.UYJ_9BnnTjo9IFDr6_eylyjesmg')
+''' 
