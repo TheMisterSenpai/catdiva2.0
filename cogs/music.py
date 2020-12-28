@@ -494,9 +494,9 @@ class MusicPlayer(commands.Cog):
 
     @commands.has_permissions(manage_channels=True)
     @commands.command(
-    	aliases=['возобновить', 're'],
+    	aliases=['продолжить', 're'],
         description='возобновить музыку',
-        usage='re'
+        usage='продолжить'
     	)
     async def resume(self,msg):
         if msg.author.voice is not None and msg.voice_client is not None:

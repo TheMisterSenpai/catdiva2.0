@@ -108,7 +108,7 @@ class command(commands.Cog):
 **игры**
 {prefix}монетка, {prefix}кнб, {prefix}сапер, {prefix}флаги
 
-**инфо**
+**информация**
 {prefix}yt, {prefix}войстайм, {prefix}майн, {prefix}инфо
 
 **любовь**
@@ -116,7 +116,9 @@ class command(commands.Cog):
 
 **музыка**
 {prefix}играть, {prefix}очередь, {prefix}пауза, 
-{prefix}громкость, {prefix}музыка? и др :D
+{prefix}громкость, {prefix}музыка?, {prefix}присоед,
+{prefix}перезапустить, {prefix}пропустить, {prefix}выйти,
+{prefix}повторить, {prefix}остановить, {prefix}пропустить
 
 **Специальные**
 {prefix}bag, {prefix}ping, {prefix}настройки,

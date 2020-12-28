@@ -84,11 +84,6 @@ async def on_command_error(ctx, error):
             return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Сервер не найден!', color=COLOR_ERROR))
         else:
             return await ctx.send(embed=discord.Embed(description=f'Мур❗️ {ctx.author.name}, Введён неверный аргумент!', color=COLOR_ERROR))
-    elif isinstance(error, commands.MissingRequiredArgument):
-        return await ctx.send(embed=discord.Embed(description=f'Мур❗️ {ctx.author.name}, Пропущен аргумент с названием {error.param.name}!', color=COLOR_ERROR))
-    elif isinstance(error, commands.CommandOnCooldown):
-        await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Воу, Воу, Не надо так быстро прописывать команды.\n'
-                                                       f'❗️ Подожди {error.retry_after:.2f} секунд и сможешь написать команду ещё раз.'))
     else:
         if "ValueError: invalid literal for int()" in str(error):
             return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Укажите число а не строку!', color=COLOR_ERROR))
@@ -282,4 +277,4 @@ client.run(os.environ["BOT_TOKEN"])
 '''
 # Это для теста
 client.run('1zQ0NTcwMTYxMjAxNDE0MTU2.XzlI_w.UYJ_9BnnTjo9IFDr6_eylyjesmg')
-''' 
+'''

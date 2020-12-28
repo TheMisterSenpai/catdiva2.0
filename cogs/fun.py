@@ -33,6 +33,14 @@ class fun(commands.Cog):
 
         await ctx.send(embed=emb)
 
+    @_wiki.error
+    async def _wiki_error(self, ctx, error):
+        if isinstance( error, commands.errors.MissingRequiredArgument ):
+            await ctx.message.delete()
+            emb = discord.Embed()
+            emb.add_field( name = ':x: Размут:', value = 'Использование команды: **вики** <текст>' )
+            await ctx.send( embed = emb, delete_after=30 )    
+
     @commands.command(
         aliases = ['хент', 'hentai'],
         description='интересные gif',
