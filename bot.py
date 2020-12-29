@@ -74,7 +74,7 @@ async def on_ready():
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
         return await ctx.send(embed=discord.Embed(description=f'Мурр❗️ {ctx.author.name}, У бота недостаточно прав!\n'
-                                                              f'❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций.', color=color))
+                                                              f'❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций.', color=СOLOR_ERROR))
     elif isinstance(error, commands.MissingPermissions) or isinstance(error, discord.Forbidden):
         return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, У вас недостаточно прав!', color=COLOR_ERROR))
     elif isinstance(error, commands.BadArgument):
