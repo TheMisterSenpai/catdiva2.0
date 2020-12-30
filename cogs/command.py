@@ -99,7 +99,7 @@ class command(commands.Cog):
 **администрация**
 {prefix}бан, {prefix}разбан, {prefix}кик, 
 {prefix}очистить, {prefix}голосование, {prefix}жалоба,
-{prefix}мут
+{prefix}мут, {prefix}размут
 
 **интересные**
 {prefix}вики, {prefix}хент, {prefix}юзеринфо, 
@@ -109,7 +109,7 @@ class command(commands.Cog):
 {prefix}монетка, {prefix}кнб, {prefix}сапер, {prefix}флаги
 
 **информация**
-{prefix}yt, {prefix}войстайм, {prefix}майн, {prefix}инфо
+{prefix}войстайм, {prefix}майн, {prefix}инфо
 
 **любовь**
 {prefix}обнять, {prefix}поцеловать

@@ -47,26 +47,25 @@ class administration(commands.Cog):
     @_clean.error
     async def _clear_error( self, ctx, error ):
         if isinstance( error, commands.CommandOnCooldown):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':broom: Очистка:', value = 'Подождите 10 секунд перед повторным использованием!' )
-            await ctx.send( embed = emb, delete_after = 10 ) 
+            await ctx.send( embed = emb ) 
         if isinstance( error, commands.BadArgument ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':broom: Очистка:', value = 'Укажите число!' )
-            await ctx.send( embed = emb, delete_after = 30 )
+            await ctx.send( embed = emb)
         if isinstance( error, commands.errors.MissingRequiredArgument ):
-            await ctx.message.delete()
             emb = discord.Embed()
             emb.add_field( name = ':broom: Очистка:', value = 'Использование команды: `очистить [кол-во сообщений]`' )
-            await ctx.send( embed = emb, delete_after = 30 )
+            await ctx.send( embed = emb )
         if isinstance( error, commands.errors.MissingPermissions ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':broom: Очистка:', value = 'У вас не хватает прав!' )
-            await ctx.send( embed = emb, delete_after = 30 )
- 
+            await ctx.send( embed = emb)
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)
  
     @commands.command(
         aliases=['кик', 'kick'],
@@ -175,27 +174,26 @@ class administration(commands.Cog):
     @_kick.error
     async def _kick_error(self, ctx, error):
         if isinstance( error, commands.CommandOnCooldown):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Кик:', value = 'Подождите 10 секунд перед повторным использованием!' )
-            await ctx.send( embed = emb, delete_after = 10 )
+            await ctx.send( embed = emb)
         if isinstance(error, commands.BadArgument):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Кик:', value = 'Пользователь не найден!', inline = False)
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb )
  
         if isinstance( error, commands.errors.MissingRequiredArgument ):
-            await ctx.message.delete()
             emb = discord.Embed()
             emb.add_field( name = ':x: Кик:', value = 'Использование команды: `кик [пользователь] <причина>`' )
-            await ctx.send( embed = emb, delete_after=30 )
- 
+            await ctx.send( embed = emb)
         if isinstance( error, commands.errors.MissingPermissions ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Кик:', value = 'У вас не хватает прав!' )
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb)
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)    
  
     @commands.command(
         aliases=['бан', 'забанить', 'ban'],
@@ -307,26 +305,25 @@ class administration(commands.Cog):
     @_ban.error
     async def _ban_error( self, ctx, error ):
         if isinstance( error, commands.CommandOnCooldown):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Бан:', value = 'Подождите 10 секунд перед повторным использованием!' )
-            await ctx.send( embed = emb, delete_after = 10 )
+            await ctx.send( embed = emb)
         if isinstance( error, commands.BadArgument ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Бан:', value = 'Вы указали что-то не то!' )
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb)
         if isinstance( error, commands.errors.MissingRequiredArgument ):
-            await ctx.message.delete()
             emb = discord.Embed()
             emb.add_field( name = ':x: Бан:', value = 'Использование команды: `бан [пользователь] <причина>`' )
-            await ctx.send( embed = emb, delete_after=30 )
-        
+            await ctx.send( embed = emb)
         if isinstance( error, commands.errors.MissingPermissions ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Бан:', value = 'У вас не хватает прав!' )
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb)
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)    
     
     @commands.command( 
         aliases=['разбанить', 'анбан', 'unban'],
@@ -349,16 +346,14 @@ class administration(commands.Cog):
     @_unban.error
     async def _unban_error(self, ctx, error):
         if isinstance( error, commands.errors.MissingRequiredArgument ):
-            await ctx.message.delete()
             emb = discord.Embed()
             emb.add_field( name = ':x: Разбан:', value = 'Использование команды: `разбанить [пользователь] <причина>`' )
             await ctx.send( embed = emb, delete_after=30 )
         
         if isinstance( error, commands.errors.MissingPermissions ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = ':x: Разбан:', value = 'У вас не хватает прав!' )
-            await ctx.send( embed = emb, delete_after=30 )      
+            emb.add_field( name = ':x: Разбан:', value = 'У вас не хватает прав! \n❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' )
+            await ctx.send( embed = emb)      
  
     @commands.command(
         aliases=['мут', 'mute'],
@@ -584,25 +579,25 @@ class administration(commands.Cog):
     @_mute.error
     async def _mute_error( self, ctx, error ):
         if isinstance( error, commands.CommandOnCooldown):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Мут:', value = 'Подождите 10 секунд перед повторным использованием!' )
-            await ctx.send( embed = emb, delete_after = 10 )
+            await ctx.send( embed = emb)
         if isinstance( error, commands.BadArgument ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Мут:', value = 'Вы что-то указали не то!' )
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb)
         if isinstance( error, commands.errors.MissingRequiredArgument ):
-            await ctx.message.delete()
             emb = discord.Embed()
             emb.add_field( name = ':x: Мут:', value = 'Использование команды: `мут [пользователь] <время> <причина>`' )
-            await ctx.send( embed = emb, delete_after=30)
+            await ctx.send( embed = emb)
         if isinstance( error, commands.errors.MissingPermissions ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Мут:', value = 'У вас не хватает прав!' )
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb)
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)    
         
     @commands.command(
         aliases=['размут'],
@@ -700,25 +695,25 @@ class administration(commands.Cog):
     @_unmute.error
     async def _unmute_error( self, ctx, error ):
         if isinstance( error, commands.CommandOnCooldown):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Размут:', value = 'Подождите 10 секунд перед повторным использованием!' )
-            await ctx.send( embed = emb, delete_after = 10 )
+            await ctx.send( embed = emb)
         if isinstance( error, commands.BadArgument ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Размут:', value = 'Вы указали что-то не то!' )
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb )
         if isinstance( error, commands.errors.MissingRequiredArgument ):
-            await ctx.message.delete()
             emb = discord.Embed()
             emb.add_field( name = ':x: Размут:', value = 'Использование команды: `размут [пользователь] <причина>`' )
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb)
         if isinstance( error, commands.errors.MissingPermissions ):
-            await ctx.message.delete()
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = ':x: Размут:', value = 'У вас не хватает прав!' )
-            await ctx.send( embed = emb, delete_after=30 )
+            await ctx.send( embed = emb)
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)    
 
     @commands.command(
         aliases=['голосование', 'quickpoll'],
@@ -734,8 +729,15 @@ class administration(commands.Cog):
             embed = discord.Embed(title="Голосование", description=f"{question}\n👍 - Да\n👎 - Нет", color=discord.Color.green())
             bruh = await ctx.send(embed=embed)
             await bruh.add_reaction("👍")
-            await bruh.add_reaction("👎")   
+            await bruh.add_reaction("👎")  
 
+    @poll.error
+    async def poll_error( self, ctx, error ):
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)
+            
     @commands.command(
         aliases=['жалоба', 'send-report'],
         description = 'пожаловаться на человека',
@@ -776,9 +778,14 @@ class administration(commands.Cog):
                     embed2 = discord.Embed(title="Новая Жалоба!", description=f"**Отправитель:** {ctx.author.mention}\n**Нарушитель:** {member.mention}\n**Причина:** {reason}", color=discord.Color.green())
                     msg = await channel.send(embed=embed2)
                     await msg.add_reaction("✅")
-                    await msg.add_reaction("❌")     
+                    await msg.add_reaction("❌")   
 
-                                                       
+    @report.error
+    async def report_error( self, ctx, error ):
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)                                                  
 
 def setup(client):
     client.add_cog(administration(client)) 

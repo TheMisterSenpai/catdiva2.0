@@ -38,8 +38,8 @@ class fun(commands.Cog):
         if isinstance( error, commands.errors.MissingRequiredArgument ):
             await ctx.message.delete()
             emb = discord.Embed()
-            emb.add_field( name = ':x: Размут:', value = 'Использование команды: **вики** <текст>' )
-            await ctx.send( embed = emb, delete_after=30 )    
+            emb.add_field( name = ':x: Вики:', value = 'Использование команды: **вики** <текст>' )
+            await ctx.send( embed = emb )    
 
     @commands.command(
         aliases = ['хент', 'hentai'],
@@ -68,6 +68,13 @@ class fun(commands.Cog):
             await asyncio.sleep(5)
             await msg.delete()
 
+    @_хентай.error
+    async def _хентай_error( self, ctx, error ):
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)
+            
     @commands.command(
         aliases=['юзеринфо', 'юзер', 'userinfo'],
         description='узнать о человеке на сервере',
@@ -121,6 +128,13 @@ class fun(commands.Cog):
 
 	    await ctx.author.send( all_info )
 	    await ctx.channel.purge( limit = 1)
+
+    @_phone_info.error
+    async def _phone_info_error( self, ctx, error ):
+        if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb) 
           
     @commands.command(
         aliases=['achivment', 'ачивка'],

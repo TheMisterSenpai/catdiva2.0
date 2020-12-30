@@ -1,3 +1,18 @@
+'''
+Создатель бота: TheMisterSenpai@6701
+Переводчик: бабабуй#2001
+Тестеры: бабабуй#2001, [𝓐𝓟] 𝓢𝓹𝓻𝓲𝓷𝓽𝓑𝓸𝓸𝓴#7792, Latr0pket#4364, gGorr#3954
+
+
+Пригласить бота к себе на сервер: https://discord.com/api/oauth2/authorize?client_id=737324393117778020&permissions=8&scope=bot
+
+Мой сервер - https://discord.gg/aZfHSjR
+
+Убидительная просьба, если вы берёте моего бота как за основу, то указывайте на этот гитхаб
+
+
+Все права защищены | TheMisterSenpai
+'''
 import discord
 import os
 from discord.ext import commands
@@ -72,25 +87,9 @@ async def on_ready():
 #Error
 @client.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
-        return await ctx.send(embed=discord.Embed(description=f'Мурр❗️ {ctx.author.name}, У бота недостаточно прав!\n'
-                                                              f'❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций.', color=СOLOR_ERROR))
-    elif isinstance(error, commands.MissingPermissions) or isinstance(error, discord.Forbidden):
-        return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, У вас недостаточно прав!', color=COLOR_ERROR))
-    elif isinstance(error, commands.BadArgument):
-        if "Member" in str(error):
-            return await ctx.send(embed=discord.Embed(description=f'Мур❗️ {ctx.author.name}, Пользователь не найден!', color=COLOR_ERROR))
-        if "Guild" in str(error):
-            return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Сервер не найден!', color=COLOR_ERROR))
-        else:
-            return await ctx.send(embed=discord.Embed(description=f'Мур❗️ {ctx.author.name}, Введён неверный аргумент!', color=COLOR_ERROR))
-    else:
-        if "ValueError: invalid literal for int()" in str(error):
-            return await ctx.send(embed=discord.Embed(description=f'❗️ {ctx.author.name}, Укажите число а не строку!', color=COLOR_ERROR))
-        else:
-            print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Команда: {ctx.message.content}")
-            print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Сервер:  {ctx.message.guild}")
-            print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Ошибка:  {error}")
+    print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Команда: {ctx.message.content}")
+    print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Сервер:  {ctx.message.guild}")
+    print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Ошибка:  {error}")
 #
 @client.event       
 async def on_member_join( member ):  
@@ -271,6 +270,12 @@ async def _prefix(ctx, arg: str = None):
         emb = discord.Embed(title = "✅ | Изменение префикса", description = f"Префикс сервера был обновлён на: {arg}", colour = discord.Color.green())
         await ctx.send(embed = emb)
 
+@_prefix.error
+async def _prefix_error(ctx, error ):
+    if isinstance( error, commands.errors.CommandInvokeError ):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
+            await ctx.send( embed = emb)
 
 client.run(os.environ["BOT_TOKEN"])   
 
