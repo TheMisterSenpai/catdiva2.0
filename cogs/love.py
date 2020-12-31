@@ -46,22 +46,86 @@ class love(commands.Cog):
         description = 'обнять любого на сервере',
         usage = 'hug <@Ник>'
     )
+    @commands.cooldown(1, per = 10, type = discord.ext.commands.BucketType.guild )
     async def _hug(self, ctx, member: discord.Member):
+         
+        if member == ctx.bot.user:
+            emb = discord.Embed(colour=discord.Color.red())
+            emb.add_field(name='Обнимашки:', value = f'**{ctx.author}** прости, но ты не можешь меня обнять(')
+            await ctx.send(embed=emb, delete_after=30)
+ 
+            return
+ 
+        elif member == ctx.author:
+            emb = discord.Embed(colour=discord.Color.red())
+            emb.add_field(name='Обнимашки:', value = f'**{ctx.author}**, нельзя обнимать самого себя ')
+            await ctx.send(embed=emb, delete_after=30)
+ 
+            return
+ 
         emb = discord.Embed(title = f'**Обнимашки!**',description = f'{ctx.author.mention} обнял(а) {member.mention}', color=0xFF0000)
         emb.set_image(url = random.choice([kek,lol,rfr,tgt,yhy,uju,img5,img6,img7,img8,img9,img10,img11,img12,img13,img14,img15,img16,img17,img18])) 
         emb.set_footer(text=f'Вызвано: {ctx.message.author}',icon_url=ctx.message.author.avatar_url) 
         await ctx.send(embed=emb)
+
+    @_hug.error
+    async def _hug_error(self, ctx, error):
+        if isinstance( error, commands.CommandOnCooldown):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = ':x: Обнять:', value = 'Подождите 10 секунд перед повторным использованием!' )
+            await ctx.send( embed = emb)
+        if isinstance(error, commands.BadArgument):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = ':x: Обнять:', value = 'Пользователь не найден!', inline = False)
+            await ctx.send( embed = emb )
+ 
+        if isinstance( error, commands.errors.MissingRequiredArgument ):
+            emb = discord.Embed()
+            emb.add_field( name = ':x: Обнять:', value = 'Использование команды: `обнять [пользователь]`' )
+            await ctx.send( embed = emb)    
 
     @commands.command(
         aliases = ['поцеловать'],
         description = 'поцеловать любого на сервере',
         usage = 'поцеловать <@Ник>'
     )
+    @commands.cooldown(1, per = 10, type = discord.ext.commands.BucketType.guild )
     async def чмок(self, ctx, member: discord.Member):
+        
+        if member == ctx.bot.user:
+            emb = discord.Embed(colour=discord.Color.red())
+            emb.add_field(name='Поцелуй:', value = f'**{ctx.author}** прости, но ты не можешь меня поцеловать, а так хотелось(')
+            await ctx.send(embed=emb, delete_after=30)
+ 
+            return
+ 
+        elif member == ctx.author:
+            emb = discord.Embed(colour=discord.Color.red())
+            emb.add_field(name='Обнимашки:', value = f'**{ctx.author}**, нельзя поцеловать самого себя ')
+            await ctx.send(embed=emb, delete_after=30)
+ 
+            return
+
         emb = discord.Embed(title = f'**Целовашки!**',description = f'{ctx.author.mention} поцеловал(а) {member.mention}', color=0xFF0000)
         emb.set_image(url = random.choice([чмок1, чмок2, чмок3, чмок4, чмок5, чмок6, чмок7, чмок8])) 
         emb.set_footer(text=f'Вызвано: {ctx.message.author}',icon_url=ctx.message.author.avatar_url) 
-        await ctx.send(embed=emb)    
+        await ctx.send(embed=emb)   
+
+    @чмок.error
+    async def чмок_error(self, ctx, error):
+        if isinstance( error, commands.CommandOnCooldown):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = ':x: Поцеловать:', value = 'Подождите 10 секунд перед повторным использованием!' )
+            await ctx.send( embed = emb)
+        if isinstance(error, commands.BadArgument):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = ':x: Поцеловать:', value = 'Пользователь не найден!', inline = False)
+            await ctx.send( embed = emb )
+ 
+        if isinstance( error, commands.errors.MissingRequiredArgument ):
+            emb = discord.Embed()
+            emb.add_field( name = ':x: Поцеловать:', value = 'Использование команды: `поцеловать [пользователь]`' )
+            await ctx.send( embed = emb)       
 
 def setup(client):
     client.add_cog(love(client))

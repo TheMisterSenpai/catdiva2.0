@@ -97,14 +97,38 @@ class fun(commands.Cog):
         emb.set_footer(text='Вызвал команду: {}'.format(ctx.author.name), icon_url=ctx.author.avatar_url)
         await ctx.send(embed = emb)
 
+    @_userinfo.error
+    async def _userinfo_error(self, ctx, error):
+        if isinstance(error, commands.BadArgument):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = ':x: Юзеринфо:', value = 'Пользователь не найден!', inline = False)
+            await ctx.send( embed = emb )
+ 
+        if isinstance( error, commands.errors.MissingRequiredArgument ):
+            emb = discord.Embed()
+            emb.add_field( name = ':x: Юзеринфо:', value = 'Использование команды: `юзеринфо [пользователь] `' )
+            await ctx.send( embed = emb)    
+
     @commands.command( 
-        aliases=['личныесообщения', 'лс', 'send_l'],
+        aliases=['приветствие', 'send_l'],
         description='отправить приветствия пользователю',
         usage='send_l <@ник>'
     )
     async def _send_l( self, ctx, member: discord.Member ):
 	    await member.send(f'✉️{ctx.author.name} приветствует тебя {member.mention}✉️')#приветствие 
 	    await ctx.channel.purge( limit = 1)
+
+    @_send_l.error
+    async def _send_l_error(self, ctx, error):
+        if isinstance(error, commands.BadArgument):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = ':x: Приветствие:', value = 'Пользователь не найден!', inline = False)
+            await ctx.send( embed = emb )
+ 
+        if isinstance( error, commands.errors.MissingRequiredArgument ):
+            emb = discord.Embed()
+            emb.add_field( name = ':x: Приветствие:', value = 'Использование команды: `приветствие [пользователь] `' )
+            await ctx.send( embed = emb)    
 
     @commands.command(
         aliases=['номер', 'номеринфо', 'phone_info'],
@@ -128,6 +152,7 @@ class fun(commands.Cog):
 
 	    await ctx.author.send( all_info )
 	    await ctx.channel.purge( limit = 1)
+ 
 
     @_phone_info.error
     async def _phone_info_error( self, ctx, error ):
@@ -135,6 +160,11 @@ class fun(commands.Cog):
             emb = discord.Embed(colour = discord.Color.red())
             emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
             await ctx.send( embed = emb) 
+ 
+        if isinstance( error, commands.errors.MissingRequiredArgument ):
+            emb = discord.Embed()
+            emb.add_field( name = ':x: Номеринфо:', value = 'Использование команды: `номеринфо +7... `' )
+            await ctx.send( embed = emb)        
           
     @commands.command(
         aliases=['achivment', 'ачивка'],
@@ -143,7 +173,7 @@ class fun(commands.Cog):
     )
     async def ach(self, ctx, *, text=None):
         if text is None:
-            embed = discord.Embed(title='Ошибка', description=f'Укажите текст `>ach <text>`', color=discord.Color.red())
+            embed = discord.Embed(title='Ошибка', description=f'Укажите текст `ach <текст на англ.языке>`', color=discord.Color.red())
             await ctx.send(embed=embed)
         else:
             a = random.randint(1, 40)
