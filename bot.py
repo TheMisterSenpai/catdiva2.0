@@ -278,13 +278,14 @@ async def _prefix_error(ctx, error ):
             emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
             await ctx.send( embed = emb)
 
+'''
 #TWITCH
 @client.event
 async def on_member_update(before, after):
     if not before.activity.type == after.activity.type:
         return
 
-    channel = get(after.guild.channels, id= 690922480734437439)
+    channel = get(after.guild.channels, id = 690922480734437439 )
 
     if isinstance(after.activity, Streaming):
         await channel.send(f"{before.mention} начал стримить на {activity.platform}: {activity.name}.\nСсылка: {activity.url}")
@@ -292,6 +293,7 @@ async def on_member_update(before, after):
         await channel.send(f'{after.mention} закончил стрим, как печально!')
     else:
         return            
+'''
 
 client.run(os.environ["BOT_TOKEN"])
 
