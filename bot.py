@@ -18,7 +18,6 @@ import os
 from discord.ext import commands
 from discord.utils import get
 from discord.ext import tasks
-from discord import Streaming
 
 import json
 from module.catdivamodule import config
