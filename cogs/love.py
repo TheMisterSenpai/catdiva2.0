@@ -33,6 +33,15 @@ img18 = "https://dailysmscollection.org/wp-content/uploads/2019/01/anime-hug-gif
 чмок6 = 'https://media.tenor.com/images/02026b4b33db655035803421fdf7d41c/tenor.gif'
 чмок7 = 'https://media.tenor.com/images/ac05c51cc60ae6f73f746fc37c2f792f/tenor.gif'
 чмок8 = 'https://media.tenor.com/images/d4f4a7a19c6560450d54561c6ebe55f0/tenor.gif'
+тык1 = 'https://i.gifer.com/Mwm9.gif'
+тык2 = 'https://i.gifer.com/FK0b.gif'
+тык3 = 'https://media.tenor.com/images/190196479f5eafe7d641bb04b4bfc5b2/tenor.gif'
+тык4 = 'https://media.tenor.com/images/4927e1e826685c40bb9822b057d14bd2/tenor.gif'
+тык5 = 'https://media.tenor.com/images/1c8586e9a1c222e0f486b71e61700654/tenor.gif'
+тык6 = 'https://media.tenor.com/images/cdc11b08698043e8e305487f8414defa/tenor.gif'
+тык7 = 'https://media1.tenor.com/images/1f9df85774a51ab559ee96f412b7d59b/tenor.gif'
+тык8 = 'https://media.tenor.com/images/7bdde33392df377a4d64678bb08e8272/tenor.gif'
+тык_error = 'https://media.tenor.com/images/159fc03eb13304e759f78c82fa5445b2/tenor.gif'
 #
 
 class love(commands.Cog):
@@ -52,6 +61,7 @@ class love(commands.Cog):
         if member == ctx.bot.user:
             emb = discord.Embed(colour=discord.Color.red())
             emb.add_field(name='Обнимашки:', value = f'**{ctx.author}** прости, но ты не можешь меня обнять(')
+            emb.set_image(url=(тык_error))
             await ctx.send(embed=emb, delete_after=30)
  
             return
@@ -95,13 +105,14 @@ class love(commands.Cog):
         if member == ctx.bot.user:
             emb = discord.Embed(colour=discord.Color.red())
             emb.add_field(name='Поцелуй:', value = f'**{ctx.author}** прости, но ты не можешь меня поцеловать, а так хотелось(')
+            emb.set_image(url=(тык_error))
             await ctx.send(embed=emb, delete_after=30)
  
             return
  
         elif member == ctx.author:
             emb = discord.Embed(colour=discord.Color.red())
-            emb.add_field(name='Обнимашки:', value = f'**{ctx.author}**, нельзя поцеловать самого себя ')
+            emb.add_field(name='Поцелуй:', value = f'**{ctx.author}**, нельзя поцеловать самого себя ')
             await ctx.send(embed=emb, delete_after=30)
  
             return
@@ -125,7 +136,53 @@ class love(commands.Cog):
         if isinstance( error, commands.errors.MissingRequiredArgument ):
             emb = discord.Embed()
             emb.add_field( name = ':x: Поцеловать:', value = 'Использование команды: `поцеловать [пользователь]`' )
-            await ctx.send( embed = emb)       
+            await ctx.send( embed = emb)
+
+    @commands.command(
+        aliases=['тыкнуть', 'poke'],
+        description='тыкнуть в любого на сервере',
+        usage='тыкнуть <@Ник>'
+    )
+    @commands.cooldown(1, per=10, type=discord.ext.commands.BucketType.guild)
+    async def _poke(self, ctx, member: discord.Member):
+
+        if member == ctx.bot.user:
+            emb = discord.Embed(colour=discord.Color.red())
+            emb.add_field(name='Тыкнуть:',
+                          value=f'**{ctx.author}** прости, но ты не можешь меня тынуть, а так хотелось(')
+            emb.set_image(url = (тык_error))
+            await ctx.send(embed=emb, delete_after=30)
+
+            return
+
+        elif member == ctx.author:
+            emb = discord.Embed(colour=discord.Color.red())
+            emb.add_field(name='Тыкнуть:', value=f'**{ctx.author}**, нельзя тыкнуть самого себя ')
+            await ctx.send(embed=emb, delete_after=30)
+
+            return
+
+        emb = discord.Embed(title=f'**Тыкнул!**', description=f'{ctx.author.mention} тыкнул(а) в {member.mention}',
+                            color=0xFF0000)
+        emb.set_image(url=random.choice([тык1, тык2, тык3, тык4, тык5, тык6, тык7, тык8]))
+        emb.set_footer(text=f'Вызвано: {ctx.message.author}', icon_url=ctx.message.author.avatar_url)
+        await ctx.send(embed=emb)
+
+    @_poke.error
+    async def _poke_error(self, ctx, error):
+        if isinstance(error, commands.CommandOnCooldown):
+            emb = discord.Embed(colour=discord.Color.red())
+            emb.add_field(name=':x: Тыкнуть:', value='Подождите 10 секунд перед повторным использованием!')
+            await ctx.send(embed=emb)
+        if isinstance(error, commands.BadArgument):
+            emb = discord.Embed(colour=discord.Color.red())
+            emb.add_field(name=':x: Тыкнуть:', value='Пользователь не найден!', inline=False)
+            await ctx.send(embed=emb)
+
+        if isinstance(error, commands.errors.MissingRequiredArgument):
+            emb = discord.Embed()
+            emb.add_field(name=':x: Тыкнуть:', value='Использование команды: `тыкнуть [пользователь]`')
+            await ctx.send(embed=emb)
 
 def setup(client):
     client.add_cog(love(client))

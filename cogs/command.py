@@ -25,10 +25,8 @@ class command(commands.Cog):
         description="Это сообщение",
         usage="хелп [модуль]")
     async def help(self, ctx, name=None):
-        
-        color = config.COLOR_GOOD
-
         prefix = collection.find_one({"guild_id": ctx.guild.id})["prefix"]
+        color = config.COLOR_GOOD
 
         copy_text = config.COPYRIGHT_TEXT
         copy_icon = config.COPYRIGHT_ICON
@@ -39,15 +37,46 @@ class command(commands.Cog):
             hide = len(cog.cog_name)
             if hide == 1:
                 cogs.append(f"{cog.cog_name[0]}")
-        '''
+
         if not name:
-            embed = discord.Embed(
-                description=f"{ctx.author.display_name}, Чтоб узнать список команд пропишите {prefix}хелп <модуль>\n"
-                            f"**Доступные модули:** {', '.join(cogs)}")
-            await ctx.send(embed=embed)
-        '''    
+            emb = discord.Embed(color= COLOR_GOOD, title=f'Вот все мои команды {ctx.author}!', description=f'''
+❄Чтобы увидеть использования команд просто пропиши {prefix}хелп [модуль] (Например: {prefix}хелп музыка)❄
+
+**администрация**
+{prefix}бан, {prefix}разбан, {prefix}кик, 
+{prefix}очистить, {prefix}голосование, {prefix}жалоба,
+{prefix}мут, {prefix}размут
+
+**интересные**
+{prefix}вики, {prefix}хент, {prefix}юзеринфо, 
+{prefix}личныесообщения, {prefix}номеринфо, {prefix}ачивка,
+{prefix}заставка
+
+**игры**
+{prefix}монетка, {prefix}кнб, {prefix}флаги
+
+**информация**
+{prefix}войстайм, {prefix}майн, {prefix}инфо
+
+**любовь**
+{prefix}обнять, {prefix}поцеловать, {prefix}тыкнуть
+
+**музыка**
+{prefix}играть, {prefix}очередь, {prefix}пауза, 
+{prefix}громкость, {prefix}музыка?, {prefix}присоед,
+{prefix}перезапустить, {prefix}пропустить, {prefix}выйти,
+{prefix}повторить, {prefix}остановить, {prefix}пропустить
+
+**Специальные**
+{prefix}bag, {prefix}ping, {prefix}настройки,
+{prefix}path, {prefix}приглаш
+
+''')    
+            emb.set_footer(text=copy_text, icon_url=copy_icon)
+            emb.set_thumbnail(url = self.client.user.avatar_url)
+            await ctx.send(embed = emb)              
     
-        if name in cogs:
+        elif name in cogs:
             cog = None
             namec = None
             for i in self.client.cogs:
@@ -67,68 +96,15 @@ class command(commands.Cog):
                             f"**{command.aliases[0]}:** {command.description}\n`{prefix}{command.usage}`\n\n")
             
 
-            embed = discord.Embed(
+            emb = discord.Embed(
                 title=f"Хелп | {name}",
                 description=f"".join(comm_list),
                 color=color)
-            embed.set_footer(text=copy_text, icon_url=copy_icon)
-            embed.set_thumbnail(
+            emb.set_footer(text=copy_text, icon_url=copy_icon)
+            emb.set_thumbnail(
                 url='https://cdn.discordapp.com/attachments/695787093242282055/707320024473534485/what.png')
 
-            await ctx.send(embed=embed)
-        
-        else:
-            embed = discord.Embed(
-                description=f"{ctx.author.display_name}, Модуль не найден!\nЧтоб узнать список команд пропишите {prefix}команды\n")
-            await ctx.send(embed=embed)
-        
-    
-    @commands.command(
-        aliases=["команды"],
-        description="Это сообщение",
-        usage="команды")
-    async def _help(self, ctx, name=None):
-        prefix = collection.find_one({"guild_id": ctx.guild.id})["prefix"]
-
-        copy_text = config.COPYRIGHT_TEXT
-        copy_icon = config.COPYRIGHT_ICON
-
-        emb = discord.Embed(color= COLOR_GOOD, title=f'Вот все мои команды {ctx.author}!', description=f'''
-❄Чтобы увидеть использования команд просто пропиши {prefix}хелп [модуль] (Например: {prefix}хелп музыка)❄
-
-**администрация**
-{prefix}бан, {prefix}разбан, {prefix}кик, 
-{prefix}очистить, {prefix}голосование, {prefix}жалоба,
-{prefix}мут, {prefix}размут
-
-**интересные**
-{prefix}вики, {prefix}хент, {prefix}юзеринфо, 
-{prefix}личныесообщения, {prefix}номеринфо, {prefix}ачивка
-
-**игры**
-{prefix}монетка, {prefix}кнб, {prefix}флаги
-
-**информация**
-{prefix}войстайм, {prefix}майн, {prefix}инфо
-
-**любовь**
-{prefix}обнять, {prefix}поцеловать
-
-**музыка**
-{prefix}играть, {prefix}очередь, {prefix}пауза, 
-{prefix}громкость, {prefix}музыка?, {prefix}присоед,
-{prefix}перезапустить, {prefix}пропустить, {prefix}выйти,
-{prefix}повторить, {prefix}остановить, {prefix}пропустить
-
-**Специальные**
-{prefix}bag, {prefix}ping, {prefix}настройки,
-{prefix}path
-
-''')
-        emb.set_footer(text=copy_text, icon_url=copy_icon)
-        emb.set_thumbnail(url = self.client.user.avatar_url)
-        await ctx.send(embed = emb)        
-       
+            await ctx.send(embed=emb)
 
 def setup(client):
     client.add_cog(command(client)) 

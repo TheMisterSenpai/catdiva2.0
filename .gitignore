@@ -1,0 +1,11 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+venv/
+.idea/
+
+#dev
+cogs/twitch.py
+Data/local
+console.bat

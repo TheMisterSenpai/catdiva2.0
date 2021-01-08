@@ -10,6 +10,15 @@ import datetime
 import random 
 from datetime import timedelta
 
+заставка1 = 'https://media1.tenor.com/images/cc69621982e3b2af8d6840c0ded9b81a/tenor.gif?itemid=14496292'
+заставка2 = 'https://avatars.mds.yandex.net/get-zen_doc/1110951/pub_5d48f6b6fc69ab00ac290316_5d4905f9bf50d500ae427c3f/orig'
+заставка3 = 'https://i.gifer.com/LHkW.gif'
+заставка4 = 'https://i.gifer.com/N8oR.gif'
+заставка5 = 'https://i.gifer.com/XiPu.gif'
+заставка6 = 'https://media.tenor.com/images/98637699e8810ed22c9879be997affe9/tenor.gif'
+заставка7 = 'https://media.tenor.com/images/65d17e29caf114577bd9f3abce398e0d/tenor.gif'
+
+
 class fun(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -182,6 +191,26 @@ class fun(commands.Cog):
             embed = discord.Embed(title='Получено Достижение!', color=discord.Color.green())
             embed.set_image(url=link)
             await ctx.send(embed=embed)
+
+    @commands.command(
+        aliases = ['заставка'],
+        description = 'случайно выбирает заставку из разных мемов',
+        usage = 'заставка'
+    )
+    @commands.cooldown(1, per = 10, type = discord.ext.commands.BucketType.guild )
+    async def screensaver(self, ctx):
+
+        emb = discord.Embed(title = f'**Заставка**', color=0xffc0cb)
+        emb.set_image(url = random.choice([заставка1, заставка2, заставка3, заставка4, заставка5, заставка6, заставка7])) 
+        emb.set_footer(text=f'Вызвано: {ctx.message.author}',icon_url=ctx.message.author.avatar_url) 
+        await ctx.send(embed=emb)   
+
+    @screensaver.error
+    async def screensaver_error(self, ctx, error):
+        if isinstance( error, commands.CommandOnCooldown):
+            emb = discord.Embed(colour = discord.Color.red())
+            emb.add_field( name = ':x: Заставка:', value = 'Подождите 10 секунд перед повторным использованием!' )
+            await ctx.send( embed = emb)        
             
 def setup(client):
     client.add_cog(fun(client))     

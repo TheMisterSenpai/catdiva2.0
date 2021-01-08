@@ -18,6 +18,7 @@ import os
 from discord.ext import commands
 from discord.utils import get
 from discord.ext import tasks
+from discord import Streaming
 
 import json
 from module.catdivamodule import config
@@ -277,7 +278,22 @@ async def _prefix_error(ctx, error ):
             emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
             await ctx.send( embed = emb)
 
-client.run(os.environ["BOT_TOKEN"])   
+#TWITCH
+@client.event
+async def on_member_update(before, after):
+    if not before.activity.type == after.activity.type:
+        return
+
+    channel = get(after.guild.channels, id= 721412116573323298)
+
+    if isinstance(after.activity, Streaming):
+        await channel.send(f"{before.mention} начал стримить на {activity.platform}: {activity.name}.\nСсылка: {activity.url}")
+    elif isinstance(before.activity, Streaming):
+        await channel.send(f'{after.mention} закончил стрим, как печально!')
+    else:
+        return            
+
+client.run(os.environ["BOT_TOKEN"])
 
 '''
 # Это для теста
