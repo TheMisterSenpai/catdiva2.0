@@ -284,7 +284,7 @@ async def on_member_update(before, after):
     if not before.activity.type == after.activity.type:
         return
 
-    channel = get(after.guild.channels, id= 721412116573323298)
+    channel = get(after.guild.channels, id= 690922480734437439)
 
     if isinstance(after.activity, Streaming):
         await channel.send(f"{before.mention} начал стримить на {activity.platform}: {activity.name}.\nСсылка: {activity.url}")
