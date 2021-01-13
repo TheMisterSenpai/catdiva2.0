@@ -15,6 +15,10 @@ class event(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        print('[]Ивенты был запущин[]')
+
+    @commands.Cog.listener()
+    async def on_ready(self):
         while True:
             with open("./Data/DataBase/voices.json", "r") as file:
                 data = json.load(file)

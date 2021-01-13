@@ -54,19 +54,26 @@ init()
 # Запуск Бота
 @client.event
 async def on_ready():
-    print(" ")
-    print(Fore.CYAN + "===================================" + Style.RESET_ALL)
-    print(
-        Fore.CYAN + '|' + Style.RESET_ALL + f' Смена статуса на стандартный... ' + Fore.CYAN + '|' + Style.RESET_ALL)
+    print('''
+     
+     
+
+░█████╗░░█████╗░████████╗        ██████╗░██╗██╗░░░██╗░█████╗░        ██████╗░░░░░█████╗░
+██╔══██╗██╔══██╗╚══██╔══╝        ██╔══██╗██║██║░░░██║██╔══██╗        ╚════██╗░░░██╔══██╗
+██║░░╚═╝███████║░░░██║░░░        ██║░░██║██║╚██╗░██╔╝███████║        ░░███╔═╝░░░██║░░██║
+██║░░██╗██╔══██║░░░██║░░░        ██║░░██║██║░╚████╔╝░██╔══██║        ██╔══╝░░░░░██║░░██║
+╚█████╔╝██║░░██║░░░██║░░░        ██████╔╝██║░░╚██╔╝░░██║░░██║        ███████╗██╗╚█████╔╝
+░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░        ╚═════╝░╚═╝░░░╚═╝░░░╚═╝░░╚═╝        ╚══════╝╚═╝░╚════╝░
+
+Python 3.8.3
+Disord.py 1.4.1
+CatDivaAPI 0.1.1
+
+Developer TheMisterSenpai@6701      
+'''
+)
+
     await client.change_presence(activity=discord.Streaming(name=STATUS, url=STATUSURL))
-    print(
-        Fore.CYAN + '|' + Style.RESET_ALL + f'        Бот активирован!         ' + Fore.CYAN + '|' + Style.RESET_ALL)
-    print(Fore.CYAN + "===================================" + Style.RESET_ALL)
-    print(f'  Статус   - {STATUS}          ')
-    print(f'  Имя бота - {client.user.name}')
-    print(f'  ID бота  - {client.user.id}  ')
-    print(Fore.CYAN + "===================================" + Style.RESET_ALL)
-    print(" ")
 
     loop = Loop(client)
     try:

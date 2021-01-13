@@ -29,7 +29,11 @@ class administration(commands.Cog):
     def __init__(self, client):
         self.client = client
         self.cog_name = ["администрация"]
- 
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('[]администрация была запущина[]')
+
     @commands.command(
         aliases=['очистить', 'clear'],
         description='удалить сообщения',

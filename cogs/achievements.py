@@ -10,6 +10,10 @@ class achievements(commands.Cog):
         self.cog_name = ["Достижения", True]
 
 #СКОРО
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('[]Достижения были запущины[]')
+
     @commands.command(
         aliases = ['разработчик']
     )

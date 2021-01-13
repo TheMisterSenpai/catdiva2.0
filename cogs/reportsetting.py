@@ -16,6 +16,10 @@ class reportsetting(commands.Cog):
         self.client = client
         self.cog_name = ["канал-жалоб настройки", True]
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('[]канал-жалоб настройки был включен[]')
+
 
     @commands.command(aliases=['report-channel', 'reports-channel', 'reports_channel', 'канал-жалоб'])
     @commands.has_permissions(administrator=True)

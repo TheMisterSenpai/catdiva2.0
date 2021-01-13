@@ -19,6 +19,10 @@ class game(commands.Cog):
 #https://github.com/AlekseyZz/Flags-mini-game-discord.py-
 #https://github.com/LEv145/AmITegoDevBot/blob/master/Modules/fun.py
 #
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('[]игры был запущин[]')
+
     @commands.command(
         aliases=['монетка', 'орел_решка','о_р','орёл_решка'],
         description='Бот подбрасывает монетку',

@@ -20,6 +20,10 @@ class command(commands.Cog):
         self._last_member = None
         self.cog_name = ["command", True]
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('[]command был запущин[]')
+
     @commands.command(
         aliases=["хелп", "comms", "commands", "помощь"],
         description="Это сообщение",

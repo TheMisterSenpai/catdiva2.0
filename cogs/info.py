@@ -21,6 +21,9 @@ class info(commands.Cog):
         self.client = client
         self.cog_name = ["информация"]
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('[]информация был загружен[]')
 
     @commands.command(
         aliases=['войстайм', 'voicetime'],

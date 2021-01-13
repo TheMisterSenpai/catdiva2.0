@@ -5,7 +5,7 @@ from discord.utils import get
 import wikipedia
 from random import randint, choice
 import asyncio
-import nekos
+import catdiva
 import datetime
 import random 
 from datetime import timedelta
@@ -22,7 +22,11 @@ from datetime import timedelta
 class fun(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.cog_name= ["интересные"]    
+        self.cog_name= ["интересные"]
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('[]интересные был запущин[]')
         
     @commands.command(
         aliases=['вики', 'wiki'],
@@ -67,7 +71,7 @@ class fun(commands.Cog):
             'neko', 'spank', 'cuddle', 'erok', 'fox_girl', 'boobs', 'random_hentai_gif',
             'smallboobs', 'hug', 'ero', 'smug', 'goose', 'baka', 'woof'
 		    ]
-            rnek = nekos.img(random.choice(r))
+            rnek = catdiva.img(random.choice(r))
             emb = discord.Embed(color = discord.Color.red())
             emb.set_image(url = rnek)
             await ctx.send(embed = emb)

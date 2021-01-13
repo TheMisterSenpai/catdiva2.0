@@ -9,6 +9,10 @@ class dev(commands.Cog):
 		self.client = client
 		self.cog_name = ['разработка']
 
+	@commands.Cog.listener()
+	async def on_ready(self):
+		print('[]разработка был запущин[]')
+
 	@commands.command()
 	async def path(self, ctx):
 		await ctx.send('''

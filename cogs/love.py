@@ -50,6 +50,10 @@ class love(commands.Cog):
         self.client = client
         self.cog_name = ['любовь']
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print('[]любовь был загружен[]')
+
     @commands.command(
         aliases = ['обнять', 'Обнять', 'Hug'],
         description = 'обнять любого на сервере',
