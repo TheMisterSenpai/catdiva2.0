@@ -12,8 +12,9 @@ import os
 import socket
 from mcstatus import MinecraftServer
 from module.catdivamodule import config
+from utils import color
 
-COLOR_GOOD = config.COLOR_GOOD
+COLOR_GOOD = color.COLOR_GOOD
 
 class info(commands.Cog):
 
@@ -158,6 +159,10 @@ class info(commands.Cog):
 😉 Можно настроить сервер через меня, просто пропиши d.настройки(БЕТА-ТЕСТ)
 🤔 Нужна помощь по боту, или нашел баг/ошибку? Заходи на наш [сервер поддержки] https://discord.gg/aZfHSjR
 😺 Мой открытый исходный код: https://github.com/TheMisterSenpai/catdiva2.0
+
+Можете оставить ваш отзыв:
+https://bots.server-discord.com/737324393117778020
+https://boticord.top/bot/737324393117778020
 
 🍀 Удачи!
 ''')

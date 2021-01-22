@@ -4,6 +4,8 @@ from discord.utils import get
 
 from module.catdivamodule import config
 from module.catdivamodule import api
+from utils import color
+from naomi_paginator import Paginator
 
 from pymongo import MongoClient
 
@@ -12,7 +14,7 @@ MONGO = api.MONGO
 cluster = MongoClient(MONGO)
 collection = cluster.catdivadb.prefixsett
 
-COLOR_GOOD = config.COLOR_GOOD
+COLOR_GOOD = color.COLOR_GOOD
 
 class command(commands.Cog):
     def __init__(self, client):
@@ -30,7 +32,6 @@ class command(commands.Cog):
         usage="хелп [модуль]")
     async def help(self, ctx, name=None):
         prefix = collection.find_one({"guild_id": ctx.guild.id})["prefix"]
-        color = config.COLOR_GOOD
 
         copy_text = config.COPYRIGHT_TEXT
         copy_icon = config.COPYRIGHT_ICON
@@ -43,42 +44,27 @@ class command(commands.Cog):
                 cogs.append(f"{cog.cog_name[0]}")
 
         if not name:
-            emb = discord.Embed(color= COLOR_GOOD, title=f'Вот все мои команды {ctx.author}!', description=f'''
-❄Чтобы увидеть использования команд просто пропиши {prefix}хелп [модуль] (Например: {prefix}хелп музыка)❄
+            p = Paginator(ctx)
 
-**администрация**
-{prefix}бан, {prefix}разбан, {prefix}кик, 
-{prefix}очистить, {prefix}голосование, {prefix}жалоба,
-{prefix}мут, {prefix}размут
+            embeds = (discord.Embed(color=0xffc0cb, title='<**Все мои команды**🗳>:',
+                                    description=f'Чтобы увидеть использования команд просто пропиши {prefix}хелп [модуль] (Например: {prefix}хелп музыка) '),
+                      discord.Embed(color=0xffc0cb, title='<**администрация**🗳>:',
+                                    description=f'{prefix}бан, {prefix}разбан, {prefix}кик,\n{prefix}очистить, {prefix}голосование, {prefix}жалоба,\n{prefix}мут, {prefix}размут\n<**Описание🔎**>:\n``Команды для администрации серверов``'),
+                      discord.Embed(color=0xffc0cb, title='<**интересные**🗳>:',
+                                    description=f'{prefix}вики, {prefix}хент, {prefix}юзеринфо,\n{prefix}личныесообщения, {prefix}номеринфо, {prefix}ачивка, {prefix}заставка\n<**Описание🔎**>:\n``Команды для веселья``'),
+                      discord.Embed(color=0xffc0cb, title='<**игры**🗳>:',
+                                    description=f'{prefix}монетка, {prefix}кнб, {prefix}флаги\n<**Описание🔎**>:\n``Мини-игры для участников сервера``'),
+                      discord.Embed(color=0xffc0cb, title='<**информация**🗳>:',
+                                    description=f'{prefix}войстайм, {prefix}майн, {prefix}инфо\n<**Описание🔎**>:\n``Команды для ввода любой информации``'),
+                      discord.Embed(color=0xffc0cb, title='<**музыка**🗳>:',
+                                    description=f'{prefix}играть, {prefix}очередь, {prefix}пауза,\n{prefix}громкость, {prefix}музыка?, {prefix}присоед,\n{prefix}перезапустить, {prefix}пропустить, {prefix}выйти,\n{prefix}повторить, {prefix}остановить, {prefix}пропустить\n<**Описание🔎**>:\n``Команды для прослушивания музыки с YouTube`` '),
+                      discord.Embed(color=0xffc0cb, title='<**Специальные**🗳>:',
+                                    description=f'{prefix}bag, {prefix}ping, {prefix}настройки,\n{prefix}path, {prefix}приглаш\n<**Описание🔎**>:\n``Специальные команды для бота(Их нельзя найти в боте, но они работают :D)``'))
 
-**интересные**
-{prefix}вики, {prefix}хент, {prefix}юзеринфо, 
-{prefix}личныесообщения, {prefix}номеринфо, {prefix}ачивка,
-{prefix}заставка
+            for x in embeds:
+                p.add_page(x)
 
-**игры**
-{prefix}монетка, {prefix}кнб, {prefix}флаги
-
-**информация**
-{prefix}войстайм, {prefix}майн, {prefix}инфо
-
-**любовь**
-{prefix}обнять, {prefix}поцеловать, {prefix}тыкнуть
-
-**музыка**
-{prefix}играть, {prefix}очередь, {prefix}пауза, 
-{prefix}громкость, {prefix}музыка?, {prefix}присоед,
-{prefix}перезапустить, {prefix}пропустить, {prefix}выйти,
-{prefix}повторить, {prefix}остановить, {prefix}пропустить
-
-**Специальные**
-{prefix}bag, {prefix}ping, {prefix}настройки,
-{prefix}path, {prefix}приглаш
-
-''')    
-            emb.set_footer(text=copy_text, icon_url=copy_icon)
-            emb.set_thumbnail(url = self.client.user.avatar_url)
-            await ctx.send(embed = emb)              
+            await p.call_controller()
     
         elif name in cogs:
             cog = None
@@ -101,12 +87,10 @@ class command(commands.Cog):
             
 
             emb = discord.Embed(
-                title=f"Хелп | {name}",
+                title=f"<**Хелп**📖>:``{name}``",
                 description=f"".join(comm_list),
-                color=color)
+                color=0xffc0cb)
             emb.set_footer(text=copy_text, icon_url=copy_icon)
-            emb.set_thumbnail(
-                url='https://cdn.discordapp.com/attachments/695787093242282055/707320024473534485/what.png')
 
             await ctx.send(embed=emb)
 

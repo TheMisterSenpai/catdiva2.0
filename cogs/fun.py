@@ -10,6 +10,11 @@ import datetime
 import random 
 from datetime import timedelta
 
+from module.catdivamodule import config
+
+COPYRIGHT_TEXT = config.COPYRIGHT_TEXT
+ICON = config.COPYRIGHT_ICON
+
 заставка1 = 'https://media1.tenor.com/images/cc69621982e3b2af8d6840c0ded9b81a/tenor.gif?itemid=14496292'
 заставка2 = 'https://avatars.mds.yandex.net/get-zen_doc/1110951/pub_5d48f6b6fc69ab00ac290316_5d4905f9bf50d500ae427c3f/orig'
 заставка3 = 'https://i.gifer.com/LHkW.gif'
@@ -76,17 +81,11 @@ class fun(commands.Cog):
             emb.set_image(url = rnek)
             await ctx.send(embed = emb)
         else:
-            msg = await ctx.send(embed = discord.Embed(description='Не думаю, что это подходящий канал для такого контента...', color=discord.Color.orange()))
+            await ctx.send(f'**Нигодяй**:\nПоявилась ошибка в команде: ``хент``\nПричина ошибки: **Не подходящий для этого контента канал**')
+            emb.set_footer(text=COPYRIGHT_TEXT, icon_url=ICON)
+            emb = discord.Embed(colour=discord.Color.orange())
             await ctx.message.add_reaction('🔞')
-            await asyncio.sleep(5)
-            await msg.delete()
-
-    @_хентай.error
-    async def _хентай_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)
+            await ctx.send(embed=emb)
             
     @commands.command(
         aliases=['юзеринфо', 'юзер', 'userinfo'],
@@ -110,18 +109,6 @@ class fun(commands.Cog):
         emb.set_footer(text='Вызвал команду: {}'.format(ctx.author.name), icon_url=ctx.author.avatar_url)
         await ctx.send(embed = emb)
 
-    @_userinfo.error
-    async def _userinfo_error(self, ctx, error):
-        if isinstance(error, commands.BadArgument):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = ':x: Юзеринфо:', value = 'Пользователь не найден!', inline = False)
-            await ctx.send( embed = emb )
- 
-        if isinstance( error, commands.errors.MissingRequiredArgument ):
-            emb = discord.Embed()
-            emb.add_field( name = ':x: Юзеринфо:', value = 'Использование команды: `юзеринфо [пользователь] `' )
-            await ctx.send( embed = emb)    
-
     @commands.command( 
         aliases=['приветствие', 'send_l'],
         description='отправить приветствия пользователю',
@@ -130,18 +117,6 @@ class fun(commands.Cog):
     async def _send_l( self, ctx, member: discord.Member ):
 	    await member.send(f'✉️{ctx.author.name} приветствует тебя {member.mention}✉️')#приветствие 
 	    await ctx.channel.purge( limit = 1)
-
-    @_send_l.error
-    async def _send_l_error(self, ctx, error):
-        if isinstance(error, commands.BadArgument):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = ':x: Приветствие:', value = 'Пользователь не найден!', inline = False)
-            await ctx.send( embed = emb )
- 
-        if isinstance( error, commands.errors.MissingRequiredArgument ):
-            emb = discord.Embed()
-            emb.add_field( name = ':x: Приветствие:', value = 'Использование команды: `приветствие [пользователь] `' )
-            await ctx.send( embed = emb)    
 
     @commands.command(
         aliases=['номер', 'номеринфо', 'phone_info'],
@@ -165,19 +140,7 @@ class fun(commands.Cog):
 
 	    await ctx.author.send( all_info )
 	    await ctx.channel.purge( limit = 1)
- 
 
-    @_phone_info.error
-    async def _phone_info_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb) 
- 
-        if isinstance( error, commands.errors.MissingRequiredArgument ):
-            emb = discord.Embed()
-            emb.add_field( name = ':x: Номеринфо:', value = 'Использование команды: `номеринфо +7... `' )
-            await ctx.send( embed = emb)        
           
     @commands.command(
         aliases=['achivment', 'ачивка'],
@@ -207,14 +170,7 @@ class fun(commands.Cog):
         emb = discord.Embed(title = f'**Заставка**', color=0xffc0cb)
         emb.set_image(url = random.choice([заставка1, заставка2, заставка3, заставка4, заставка5, заставка6, заставка7])) 
         emb.set_footer(text=f'Вызвано: {ctx.message.author}',icon_url=ctx.message.author.avatar_url) 
-        await ctx.send(embed=emb)   
-
-    @screensaver.error
-    async def screensaver_error(self, ctx, error):
-        if isinstance( error, commands.CommandOnCooldown):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = ':x: Заставка:', value = 'Подождите 10 секунд перед повторным использованием!' )
-            await ctx.send( embed = emb)        
+        await ctx.send(embed=emb)
             
 def setup(client):
     client.add_cog(fun(client))     

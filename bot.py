@@ -21,9 +21,12 @@ from discord.ext import tasks
 
 import json
 from module.catdivamodule import config
+from utils import color
+from utils import status
 from module.catdivamodule import api
 import nest_asyncio
 from pymongo import MongoClient
+from asyncio import sleep
 
 from module.catdivamodule.loops import Loop
 from colorama import Fore, Style
@@ -36,9 +39,13 @@ MONGO = api.MONGO
 cluster = MongoClient(MONGO)
 collection = cluster.catdivadb.prefixsett
 
-STATUS = config.STATUS
-STATUSURL = config.STATUSURL
-COLOR_ERROR = config.COLOR_ERROR
+STATUS1 = status.STATUS1
+STATUS2 = status.STATUS2
+STATUS3 = status.STATUS3
+STATUSURL = status.STATUSURL
+ICON = config.COPYRIGHT_ICON
+COLOR_ERROR = color.COLOR_ERROR
+COPYRIGHT_TEXT = config.COPYRIGHT_TEXT
 COPYRIGHT_TEXT_ERROR = config.COPYRIGHT_TEXT_ERROR
 COPYRIGHT_ICON = config.COPYRIGHT_ICON
 
@@ -73,8 +80,6 @@ Developer TheMisterSenpai@6701
 '''
 )
 
-    await client.change_presence(activity=discord.Streaming(name=STATUS, url=STATUSURL))
-
     loop = Loop(client)
     try:
         loop.activator()
@@ -89,11 +94,63 @@ Developer TheMisterSenpai@6701
         if collection.count_documents({"guild_id": guild.id}) == 0:
             collection.insert_one(post)
         else:
-            pass              
+            pass
+
+    while True:
+        await client.change_presence(activity=discord.Streaming(name=STATUS1, url=STATUSURL))
+        await sleep(15)
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=STATUS2))
+        await sleep(15)
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=STATUS3))
+        await sleep(15)
+        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name= "Cyberpunk 2077"))
+        await sleep(15)
+
+        '''
+        Ачё смысле?
+        '''
+
 #
 #Error
 @client.event
 async def on_command_error(ctx, error):
+    prefix = collection.find_one({"guild_id": ctx.guild.id})["prefix"]
+
+    if isinstance(error, commands.CommandOnCooldown):
+        await ctx.send(
+            f'<**Стоп**📤>:\nОстановитесь, у команды: ``{ctx.message.content}``\nКулдаун на 10 секунд перед использованием! ')
+        emb = discord.Embed(colour=discord.Color.red())
+        emb.set_footer(text=COPYRIGHT_TEXT, icon_url=ICON)
+        await ctx.send(embed=emb)
+    if isinstance(error, commands.BadArgument):
+        await ctx.send(f'<**Ошибка**📤>:\nПоявилась ошибка в команде: ``{ctx.message.content}``\nПричина ошибки: ``Укажите число`` ')
+        emb = discord.Embed(colour=discord.Color.red())
+        emb.set_footer(text=COPYRIGHT_TEXT, icon_url=ICON)
+        await ctx.send(embed=emb)
+    if isinstance(error, commands.errors.MissingRequiredArgument):
+        await ctx.send(
+            f'<**Ошибка**📤>:\nПоявилась ошибка в команде: ``{ctx.message.content}``\nПричина ошибки: ``Неправельное использование команды!``\n**Посмотрите использования команды** {prefix}хелп [модуль] ')
+        emb = discord.Embed(colour=discord.Color.red())
+        emb.set_footer(text=COPYRIGHT_TEXT, icon_url=ICON)
+        await ctx.send(embed=emb)
+    if isinstance(error, commands.errors.MissingPermissions):
+        await ctx.send(
+            f'<**Ошибка**📤>:\nПоявилась ошибка в команде: ``{ctx.message.content}``\nПричина ошибки: ``Нехватка у вас правил!`` ')
+        emb = discord.Embed(colour=discord.Color.red())
+        emb.set_footer(text=COPYRIGHT_TEXT, icon_url=ICON)
+        await ctx.send(embed=emb)
+    if isinstance(error, commands.errors.CommandInvokeError):
+        await ctx.send(
+            f'<**Ошибка**📤>:\nПоявилась ошибка в команде: ``{ctx.message.content}``\nПричина ошибки: ``У бота нету права управлением сообщениями или права на установку реакций`` ')
+        emb = discord.Embed(colour=discord.Color.red())
+        emb.set_footer(text=COPYRIGHT_TEXT_ERROR, icon_url=ICON)
+        await ctx.send(embed=emb)
+    if isinstance(error, commands.BadArgument):
+        await ctx.send(
+            f'<**Ошибка**📤>:\nПоявилась ошибка в команде: ``{ctx.message.content}``\nПричина ошибки: ``Пользователь не найдан!`` ')
+        emb = discord.Embed(colour=discord.Color.red())
+        emb.set_footer(text=COPYRIGHT_TEXT, icon_url=ICON)
+        await ctx.send(embed=emb)
     print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Команда: {ctx.message.content}")
     print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Сервер:  {ctx.message.guild}")
     print(Fore.RED + f"[ERROR] " + Style.RESET_ALL + f"Ошибка:  {error}")
@@ -134,25 +191,6 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 #
-#send me
-@client.event
-async def on_guild_join( guild ):
-
-
-    me = client.get_user(364437278728388611)
-
-    emb = discord.Embed( title = f'Я пришел на новый сервер!' )
-    for guild in client.guilds:
-        category = guild.categories[0]
-        try:
-            channel = category.text_channels[0]
-        except:
-            channel = category.voice_channels[0]
-        link = await channel.create_invite()
-    emb.add_field( name = guild.name, value = f"Участников: {len(guild.members)}\nСсылка: {link}" )
-
-    
-    await me.send( embed = emb )            
 #bag
 @client.command()
 async def bag(ctx, *, bag ):
@@ -229,13 +267,13 @@ async def настройки(ctx):
     prefix = collection.find_one({"guild_id": ctx.guild.id})["prefix"]
 
     embed1 = discord.Embed(title = 'Настройки сервера',
-        description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку')
+        description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку', color = status.COLOR_CD)
     embed2 = discord.Embed(title = 'Жалобы',
-        description = f'Настройте команду жалобы. Просто пропишите {prefix}канал-жалоб on/off #ваш канал')
+        description = f'Настройте команду жалобы. Просто пропишите {prefix}канал-жалоб on/off #ваш канал', color = status.COLOR_CD)
     embed3 = discord.Embed(title = 'Смена префикса',
-        description = f'Смени префикс бота для сервера через команду {prefix}префикс (ваш префикс)')
-    embed4 = discord.Embed(title = 'Оповещение о стримах на twitch',
-        description = f'**Пока не доступно**')
+        description = f'Смени префикс бота для сервера через команду {prefix}префикс (ваш префикс)', color = status.COLOR_CD)
+    embed4 = discord.Embed(title = 'Оповещение о стримах c Twitch',
+        description = f'**Пока не доступно**', color = status.COLOR_TWITCH)
 
     embeds = [embed1, embed2, embed3, embed4]
     message = await ctx.send(embed = embed1)

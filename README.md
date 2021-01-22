@@ -1,4 +1,3 @@
-![https://discord.gg/aZfHSjR](https://cdn.discordapp.com/avatars/737324393117778020/b0a5abb5a33d02ec6688a63a41ec8f69.webp?size=1024)
 # Кошка Дива 2.0
 [![Discord Bots](https://top.gg/api/widget/status/737324393117778020.svg)](https://top.gg/bot/737324393117778020)
 

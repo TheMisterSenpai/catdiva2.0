@@ -17,10 +17,12 @@ class BotiCord(commands.Cog):
         print('[Monitoring]BotiCord был загружен[]')
 
         url = 'https://boticord.top/api/stats'
-        pathparameters = {'id': '737324393117778020'}
         headers = {'Authorization': BOTI}
+        data = {
+            "server": len(self.client.guilds)
+        }
 
-        requests.post(url, pathparameters, headers=headers)
+        response = requests.post(url, headers=headers, json=data)
 
 
 def setup(client):

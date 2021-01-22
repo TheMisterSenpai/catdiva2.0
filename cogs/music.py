@@ -382,12 +382,6 @@ class MusicPlayer(commands.Cog):
             return await msg.send("Сейчас ничего не играет")
         return await msg.send("Бот не в голосовом чате или не проигрывает музыку")
 
-    @repeat.error
-    async def repeat_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)
 
     @commands.has_permissions(manage_channels=True)
     @commands.command(
@@ -407,13 +401,6 @@ class MusicPlayer(commands.Cog):
 
         self.player[msg.guild.id]['reset']=True
         msg.voice_client.stop()
-
-    @reset.error
-    async def reset_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)  
             
 
     @commands.has_permissions(manage_channels=True)
@@ -439,12 +426,6 @@ class MusicPlayer(commands.Cog):
         msg.voice_client.stop()
         return await msg.message.add_reaction(emoji='✅')
 
-    @skip.error
-    async def skip_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)  
 
     
     @commands.has_permissions(manage_channels=True)
@@ -469,12 +450,6 @@ class MusicPlayer(commands.Cog):
 
             return await msg.send(f"**{msg.author.display_name}, Никакая музыка сейчас не играет или нет музыки в очереди**")
 
-    @stop.error
-    async def stop_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)       
 
 
     @commands.has_permissions(manage_channels=True)
@@ -495,13 +470,6 @@ class MusicPlayer(commands.Cog):
         if msg.author.voice is None:
             return await msg.send("Вы должны быть в том же голосовом канале что и бот для отключения его же через команду")
 
-    @leave.error
-    async def leave_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)
-
 
     @commands.has_permissions(manage_channels=True)
     @commands.command(
@@ -518,12 +486,6 @@ class MusicPlayer(commands.Cog):
                 msg.voice_client.pause()
                 await msg.message.add_reaction(emoji='✅')
 
-    @pause.error
-    async def _хентай_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)
 
     @commands.has_permissions(manage_channels=True)
     @commands.command(
@@ -539,13 +501,6 @@ class MusicPlayer(commands.Cog):
             if msg.voice_client.is_paused() is True:
                 msg.voice_client.resume()
                 return await msg.message.add_reaction(emoji='✅')
-
-    @resume.error
-    async def resume_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)
 
 
     @commands.command(
@@ -565,13 +520,6 @@ class MusicPlayer(commands.Cog):
 
         return await msg.send("В очереди нет музыки")
 
-    @_queue.error
-    async def _queue_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)           
-
 
     @commands.command(
     	aliases=['музыка?', 's_i'],
@@ -586,13 +534,6 @@ class MusicPlayer(commands.Cog):
             return await msg.send(embed=emb,delete_after=120)
         
         return await msg.send(f"**Сейчас не играет никакая музыка**".title(),delete_after=30)
-
-    @song_info.error
-    async def song_info_error( self, ctx, error ):
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)
 
 
     @commands.command(
@@ -630,10 +571,6 @@ class MusicPlayer(commands.Cog):
         if error.args[0] == 'Команда вызвала исключение: исключение: играет':
             return await msg.send("**Пожалуйста, зайдите в тот же голосовой чат что и бот для того, что бы добавить музыку в очередь**".title())
 
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)
 
 
     @commands.has_permissions(manage_channels=True)
@@ -664,11 +601,7 @@ class MusicPlayer(commands.Cog):
     @volume.error
     async def volume_error(self,msg,error):
         if isinstance(error,commands.MissingPermissions):
-            return await msg.send("Для изменения громкости необходимы права администратора",delete_after=30)   
-        if isinstance( error, commands.errors.CommandInvokeError ):
-            emb = discord.Embed(colour = discord.Color.red())
-            emb.add_field( name = 'Ошибка:', value = '❗️ Если это не модераторская команда: то значит у бота нету права управлением сообщениями или права на установку реакций' ) 
-            await ctx.send( embed = emb)
+            return await msg.send("Для изменения громкости необходимы права администратора",delete_after=30)
 
 def setup(bot):
     bot.add_cog(MusicPlayer(bot))            

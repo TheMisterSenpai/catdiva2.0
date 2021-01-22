@@ -60,7 +60,7 @@ class achievements(commands.Cog):
             await ctx.guild.create_role(name = '🎃', permissions = discord.Permissions(), color = discord.Color.blurple())    
         await ctx.author.add_roles(owner_role, reason = None, atomic = True)       
     '''
-
+    '''
     @commands.command(
         aliases = ['новыйгод']
     )
@@ -73,6 +73,7 @@ class achievements(commands.Cog):
         if owner_role is None:
             await ctx.guild.create_role(name = '❄Новый год 2021❄', permissions = discord.Permissions(), color = discord.Color.blurple())    
         await ctx.author.add_roles(owner_role, reason = None, atomic = True) 
+    '''
     
 def setup(client):
     client.add_cog(achievements(client)) 
