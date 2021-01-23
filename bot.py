@@ -267,13 +267,13 @@ async def настройки(ctx):
     prefix = collection.find_one({"guild_id": ctx.guild.id})["prefix"]
 
     embed1 = discord.Embed(title = 'Настройки сервера',
-        description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку', color = status.COLOR_CD)
+        description = 'Если вы не знаете как настроить ваш сервер и меня, то вам помогу. Нажмите на ➡ чтоб начать настройку', color = color.COLOR_CD)
     embed2 = discord.Embed(title = 'Жалобы',
-        description = f'Настройте команду жалобы. Просто пропишите {prefix}канал-жалоб on/off #ваш канал', color = status.COLOR_CD)
+        description = f'Настройте команду жалобы. Просто пропишите {prefix}канал-жалоб on/off #ваш канал', color = color.COLOR_CD)
     embed3 = discord.Embed(title = 'Смена префикса',
-        description = f'Смени префикс бота для сервера через команду {prefix}префикс (ваш префикс)', color = status.COLOR_CD)
+        description = f'Смени префикс бота для сервера через команду {prefix}префикс (ваш префикс)', color = color.COLOR_CD)
     embed4 = discord.Embed(title = 'Оповещение о стримах c Twitch',
-        description = f'**Пока не доступно**', color = status.COLOR_TWITCH)
+        description = f'**Пока не доступно**', color = color.COLOR_TWITCH)
 
     embeds = [embed1, embed2, embed3, embed4]
     message = await ctx.send(embed = embed1)
