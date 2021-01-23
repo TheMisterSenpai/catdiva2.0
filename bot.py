@@ -96,15 +96,15 @@ Developer TheMisterSenpai@6701
         else:
             pass
 
-    while True:
-        await client.change_presence(activity=discord.Streaming(name=STATUS1, url=STATUSURL))
-        await sleep(15)
-        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=STATUS2))
-        await sleep(15)
-        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=STATUS3))
-        await sleep(15)
-        await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name= "Cyberpunk 2077"))
-        await sleep(15)
+    
+    await client.change_presence(activity=discord.Streaming(name=STATUS1, url=STATUSURL))
+    await sleep(15)
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=STATUS2))
+    await sleep(15)
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=STATUS3))
+    await sleep(15)
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name= "Cyberpunk 2077"))
+    await sleep(15)
 
         '''
         Ачё смысле?
