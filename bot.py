@@ -106,9 +106,6 @@ Developer TheMisterSenpai@6701
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.playing, name= "Cyberpunk 2077"))
     await sleep(15)
 
-        '''
-        Ачё смысле?
-        '''
 
 #
 #Error
