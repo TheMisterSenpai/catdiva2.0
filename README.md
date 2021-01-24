@@ -1,3 +1,5 @@
+####Проект закрылся 
+
 # Кошка Дива 2.0
 [![Discord Bots](https://top.gg/api/widget/status/737324393117778020.svg)](https://top.gg/bot/737324393117778020)
 
